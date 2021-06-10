@@ -18,19 +18,10 @@ class ChooseLanguageScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 20),
             child: Center(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Container(
-                    color: Colors.white,
-                    height: 249,
-                    child: Image(
-                      image: AssetImage('assets/images/search_image.jpg'),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
                   AutoSizeText(
                     'مرحباً بك ، برجاء قم بإختيار لغة واجهة التطبيق',
                     textAlign: TextAlign.center,

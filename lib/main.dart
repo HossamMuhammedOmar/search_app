@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:search_app/bloc/languages/cubit.dart';
 import 'package:search_app/helpers/shared_helper.dart';
-import 'package:search_app/temp_screen/choose_language_screen.dart';
+import 'package:search_app/screens/temp_screen/choose_language_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

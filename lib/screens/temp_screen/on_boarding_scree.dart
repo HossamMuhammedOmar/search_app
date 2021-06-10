@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:search_app/constant/constant.dart';
 import 'package:search_app/helpers/shared_helper.dart';
 import 'package:search_app/model/on_boarding_model.dart';
-import 'package:search_app/screens/home_screen.dart';
+import 'package:search_app/screens/user_screens/home_screen.dart';
+import 'package:search_app/screens/temp_screen/choose_member_screen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnBoardingScreen extends StatefulWidget {
@@ -21,7 +22,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
       (value) => {
         Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (c) => HomeScreen()),
+          MaterialPageRoute(builder: (c) => ChooseMemberScreen()),
           (route) => false,
         ),
       },
