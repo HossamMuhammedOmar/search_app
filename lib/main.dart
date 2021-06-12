@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:search_app/bloc/languages/cubit.dart';
+import 'package:search_app/bloc/login/cubit.dart';
 import 'package:search_app/helpers/shared_helper.dart';
 import 'package:search_app/screens/temp_screen/choose_language_screen.dart';
 
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => LanguagesCubit()),
+        BlocProvider(create: (context) => LoginCubit()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

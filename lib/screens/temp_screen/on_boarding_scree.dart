@@ -1,10 +1,12 @@
+import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:flutter/material.dart';
+import 'package:search_app/bloc/languages/cubit.dart';
 import 'package:search_app/constant/constant.dart';
 import 'package:search_app/helpers/shared_helper.dart';
 import 'package:search_app/model/on_boarding_model.dart';
-import 'package:search_app/screens/user_screens/home_screen.dart';
-import 'package:search_app/screens/temp_screen/choose_member_screen.dart';
+import 'package:search_app/screens/login_screen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:transitioner/transitioner.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   @override
@@ -20,17 +22,42 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   void submit() {
     SharedHelper.cacheData(key: ONBOARDING, value: true).then(
       (value) => {
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (c) => ChooseMemberScreen()),
-          (route) => false,
+        Transitioner(
+          context: context,
+          child: LoginScreen(),
+          animation: AnimationType.slideTop, // Optional value
+          duration: Duration(milliseconds: 1000), // Optional value
+          replacement: true, // Optional value
+          curveType: CurveType.elastic, // Optional value
         ),
+        // Navigator.pushAndRemoveUntil(
+        //   context,
+        //   MaterialPageRoute(builder: (c) => LoginScreen()),
+        //   (route) => false,
+        // ),
       },
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    final List<OnBoardingModel> onBoardingdata = [
+      OnBoardingModel(
+        imageUrl: 'assets/images/onB1.png',
+        title: '${LanguagesCubit.get(context).onBoardingTitle1()}',
+        description: '${LanguagesCubit.get(context).onBoardingDescription1()}',
+      ),
+      OnBoardingModel(
+        imageUrl: 'assets/images/onB4.png',
+        title: '${LanguagesCubit.get(context).onBoardingTitle2()}',
+        description: '${LanguagesCubit.get(context).onBoardingDescription2()}',
+      ),
+      OnBoardingModel(
+        imageUrl: 'assets/images/onB2.png',
+        title: '${LanguagesCubit.get(context).onBoardingTitle3()}',
+        description: '${LanguagesCubit.get(context).onBoardingDescription3()}',
+      ),
+    ];
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -38,8 +65,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         actions: [
           TextButton(
             onPressed: submit,
-            child: Text(
-              'SKIPE',
+            child: AutoSizeText(
+              '${LanguagesCubit.get(context).skipText()}',
+              maxLines: 1,
               style: TextStyle(color: Colors.grey),
             ),
           ),
@@ -69,8 +97,51 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 },
                 controller: pageController,
                 physics: BouncingScrollPhysics(),
-                itemBuilder: (BuildContext context, int index) =>
-                    _itemBuilder(index),
+                itemBuilder: (BuildContext context, int index) {
+                  return SingleChildScrollView(
+                    physics: BouncingScrollPhysics(),
+                    child: Column(
+                      crossAxisAlignment:
+                          SharedHelper.getCacheData(key: LANGUAGES) == 'EN'
+                              ? CrossAxisAlignment.start
+                              : CrossAxisAlignment.end,
+                      children: [
+                        Image.asset(
+                          '${onBoardingdata[index].imageUrl}',
+                          width: double.infinity,
+                          height: 300,
+                        ),
+                        SizedBox(height: 20.0),
+                        AutoSizeText(
+                          '${onBoardingdata[index].title}',
+                          textDirection:
+                              SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
+                                  ? TextDirection.rtl
+                                  : TextDirection.ltr,
+                          maxLines: 1,
+                          style: TextStyle(
+                            fontSize: 22.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 20.0),
+                        AutoSizeText(
+                          '${onBoardingdata[index].description}',
+                          textDirection:
+                              SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
+                                  ? TextDirection.rtl
+                                  : TextDirection.ltr,
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.w400,
+                          ),
+                          maxLines: 5,
+                          textAlign: TextAlign.start,
+                        ),
+                      ],
+                    ),
+                  );
+                },
                 itemCount: onBoardingdata.length,
               ),
             ),
@@ -106,36 +177,4 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
       ),
     );
   }
-}
-
-Widget _itemBuilder(int index) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Image.asset(
-        '${onBoardingdata[index].imageUrl}',
-        width: double.infinity,
-        height: 300,
-      ),
-      SizedBox(height: 20.0),
-      Text(
-        '${onBoardingdata[index].title}',
-        style: TextStyle(
-          fontSize: 22.0,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      SizedBox(height: 20.0),
-      SingleChildScrollView(
-        child: Text(
-          '${onBoardingdata[index].description}',
-          style: TextStyle(
-            fontSize: 20.0,
-            fontWeight: FontWeight.w400,
-          ),
-          textAlign: TextAlign.start,
-        ),
-      ),
-    ],
-  );
 }

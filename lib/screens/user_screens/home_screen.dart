@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:search_app/bloc/languages/cubit.dart';
 import 'package:search_app/bloc/languages/states.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeUserScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<LanguagesCubit, LanguagesState>(

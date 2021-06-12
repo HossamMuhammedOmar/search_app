@@ -37,6 +37,7 @@ dependencies:
   shared_preferences: ^2.0.6
   smooth_page_indicator: ^0.3.0-nullsafety.0
   auto_size_text_pk: ^3.0.0
+  transitioner: ^0.1.0
 
 dev_dependencies:
   flutter_test:
@@ -63,11 +64,16 @@ flutter:
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
 
- 
+#
   fonts:
     - family: Almarai
       fonts:
         - asset: assets/fonts/Almarai-Light.ttf
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins-Regular.ttf
+
+
     # - family: Trajan Pro
     #   fonts:
     #     - asset: fonts/TrajanPro.ttf
