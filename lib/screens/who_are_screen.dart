@@ -69,13 +69,21 @@ class WhoAreScreen extends StatelessWidget {
                 ),
                 MaterialButton(
                   onPressed: () {
-                    Transitioner(
-                      context: context,
-                      child: RegisterUserScreen(),
-                      animation: AnimationType.slideTop, // Optional value
-                      duration: Duration(milliseconds: 1000), // Optional value
-                      replacement: true, // Optional value
-                      curveType: CurveType.ease, // Optional value
+                    SharedHelper.cacheData(
+                      key: USERTYPE,
+                      value: 'user',
+                    ).then(
+                      (value) {
+                        Transitioner(
+                          context: context,
+                          child: RegisterUserScreen(),
+                          animation: AnimationType.slideTop, // Optional value
+                          duration:
+                              Duration(milliseconds: 1000), // Optional value
+                          replacement: true, // Optional value
+                          curveType: CurveType.ease, // Optional value
+                        );
+                      },
                     );
                   },
                   child: AutoSizeText(
@@ -92,13 +100,21 @@ class WhoAreScreen extends StatelessWidget {
                 ),
                 MaterialButton(
                   onPressed: () {
-                    Transitioner(
-                      context: context,
-                      child: RegisterScreen(),
-                      animation: AnimationType.slideTop, // Optional value
-                      duration: Duration(milliseconds: 1000), // Optional value
-                      replacement: true, // Optional value
-                      curveType: CurveType.ease, // Optional value
+                    SharedHelper.cacheData(
+                      key: USERTYPE,
+                      value: 'store',
+                    ).then(
+                      (value) {
+                        Transitioner(
+                          context: context,
+                          child: RegisterScreen(),
+                          animation: AnimationType.slideTop, // Optional value
+                          duration:
+                              Duration(milliseconds: 1000), // Optional value
+                          replacement: true, // Optional value
+                          curveType: CurveType.ease, // Optional value
+                        );
+                      },
                     );
                   },
                   child: AutoSizeText(

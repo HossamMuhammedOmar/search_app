@@ -12,7 +12,13 @@ class HomeScreen extends StatelessWidget {
         return Scaffold(
           body: Container(
             child: Center(
-              child: Text(LanguagesCubit.get(context).homeScreenText()),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(LanguagesCubit.get(context).homeScreenText()),
+                  Text('مقدم الخدمه'),
+                ],
+              ),
             ),
           ),
         );

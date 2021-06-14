@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:search_app/bloc/languages/states.dart';
 import 'package:search_app/constant/constant.dart';
@@ -209,5 +208,77 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     return '';
   }
 
-//
+  String register() {
+    if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
+      return 'تسجيل';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
+      return 'REGISTER';
+    }
+    return '';
+  }
+
+  String createNewAccount() {
+    if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
+      return 'تسجيل حساب جديد';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
+      return 'Create your new account...';
+    }
+    return '';
+  }
+
+  String shopName() {
+    if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
+      return 'إسم المحل';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
+      return 'Shop name';
+    }
+    return '';
+  }
+
+  String governorate() {
+    if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
+      return 'المحافظه';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
+      return 'Governorate';
+    }
+    return '';
+  }
+
+  String streetName() {
+    if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
+      return 'إسم الشارع أو أقرب نقطه داله';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
+      return 'Street name or nearest point';
+    }
+    return '';
+  }
+
+  String userName() {
+    if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
+      return 'إسم المستخدم';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
+      return 'User name';
+    }
+    return '';
+  }
+
+  String haveAnAccount() {
+    if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
+      return 'لديك حساب بالفعل ؟';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
+      return 'Have an account?';
+    }
+    return '';
+  }
+
+  String chooseCategories() {
+    if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
+      return 'إختار القسم';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
+      return 'Choose Categories';
+    }
+    return '';
+  }
+
+//  Choose Categories
 }
