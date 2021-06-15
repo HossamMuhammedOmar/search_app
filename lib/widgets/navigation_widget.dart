@@ -1,5 +1,7 @@
 import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:flutter/material.dart';
+import 'package:search_app/bloc/home/cubit.dart';
+import 'package:search_app/screens/login_screen.dart';
 import 'package:transitioner/transitioner.dart';
 import '../constant/constant.dart';
 import '../helpers/shared_helper.dart';
@@ -94,21 +96,21 @@ class NavigationDrawerWidget extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               _buildMenuItem(
-                text: 'Search History',
-                icon: Icons.history,
-                onClick: () => _selectedItem(context, 2),
+                text: 'Complaints and suggestions',
+                icon: Icons.beenhere_outlined,
+                onClick: () => _selectedItem(context, 3),
               ),
               const SizedBox(height: 16),
               _buildMenuItem(
-                text: 'Search History',
-                icon: Icons.history,
-                onClick: () => _selectedItem(context, 2),
+                text: 'Logout',
+                icon: Icons.logout,
+                onClick: () => _selectedItem(context, 4),
               ),
               const SizedBox(height: 24),
               Divider(color: mPrimaryGrey.withOpacity(.5)),
               const SizedBox(height: 24),
               Image(
-                image: AssetImage('assets/images/my_app.png'),
+                image: AssetImage('assets/images/undraw_search.png'),
               ),
             ],
           ),
@@ -128,7 +130,7 @@ class NavigationDrawerWidget extends StatelessWidget {
         textDirection: SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
             ? TextDirection.rtl
             : TextDirection.ltr,
-        maxLines: 1,
+        maxLines: 2,
         style: TextStyle(),
       ),
       trailing: SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
@@ -178,9 +180,25 @@ class NavigationDrawerWidget extends StatelessWidget {
         // );
         break;
       case 2:
+        HomeCubit.get(context).getMyOrder();
         Transitioner(
           context: context,
           child: SearchHistory(),
+          animation: AnimationType.fadeIn, // Optional value
+          duration: Duration(milliseconds: 300), // Optional value
+          replacement: true, // Optional value
+          curveType: CurveType.decelerate, // Optional value
+        );
+        // Navigator.of(context).push(
+        //   MaterialPageRoute(builder: (context) => SearchHistory()),
+        // );
+        break;
+      case 4:
+        HomeCubit.get(context).getMyOrder();
+        SharedHelper.removeCacheData(key: TOKEN);
+        Transitioner(
+          context: context,
+          child: LoginScreen(),
           animation: AnimationType.fadeIn, // Optional value
           duration: Duration(milliseconds: 300), // Optional value
           replacement: true, // Optional value

@@ -21,3 +21,25 @@ class HomeGetStoresSuccessWhereGoverState extends HomeStates {}
 
 // GET STORES WHERE GOVERNMENT
 class HomeGetStoresErrorWhereGoverState extends HomeStates {}
+
+// CREATE NEW ORDER
+class HomeCreateOrderLoadingState extends HomeStates {}
+
+// CREATE NEW ORDER
+class HomeCreateOrderSuccessState extends HomeStates {}
+
+// CREATE NEW ORDER
+class HomeCreateOrderErorrState extends HomeStates {}
+
+// GET MY ORDER
+class HomeGetMyOrdersLoadingState extends HomeStates {}
+
+// GET MY ORDER
+class HomeGetMyOrdersSuccessState extends HomeStates {}
+
+// GET MY ORDER
+class HomeGetMyOrdersErrorState extends HomeStates {}
+
+class HomeGetStoresLoadingWhereGoverDetailsState extends HomeStates {}
+
+class HomeGetStoresSuccessWhereGoverDetailsState extends HomeStates {}

@@ -86,13 +86,14 @@ class HomeUserScreen extends StatelessWidget {
                             padding: const EdgeInsets.only(right: 20, left: 20),
                             child: Form(
                               key: _formKey,
+                              autovalidateMode: AutovalidateMode.disabled,
                               child: TextFormField(
                                 validator: (value) {
                                   if (value!.isEmpty) {
                                     return 'Enter the governorate';
                                   }
                                 },
-                                controller: _governController,
+                                controller: _cubit.governController,
                                 decoration: new InputDecoration(
                                   border: new OutlineInputBorder(
                                     borderSide:
@@ -173,7 +174,7 @@ class HomeUserScreen extends StatelessWidget {
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
                                   _cubit.getStoresWhereGovernment(
-                                    governName: _governController.text,
+                                    governName: _cubit.governController.text,
                                     category: _cubit.selectedCategories,
                                   );
                                 }

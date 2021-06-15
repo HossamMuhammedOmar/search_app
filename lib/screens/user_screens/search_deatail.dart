@@ -5,15 +5,15 @@ import 'package:search_app/bloc/home/cubit.dart';
 import 'package:search_app/bloc/home/states.dart';
 import 'package:search_app/constant/constant.dart';
 import 'package:search_app/model/user_model.dart';
-import 'package:search_app/screens/user_screens/home_screen.dart';
+import 'package:search_app/screens/user_screens/search_history.dart';
 import 'package:transitioner/transitioner.dart';
 
-class ResultScreen extends StatelessWidget {
+class SeachDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeStates>(
-      listener: (context, state) {},
-      builder: (context, state) {
+      listener: (context, states) {},
+      builder: (context, states) {
         return Scaffold(
           body: Column(
             children: [
@@ -21,7 +21,7 @@ class ResultScreen extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 50),
                 child: Container(
-                  height: MediaQuery.of(context).size.height / 1.6,
+                  height: MediaQuery.of(context).size.height / 1.4,
                   child: ListView.separated(
                     itemBuilder: (context, index) {
                       return _buildItem(
@@ -45,12 +45,12 @@ class ResultScreen extends StatelessWidget {
                   children: [
                     Center(
                       child: AutoSizeText(
-                        'هذه المتاجر التي تم العثور عليها في محافظتك، جاري البحث الآن عن المنتج وسيتم إرسال إشعار لك في حال توفر المنتج في إحدي المتاجر، يمكنك الآن متابعه البحث عن طريق قسم (متابعه البحث)',
+                        'يتم البحث الآن وفي حال توفر المنتج عند أحد المتاجر سيظهر زر التواصل معه',
                         maxLines: 4,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontFamily: 'NotoKufiArabic',
-                          fontSize: 18,
+                          fontSize: 14,
                         ),
                       ),
                     ),
@@ -61,7 +61,7 @@ class ResultScreen extends StatelessWidget {
                       onPressed: () {
                         Transitioner(
                           context: context,
-                          child: HomeUserScreen(),
+                          child: SearchHistory(),
                           animation: AnimationType.fadeIn, // Optional value
                           duration:
                               Duration(milliseconds: 300), // Optional value
@@ -70,7 +70,7 @@ class ResultScreen extends StatelessWidget {
                         );
                       },
                       child: Text(
-                        'الرئيسية',
+                        'الرجوع',
                         style: TextStyle(
                           fontFamily: 'Cairo',
                           color: mPrimaryGreen,
