@@ -5,7 +5,7 @@ const ONBOARDING = 'onBoarding';
 const USERTYPE = 'userType';
 const TOKEN = 'token';
 
-const mPrimaryGreen = Color(0xff20CD70);
+const mPrimaryGreen = Color(0xff2ecc71);
 const mPrimaryBlue = Color(0xff3498db);
 const mPrimaryYellow = Color(0xffFCC94C);
 const mPrimaryGrey = Color(0xff8f99a0);
