@@ -62,8 +62,6 @@ class SearchHistory extends StatelessWidget {
                               itemCount: _cubit.orderModel.length,
                             ),
                           ),
-                          if (states is HomeDeleteMyOrderLoadingState)
-                            LinearProgressIndicator(),
                           Container(
                             width: double.infinity,
                             height: 1,

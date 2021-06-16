@@ -4,9 +4,11 @@ class OrderModel {
   String? description;
   String? image;
   String? uId;
+  List<Map>? states;
   String? government;
-  String? state;
   String? oId;
+  String? state;
+  String? storeId;
 
   OrderModel({
     this.categories,
@@ -14,9 +16,11 @@ class OrderModel {
     this.description,
     this.image,
     this.uId,
-    this.state,
     this.government,
     this.oId,
+    this.state,
+    this.storeId,
+    this.states,
   });
 
   OrderModel.fromJson(Map<String, dynamic>? json, String? oId) {
@@ -25,7 +29,6 @@ class OrderModel {
     description = json?['description'];
     image = json?['image'];
     uId = json?['uId'];
-    state = json?['state'];
     government = json?['government'];
     this.oId = oId;
   }
@@ -37,8 +40,8 @@ class OrderModel {
       'description': description,
       'image': image,
       'uId': uId,
-      'state': state,
       'government': government,
+      'states': states,
     };
   }
 }

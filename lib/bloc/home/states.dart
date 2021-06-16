@@ -50,3 +50,10 @@ class HomeDeleteMyOrderLoadingState extends HomeStates {}
 class HomeDeleteMyOrderSuccessState extends HomeStates {}
 
 class HomeDeleteMyOrderErrorState extends HomeStates {}
+
+// GET ALL STORES VALID IN THIS MOMENT
+class HomeGetVAlidLoaingState extends HomeStates {}
+
+class HomeGetVAlidSuccessState extends HomeStates {}
+
+class HomeGetVAlidErrroState extends HomeStates {}

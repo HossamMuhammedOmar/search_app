@@ -137,7 +137,6 @@ class AddDetaileScreen extends StatelessWidget {
                                 description: _nameController.text,
                                 image: '',
                                 uId: SharedHelper.getCacheData(key: TOKEN),
-                                state: 'search',
                                 government: _cubit.governController.text,
                               );
                             }

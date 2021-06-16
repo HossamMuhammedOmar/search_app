@@ -19,6 +19,7 @@ class HomeCubit extends Cubit<HomeStates> {
   TextEditingController governController = TextEditingController();
   List<UserModel> userModel = [];
   List<OrderModel> orderModel = [];
+  List<Map> states = [];
 
   void selecteCategory(currentCategory) {
     selectedCategories = currentCategory;
@@ -96,7 +97,6 @@ class HomeCubit extends Cubit<HomeStates> {
     required String description,
     required String image,
     required String uId,
-    required String state,
     required String government,
   }) {
     OrderModel orderModel = OrderModel(
@@ -105,16 +105,37 @@ class HomeCubit extends Cubit<HomeStates> {
       description: description,
       image: image,
       uId: uId,
-      state: state,
       government: government,
+      states: states,
     );
     emit(HomeCreateOrderLoadingState());
+
     FirebaseFirestore.instance
-        .collection('orders')
-        .doc()
-        .set(orderModel.toMap())
+        .collection('user')
+        .where("shop.address.governorate", isEqualTo: government)
+        .where("shop.categories", isEqualTo: categories)
+        .get()
         .then(
       (value) {
+        value.docs.forEach((element) {
+          states.add({
+            'state': 'search',
+            'storeId': element.data()['uId'],
+          });
+        });
+
+        FirebaseFirestore.instance
+            .collection('orders')
+            .doc()
+            .set(orderModel.toMap())
+            .then(
+              (value) {},
+            )
+            .catchError(
+          (e) {
+            print(e.toString());
+          },
+        );
         emit(HomeCreateOrderSuccessState());
       },
     ).catchError(
