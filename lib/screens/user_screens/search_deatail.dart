@@ -24,8 +24,8 @@ class SeachDetails extends StatelessWidget {
                   height: MediaQuery.of(context).size.height / 1.46,
                   child: ListView.separated(
                     itemBuilder: (context, index) {
-                      return _buildItem(
-                          HomeCubit.get(context).userModel[index], context);
+                      return _buildItem(HomeCubit.get(context).userModel[index],
+                          context, states);
                     },
                     separatorBuilder: (context, index) {
                       return SizedBox(height: 10);
@@ -94,7 +94,7 @@ class SeachDetails extends StatelessWidget {
     );
   }
 
-  Widget _buildItem(UserModel item, context) {
+  Widget _buildItem(UserModel item, context, HomeStates states) {
     return Row(
       children: [
         Container(

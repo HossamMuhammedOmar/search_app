@@ -49,8 +49,8 @@ class SearchHistory extends StatelessWidget {
                             height: localHeigh / 1.2,
                             child: ListView.separated(
                               itemBuilder: (context, index) {
-                                return _buildItems(
-                                    _cubit.orderModel[index], _cubit, context);
+                                return _buildItems(_cubit.orderModel[index],
+                                    _cubit, context, states);
                               },
                               separatorBuilder: (context, index) {
                                 return Container(
@@ -62,6 +62,8 @@ class SearchHistory extends StatelessWidget {
                               itemCount: _cubit.orderModel.length,
                             ),
                           ),
+                          if (states is HomeDeleteMyOrderLoadingState)
+                            LinearProgressIndicator(),
                           Container(
                             width: double.infinity,
                             height: 1,
@@ -97,7 +99,8 @@ class SearchHistory extends StatelessWidget {
     );
   }
 
-  Widget _buildItems(OrderModel item, HomeCubit cubit, context) {
+  Widget _buildItems(
+      OrderModel item, HomeCubit cubit, context, HomeStates states) {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Row(
@@ -140,7 +143,9 @@ class SearchHistory extends StatelessWidget {
           ),
           SizedBox(width: 5),
           MaterialButton(
-            onPressed: () {},
+            onPressed: () {
+              cubit.deleteMyOrder(oId: item.oId);
+            },
             child: Text('Delete'),
             color: Color(0xffe74c3c),
             textColor: Colors.white,

@@ -43,3 +43,10 @@ class HomeGetMyOrdersErrorState extends HomeStates {}
 class HomeGetStoresLoadingWhereGoverDetailsState extends HomeStates {}
 
 class HomeGetStoresSuccessWhereGoverDetailsState extends HomeStates {}
+
+// DELETE MY ORDER
+class HomeDeleteMyOrderLoadingState extends HomeStates {}
+
+class HomeDeleteMyOrderSuccessState extends HomeStates {}
+
+class HomeDeleteMyOrderErrorState extends HomeStates {}

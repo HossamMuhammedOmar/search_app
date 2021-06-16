@@ -6,6 +6,7 @@ class OrderModel {
   String? uId;
   String? government;
   String? state;
+  String? oId;
 
   OrderModel({
     this.categories,
@@ -15,9 +16,10 @@ class OrderModel {
     this.uId,
     this.state,
     this.government,
+    this.oId,
   });
 
-  OrderModel.fromJson(Map<String, dynamic>? json) {
+  OrderModel.fromJson(Map<String, dynamic>? json, String? oId) {
     categories = json?['categories'];
     date = json?['date'];
     description = json?['description'];
@@ -25,6 +27,7 @@ class OrderModel {
     uId = json?['uId'];
     state = json?['state'];
     government = json?['government'];
+    this.oId = oId;
   }
 
   Map<String, dynamic> toMap() {

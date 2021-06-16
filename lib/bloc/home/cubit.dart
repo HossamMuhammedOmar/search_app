@@ -132,20 +132,28 @@ class HomeCubit extends Cubit<HomeStates> {
     FirebaseFirestore.instance
         .collection('orders')
         .where("uId", isEqualTo: SharedHelper.getCacheData(key: TOKEN))
-        .get()
-        .then(
+        .snapshots()
+        .listen((event) {
+      event.docs.forEach(
+        (element) {
+          orderModel.add(OrderModel.fromJson(element.data(), element.id));
+        },
+      );
+      emit(HomeGetMyOrdersSuccessState());
+    });
+  }
+
+  // DELETE MY ORDER BY ID
+  void deleteMyOrder({required oId}) {
+    emit(HomeDeleteMyOrderLoadingState());
+    FirebaseFirestore.instance.collection('orders').doc(oId).delete().then(
       (value) {
-        value.docs.forEach(
-          (element) {
-            orderModel.add(OrderModel.fromJson(element.data()));
-          },
-        );
-        emit(HomeGetMyOrdersSuccessState());
+        getMyOrder();
       },
     ).catchError(
       (e) {
         print(e.toString());
-        emit(HomeGetMyOrdersErrorState());
+        emit(HomeDeleteMyOrderErrorState());
       },
     );
   }
