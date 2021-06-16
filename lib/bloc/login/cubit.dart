@@ -2,6 +2,8 @@ import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:search_app/bloc/login/states.dart';
+import 'package:search_app/constant/constant.dart';
+import 'package:search_app/helpers/shared_helper.dart';
 
 class LoginCubit extends Cubit<LoginStates> {
   LoginCubit() : super(LoginInitState());
@@ -29,7 +31,7 @@ class LoginCubit extends Cubit<LoginStates> {
     )
         .then(
       (value) {
-        print(value.user?.email);
+        SharedHelper.cacheData(key: TOKEN, value: value.user?.uid);
         emit(LoginSucessState());
       },
     ).catchError(

@@ -21,7 +21,7 @@ class ResultScreen extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 50),
                 child: Container(
-                  height: MediaQuery.of(context).size.height / 1.6,
+                  height: MediaQuery.of(context).size.height / 1.65,
                   child: ListView.separated(
                     itemBuilder: (context, index) {
                       return _buildItem(
@@ -38,49 +38,53 @@ class ResultScreen extends StatelessWidget {
                 height: 1,
                 color: Colors.grey.withOpacity(.2),
               ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                child: Column(
-                  children: [
-                    Center(
-                      child: AutoSizeText(
-                        'هذه المتاجر التي تم العثور عليها في محافظتك، جاري البحث الآن عن المنتج وسيتم إرسال إشعار لك في حال توفر المنتج في إحدي المتاجر، يمكنك الآن متابعه البحث عن طريق قسم (متابعه البحث)',
-                        maxLines: 4,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontFamily: 'NotoKufiArabic',
-                          fontSize: 18,
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 10),
+                    child: Column(
+                      children: [
+                        Center(
+                          child: AutoSizeText(
+                            'هذه المتاجر التي تم العثور عليها في محافظتك، جاري البحث الآن عن المنتج وسيتم إرسال إشعار لك في حال توفر المنتج في إحدي المتاجر، يمكنك الآن متابعه البحث عن طريق قسم (متابعه البحث)',
+                            maxLines: 4,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontFamily: 'NotoKufiArabic',
+                              fontSize: 18,
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    MaterialButton(
-                      onPressed: () {
-                        Transitioner(
-                          context: context,
-                          child: HomeUserScreen(),
-                          animation: AnimationType.fadeIn, // Optional value
-                          duration:
-                              Duration(milliseconds: 300), // Optional value
-                          replacement: true, // Optional value
-                          curveType: CurveType.decelerate, // Optional value
-                        );
-                      },
-                      child: Text(
-                        'الرئيسية',
-                        style: TextStyle(
-                          fontFamily: 'Cairo',
-                          color: mPrimaryGreen,
-                          fontWeight: FontWeight.bold,
+                        SizedBox(
+                          height: 5,
                         ),
-                      ),
-                      textColor: Colors.white,
-                      minWidth: 120,
-                    )
-                  ],
+                        MaterialButton(
+                          onPressed: () {
+                            Transitioner(
+                              context: context,
+                              child: HomeUserScreen(),
+                              animation: AnimationType.fadeIn, // Optional value
+                              duration:
+                                  Duration(milliseconds: 300), // Optional value
+                              replacement: true, // Optional value
+                              curveType: CurveType.decelerate, // Optional value
+                            );
+                          },
+                          child: Text(
+                            'الرئيسية',
+                            style: TextStyle(
+                              fontFamily: 'Cairo',
+                              color: mPrimaryGreen,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          textColor: Colors.white,
+                          minWidth: 120,
+                        )
+                      ],
+                    ),
+                  ),
                 ),
               )
             ],

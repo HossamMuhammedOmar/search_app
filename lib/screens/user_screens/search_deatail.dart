@@ -21,7 +21,7 @@ class SeachDetails extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 50),
                 child: Container(
-                  height: MediaQuery.of(context).size.height / 1.4,
+                  height: MediaQuery.of(context).size.height / 1.46,
                   child: ListView.separated(
                     itemBuilder: (context, index) {
                       return _buildItem(
@@ -38,49 +38,53 @@ class SeachDetails extends StatelessWidget {
                 height: 1,
                 color: Colors.grey.withOpacity(.2),
               ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                child: Column(
-                  children: [
-                    Center(
-                      child: AutoSizeText(
-                        'يتم البحث الآن وفي حال توفر المنتج عند أحد المتاجر سيظهر زر التواصل معه',
-                        maxLines: 4,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontFamily: 'NotoKufiArabic',
-                          fontSize: 14,
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 10),
+                    child: Column(
+                      children: [
+                        Center(
+                          child: AutoSizeText(
+                            'يتم البحث الآن وفي حال توفر المنتج عند أحد المتاجر سيظهر زر التواصل معه',
+                            maxLines: 4,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontFamily: 'NotoKufiArabic',
+                              fontSize: 14,
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    MaterialButton(
-                      onPressed: () {
-                        Transitioner(
-                          context: context,
-                          child: SearchHistory(),
-                          animation: AnimationType.fadeIn, // Optional value
-                          duration:
-                              Duration(milliseconds: 300), // Optional value
-                          replacement: true, // Optional value
-                          curveType: CurveType.decelerate, // Optional value
-                        );
-                      },
-                      child: Text(
-                        'الرجوع',
-                        style: TextStyle(
-                          fontFamily: 'Cairo',
-                          color: mPrimaryGreen,
-                          fontWeight: FontWeight.bold,
+                        SizedBox(
+                          height: 5,
                         ),
-                      ),
-                      textColor: Colors.white,
-                      minWidth: 120,
-                    )
-                  ],
+                        MaterialButton(
+                          onPressed: () {
+                            Transitioner(
+                              context: context,
+                              child: SearchHistory(),
+                              animation: AnimationType.fadeIn, // Optional value
+                              duration:
+                                  Duration(milliseconds: 300), // Optional value
+                              replacement: true, // Optional value
+                              curveType: CurveType.decelerate, // Optional value
+                            );
+                          },
+                          child: Text(
+                            'الرجوع',
+                            style: TextStyle(
+                              fontFamily: 'Cairo',
+                              color: mPrimaryGreen,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          textColor: Colors.white,
+                          minWidth: 120,
+                        )
+                      ],
+                    ),
+                  ),
                 ),
               )
             ],
