@@ -1,4 +1,5 @@
 import 'package:auto_size_text_pk/auto_size_text_pk.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,7 +21,9 @@ class SearchHistory extends StatelessWidget {
         primaryIconTheme: IconThemeData(color: mPrimaryLightBlue),
       ),
       child: BlocConsumer<HomeCubit, HomeStates>(
-        listener: (context, states) {},
+        listener: (context, states) {
+          print(states);
+        },
         builder: (context, states) {
           HomeCubit _cubit = HomeCubit.get(context);
           return Scaffold(
@@ -38,16 +41,17 @@ class SearchHistory extends StatelessWidget {
                 style: TextStyle(color: mPrimaryDarkGrey),
               ),
             ),
-            body: states is! HomeGetMyOrdersLoadingState
-                ? LayoutBuilder(
-                    builder: (context, constraint) {
-                      double localHeigh = constraint.maxHeight;
-                      return Column(
-                        children: [
-                          Container(
-                            width: double.infinity,
-                            height: localHeigh / 1.2,
-                            child: ListView.separated(
+            body: LayoutBuilder(
+              builder: (context, constraint) {
+                double localHeigh = constraint.maxHeight;
+                return Column(
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      height: localHeigh / 1.2,
+                      child: states is! HomeGetMyOrdersSuccessState
+                          ? Center(child: CircularProgressIndicator())
+                          : ListView.separated(
                               itemBuilder: (context, index) {
                                 return _buildItems(_cubit.orderModel[index],
                                     _cubit, context, states);
@@ -61,36 +65,35 @@ class SearchHistory extends StatelessWidget {
                               },
                               itemCount: _cubit.orderModel.length,
                             ),
-                          ),
-                          Container(
-                            width: double.infinity,
-                            height: 1,
-                            color: Colors.grey.withOpacity(0.3),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(25.0),
-                            child: Center(
-                              child: AutoSizeText(
-                                'لديك ١٠ عمليات بحث نشطه فقط، الرجاء حذف البحث بعد الوصول إلي المنتج المطلوب حتي تسطيع البحث مجدداً',
-                                maxLines: 2,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: mPrimaryDarkGrey,
-                                  fontFamily: 'Cairo',
-                                  fontSize: 20,
-                                ),
+                    ),
+                    Container(
+                      width: double.infinity,
+                      height: 1,
+                      color: Colors.grey.withOpacity(0.3),
+                    ),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Padding(
+                          padding: const EdgeInsets.all(25.0),
+                          child: Center(
+                            child: AutoSizeText(
+                              'لديك ١٠ عمليات بحث نشطه فقط، الرجاء حذف البحث بعد الوصول إلي المنتج المطلوب حتي تسطيع البحث مجدداً',
+                              maxLines: 2,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: mPrimaryDarkGrey,
+                                fontFamily: 'Cairo',
+                                fontSize: 20,
                               ),
                             ),
                           ),
-                        ],
-                      );
-                    },
-                  )
-                : Center(
-                    child: LoadingBouncingGrid.square(
-                      backgroundColor: mPrimaryYellow,
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
+                );
+              },
+            ),
           );
         },
       ),
@@ -119,18 +122,19 @@ class SearchHistory extends StatelessWidget {
           SizedBox(width: 20),
           MaterialButton(
             onPressed: () {
-              cubit.getStoresWhereGovernmentDetails(
-                governName: item.government,
-                category: item.categories,
-              );
-              Transitioner(
-                context: context,
-                child: SeachDetails(),
-                animation: AnimationType.fadeIn, // Optional value
-                duration: Duration(milliseconds: 300), // Optional value
-                replacement: true, // Optional value
-                curveType: CurveType.decelerate, // Optional value
-              );
+              cubit.getStatesAndStoreFromOrder(oId: item.oId);
+              // cubit.getStoresWhereGovernmentDetails(
+              //   governName: item.government,
+              //   category: item.categories,
+              // );
+              // Transitioner(
+              //   context: context,
+              //   child: SeachDetails(),
+              //   animation: AnimationType.fadeIn, // Optional value
+              //   duration: Duration(milliseconds: 300), // Optional value
+              //   replacement: true, // Optional value
+              //   curveType: CurveType.decelerate, // Optional value
+              // );
             },
             child: Text(
               'Show',

@@ -19,7 +19,8 @@ class HomeCubit extends Cubit<HomeStates> {
   TextEditingController governController = TextEditingController();
   List<UserModel> userModel = [];
   List<OrderModel> orderModel = [];
-  List<Map> states = [];
+  List? states = [];
+  List myStatesModel = [];
 
   void selecteCategory(currentCategory) {
     selectedCategories = currentCategory;
@@ -64,13 +65,31 @@ class HomeCubit extends Cubit<HomeStates> {
         .collection('user')
         .where("shop.address.governorate", isEqualTo: governName)
         .where("shop.categories", isEqualTo: category)
-        .snapshots()
-        .listen((event) {
-      event.docs.forEach((element) {
-        userModel.add(UserModel.fromJson(element.data()));
-      });
-      emit(HomeGetStoresSuccessWhereGoverState());
-    });
+        .get()
+        .then(
+      (value) {
+        value.docs.forEach((element) {
+          userModel.add(UserModel.fromJson(element.data()));
+        });
+        emit(HomeGetStoresSuccessWhereGoverState());
+      },
+    ).catchError(
+      (e) {
+        print(e.toString());
+        emit(HomeGetStoresErrorWhereGoverState());
+      },
+    );
+    // FirebaseFirestore.instance
+    //     .collection('user')
+    //     .where("shop.address.governorate", isEqualTo: governName)
+    //     .where("shop.categories", isEqualTo: category)
+    //     .snapshots()
+    //     .listen((event) {
+    //   event.docs.forEach((element) {
+    //     userModel.add(UserModel.fromJson(element.data()));
+    //   });
+    //   emit(HomeGetStoresSuccessWhereGoverState());
+    // });
   }
 
   void getStoresWhereGovernmentDetails(
@@ -81,13 +100,31 @@ class HomeCubit extends Cubit<HomeStates> {
         .collection('user')
         .where("shop.address.governorate", isEqualTo: governName)
         .where("shop.categories", isEqualTo: category)
-        .snapshots()
-        .listen((event) {
-      event.docs.forEach((element) {
-        userModel.add(UserModel.fromJson(element.data()));
-      });
-      emit(HomeGetStoresSuccessWhereGoverDetailsState());
-    });
+        .get()
+        .then(
+      (value) {
+        value.docs.forEach((element) {
+          userModel.add(UserModel.fromJson(element.data()));
+        });
+        emit(HomeGetStoresSuccessWhereGoverDetailsState());
+      },
+    ).catchError(
+      (e) {
+        print(e.toString());
+        emit(HomeGetStoresErrorWhereGoverDetailsState());
+      },
+    );
+    // FirebaseFirestore.instance
+    //     .collection('user')
+    //     .where("shop.address.governorate", isEqualTo: governName)
+    //     .where("shop.categories", isEqualTo: category)
+    //     .snapshots()
+    //     .listen((event) {
+    //   event.docs.forEach((element) {
+    //     userModel.add(UserModel.fromJson(element.data()));
+    //   });
+    //   emit(HomeGetStoresSuccessWhereGoverDetailsState());
+    // });
   }
 
   // CREATE NEW ORDER
@@ -99,6 +136,7 @@ class HomeCubit extends Cubit<HomeStates> {
     required String uId,
     required String government,
   }) {
+    states = [];
     OrderModel orderModel = OrderModel(
       categories: categories,
       date: date,
@@ -115,35 +153,60 @@ class HomeCubit extends Cubit<HomeStates> {
         .where("shop.address.governorate", isEqualTo: government)
         .where("shop.categories", isEqualTo: categories)
         .get()
-        .then(
-      (value) {
-        value.docs.forEach((element) {
-          states.add({
-            'state': 'search',
-            'storeId': element.data()['uId'],
-          });
+        .then((value) {
+      value.docs.forEach((element) {
+        states?.add({
+          'state': 'search',
+          'storeId': element.data()['uId'],
         });
+      });
+      FirebaseFirestore.instance
+          .collection('orders')
+          .doc()
+          .set(orderModel.toMap())
+          .then(
+        (value) {
+          emit(HomeCreateOrderSuccessState());
+        },
+      ).catchError(
+        (e) {
+          print(e.toString());
+          emit(HomeCreateOrderErorrState());
+        },
+      );
+    }).catchError((e) {
+      print(e.toString());
+    });
+    // FirebaseFirestore.instance
+    //     .collection('user')
+    //     .where("shop.address.governorate", isEqualTo: government)
+    //     .where("shop.categories", isEqualTo: categories)
+    //     .snapshots()
+    //     .listen(
+    //   (value) {
+    //     value.docs.forEach((element) {
+    //       states?.add({
+    //         'state': 'search',
+    //         'storeId': element.data()['uId'],
+    //       });
+    //     });
 
-        FirebaseFirestore.instance
-            .collection('orders')
-            .doc()
-            .set(orderModel.toMap())
-            .then(
-              (value) {},
-            )
-            .catchError(
-          (e) {
-            print(e.toString());
-          },
-        );
-        emit(HomeCreateOrderSuccessState());
-      },
-    ).catchError(
-      (e) {
-        print(e.toString());
-        emit(HomeCreateOrderErorrState());
-      },
-    );
+    //     FirebaseFirestore.instance
+    //         .collection('orders')
+    //         .doc()
+    //         .set(orderModel.toMap())
+    //         .then(
+    //           (value) {},
+    //         )
+    //         .catchError(
+    //       (e) {
+    //         print(e.toString());
+    //         emit(HomeCreateOrderErorrState());
+    //       },
+    //     );
+    //     emit(HomeCreateOrderSuccessState());
+    //   },
+    // );
   }
 
   // GET MY ORDERS
@@ -153,15 +216,36 @@ class HomeCubit extends Cubit<HomeStates> {
     FirebaseFirestore.instance
         .collection('orders')
         .where("uId", isEqualTo: SharedHelper.getCacheData(key: TOKEN))
-        .snapshots()
-        .listen((event) {
-      event.docs.forEach(
-        (element) {
-          orderModel.add(OrderModel.fromJson(element.data(), element.id));
-        },
-      );
-      emit(HomeGetMyOrdersSuccessState());
-    });
+        .get()
+        .then(
+      (value) {
+        value.docs.forEach(
+          (element) {
+            orderModel.add(OrderModel.fromJson(element.data(), element.id));
+          },
+        );
+        emit(HomeGetMyOrdersSuccessState());
+      },
+    ).catchError(
+      (e) {
+        print(e.toString());
+        emit(HomeGetMyOrdersErrorState());
+      },
+    );
+
+    // emit(HomeGetMyOrdersLoadingState());
+    // FirebaseFirestore.instance
+    //     .collection('orders')
+    //     .where("uId", isEqualTo: SharedHelper.getCacheData(key: TOKEN))
+    //     .snapshots()
+    //     .listen((event) {
+    //   event.docs.forEach(
+    //     (element) {
+    //       orderModel.add(OrderModel.fromJson(element.data(), element.id));
+    //     },
+    //   );
+    //   emit(HomeGetMyOrdersSuccessState());
+    // });
   }
 
   // DELETE MY ORDER BY ID
@@ -169,7 +253,9 @@ class HomeCubit extends Cubit<HomeStates> {
     emit(HomeDeleteMyOrderLoadingState());
     FirebaseFirestore.instance.collection('orders').doc(oId).delete().then(
       (value) {
+        orderModel = [];
         getMyOrder();
+        emit(HomeDeleteMyOrderSuccessState());
       },
     ).catchError(
       (e) {
@@ -177,5 +263,42 @@ class HomeCubit extends Cubit<HomeStates> {
         emit(HomeDeleteMyOrderErrorState());
       },
     );
+  }
+
+  // GET ORDER WITH STATE
+  void getStatesAndStoreFromOrder({required oId}) {
+    myStatesModel = [];
+    emit(HomeGetStatesFromOrderLoadingState());
+    FirebaseFirestore.instance.collection('orders').doc(oId).get().then(
+      (value) {
+        value.data()!.forEach((key, value) {
+          if (key == 'states') {
+            myStatesModel.add(value);
+          }
+        });
+        print(myStatesModel);
+        emit(HomeGetStatesFromOrderSuccessState());
+      },
+    ).catchError(
+      (e) {
+        print(e.toString());
+        emit(HomeGetStatesFromOrderErrorState());
+      },
+    );
+    // emit(HomeGetStatesFromOrderSuccessState());
+    // emit(HomeGetStatesFromOrderLoadingState());
+    // FirebaseFirestore.instance
+    //     .collection('orders')
+    //     .doc(oId)
+    //     .snapshots()
+    //     .listen((event) {
+    //   event.data()!.forEach((key, value) {
+    //     if (key == 'states') {
+    //       myStatesModel.add(value);
+    //       print(myStatesModel);
+    //     }
+    //   });
+    // });
+    // emit(HomeGetStatesFromOrderSuccessState());
   }
 }

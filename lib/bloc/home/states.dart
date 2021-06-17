@@ -44,6 +44,8 @@ class HomeGetStoresLoadingWhereGoverDetailsState extends HomeStates {}
 
 class HomeGetStoresSuccessWhereGoverDetailsState extends HomeStates {}
 
+class HomeGetStoresErrorWhereGoverDetailsState extends HomeStates {}
+
 // DELETE MY ORDER
 class HomeDeleteMyOrderLoadingState extends HomeStates {}
 
@@ -54,6 +56,17 @@ class HomeDeleteMyOrderErrorState extends HomeStates {}
 // GET ALL STORES VALID IN THIS MOMENT
 class HomeGetVAlidLoaingState extends HomeStates {}
 
+// GET ALL STORES VALID IN THIS MOMENT
 class HomeGetVAlidSuccessState extends HomeStates {}
 
+// GET ALL STORES VALID IN THIS MOMENT
 class HomeGetVAlidErrroState extends HomeStates {}
+
+// GET STATES FROM ORDER
+class HomeGetStatesFromOrderLoadingState extends HomeStates {}
+
+// GET STATES FROM ORDER
+class HomeGetStatesFromOrderSuccessState extends HomeStates {}
+
+// GET STATES FROM ORDER
+class HomeGetStatesFromOrderErrorState extends HomeStates {}
