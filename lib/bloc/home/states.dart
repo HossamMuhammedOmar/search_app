@@ -70,3 +70,29 @@ class HomeGetStatesFromOrderSuccessState extends HomeStates {}
 
 // GET STATES FROM ORDER
 class HomeGetStatesFromOrderErrorState extends HomeStates {}
+
+class HomeChooseGovernState extends HomeStates {}
+
+// GET USER TYPE
+class LoginGetUserTypeLoading extends HomeStates {}
+
+// GET USER TYPE
+class LoginGetUserTypeSuccess extends HomeStates {}
+
+// GET USER TYPE
+class LoginGetUserTypeError extends HomeStates {}
+
+// UPLOAD IMAGE STATES
+class HomeUploadImageSuccess extends HomeStates {}
+
+// UPLOAD IMAGE STATES
+class HomeUploadImageError extends HomeStates {}
+
+// STORE IMAGE STATES
+class HomeStoreImageLoading extends HomeStates {}
+
+// STORE IMAGE STATES
+class HomeStoreImageSuccess extends HomeStates {}
+
+// STORE IMAGE STATES
+class HomeStoreImageError extends HomeStates {}

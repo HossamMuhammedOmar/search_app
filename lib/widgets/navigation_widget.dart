@@ -1,6 +1,7 @@
 import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:flutter/material.dart';
 import 'package:search_app/bloc/home/cubit.dart';
+import 'package:search_app/bloc/languages/cubit.dart';
 import 'package:search_app/screens/login_screen.dart';
 import 'package:transitioner/transitioner.dart';
 import '../constant/constant.dart';
@@ -78,31 +79,32 @@ class NavigationDrawerWidget extends StatelessWidget {
               Divider(color: mPrimaryGrey.withOpacity(.5)),
               const SizedBox(height: 24),
               _buildMenuItem(
-                text: 'Home',
+                text: '${LanguagesCubit.get(context).home()}',
                 icon: Icons.home_filled,
                 onClick: () => _selectedItem(context, 0),
               ),
               const SizedBox(height: 16),
               _buildMenuItem(
-                text: 'Change Language',
+                text: '${LanguagesCubit.get(context).changeLanguage()}',
                 icon: Icons.language,
                 onClick: () => _selectedItem(context, 1),
               ),
               const SizedBox(height: 16),
               _buildMenuItem(
-                text: 'Search History',
+                text: '${LanguagesCubit.get(context).searchtracking()}',
                 icon: Icons.history,
                 onClick: () => _selectedItem(context, 2),
               ),
               const SizedBox(height: 16),
               _buildMenuItem(
-                text: 'Complaints and suggestions',
+                text:
+                    '${LanguagesCubit.get(context).complaintsAndsuggestions()}',
                 icon: Icons.beenhere_outlined,
                 onClick: () => _selectedItem(context, 3),
               ),
               const SizedBox(height: 16),
               _buildMenuItem(
-                text: 'Logout',
+                text: '${LanguagesCubit.get(context).logout()}',
                 icon: Icons.logout,
                 onClick: () => _selectedItem(context, 4),
               ),
@@ -131,7 +133,11 @@ class NavigationDrawerWidget extends StatelessWidget {
             ? TextDirection.rtl
             : TextDirection.ltr,
         maxLines: 2,
-        style: TextStyle(),
+        style: TextStyle(
+          fontFamily: SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
+              ? 'Cairo'
+              : 'Poppins',
+        ),
       ),
       trailing: SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
           ? Icon(
@@ -196,6 +202,7 @@ class NavigationDrawerWidget extends StatelessWidget {
       case 4:
         HomeCubit.get(context).getMyOrder();
         SharedHelper.removeCacheData(key: TOKEN);
+        SharedHelper.removeCacheData(key: USERTYPE);
         Transitioner(
           context: context,
           child: LoginScreen(),

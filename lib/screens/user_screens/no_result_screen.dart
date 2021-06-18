@@ -1,5 +1,6 @@
 import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:flutter/material.dart';
+import 'package:search_app/bloc/languages/cubit.dart';
 import 'package:search_app/constant/constant.dart';
 import 'package:search_app/screens/user_screens/home_screen.dart';
 import 'package:transitioner/transitioner.dart';
@@ -29,7 +30,7 @@ class NoResultScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     AutoSizeText(
-                      'No Stores in this governorate in this time',
+                      '${LanguagesCubit.get(context).noStoresInThisGovernorateInThisTime()}',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: mPrimaryDarkGrey,
@@ -39,7 +40,7 @@ class NoResultScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 10),
                     AutoSizeText(
-                      'Please try again later!',
+                      '${LanguagesCubit.get(context).pleaseTryAgainLater()}',
                       maxLines: 1,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
@@ -61,7 +62,7 @@ class NoResultScreen extends StatelessWidget {
                         );
                       },
                       child: AutoSizeText(
-                        'Home',
+                        '${LanguagesCubit.get(context).home()}',
                         maxLines: 1,
                       ),
                       textColor: Colors.white,

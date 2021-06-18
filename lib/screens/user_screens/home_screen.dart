@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animations/loading_animations.dart';
 import 'package:search_app/bloc/home/cubit.dart';
 import 'package:search_app/bloc/home/states.dart';
+import 'package:search_app/bloc/languages/cubit.dart';
 import 'package:search_app/constant/constant.dart';
 import 'package:search_app/helpers/shared_helper.dart';
 import 'package:search_app/screens/user_screens/add_details_screen.dart';
@@ -12,9 +13,6 @@ import 'package:search_app/widgets/navigation_widget.dart';
 import 'package:transitioner/transitioner.dart';
 
 class HomeUserScreen extends StatelessWidget {
-  final _formKey = GlobalKey<FormState>();
-  final _governController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeStates>(
@@ -55,8 +53,13 @@ class HomeUserScreen extends StatelessWidget {
                 : null,
             appBar: AppBar(
               title: Text(
-                'Welcome Hossam',
-                style: TextStyle(color: mPrimaryDarkGrey),
+                '${LanguagesCubit.get(context).homeScreen()}',
+                style: TextStyle(
+                  color: mPrimaryDarkGrey,
+                  fontFamily: SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
+                      ? 'Cairo'
+                      : 'Poppins',
+                ),
               ),
               backgroundColor: Colors.white,
             ),
@@ -70,56 +73,93 @@ class HomeUserScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           AutoSizeText(
-                            'Search for some thing?',
+                            '${LanguagesCubit.get(context).searchForSomeThing()}',
                             maxLines: 1,
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              fontSize: 22,
-                              color: mPrimaryDarkGrey,
+                              fontSize: 24,
+                              fontFamily:
+                                  SharedHelper.getCacheData(key: LANGUAGES) ==
+                                          'AR'
+                                      ? 'NotoKufiArabic'
+                                      : 'Poppins',
+                              color: mPrimaryBlue,
                               fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 40,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 20, left: 20),
-                            child: Form(
-                              key: _formKey,
-                              autovalidateMode: AutovalidateMode.disabled,
-                              child: TextFormField(
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'Enter the governorate';
-                                  }
-                                },
-                                controller: _cubit.governController,
-                                decoration: new InputDecoration(
-                                  border: new OutlineInputBorder(
-                                    borderSide:
-                                        new BorderSide(color: Colors.teal),
-                                  ),
-                                  labelText: 'Enter the governorate',
-                                  prefixIcon: const Icon(
-                                    Icons.emoji_flags_sharp,
-                                    color: Colors.green,
-                                  ),
-                                  prefixText: ' ',
-                                  suffixStyle:
-                                      const TextStyle(color: Colors.green),
-                                ),
-                              ),
                             ),
                           ),
                           SizedBox(
                             height: 60,
                           ),
+                          AutoSizeText(
+                            '${LanguagesCubit.get(context).chooseTheGovernorate()}',
+                            maxLines: 1,
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontFamily:
+                                  SharedHelper.getCacheData(key: LANGUAGES) ==
+                                          'AR'
+                                      ? 'Cairo'
+                                      : 'Poppins',
+                              color: mPrimaryDarkGrey,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                            padding: EdgeInsets.symmetric(horizontal: 50),
+                            width: double.infinity,
+                            child: DecoratedBox(
+                              decoration: ShapeDecoration(
+                                color: Color(0xffe2e8ea),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(3.0),
+                                  ),
+                                ),
+                              ),
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 20),
+                                child: DropdownButtonHideUnderline(
+                                  child: DropdownButton(
+                                    items: _cubit.gov.map(
+                                      (govern) {
+                                        return DropdownMenuItem(
+                                          value: govern,
+                                          child: AutoSizeText(
+                                            govern,
+                                            maxLines: 1,
+                                            textAlign: TextAlign.center,
+                                            textDirection: TextDirection.rtl,
+                                          ),
+                                        );
+                                      },
+                                    ).toList(),
+                                    onChanged: (value) {
+                                      _cubit.selecteGovern(value.toString());
+                                    },
+                                    value: _cubit.selectedGovern,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 50,
+                          ),
                           Column(
                             children: [
                               AutoSizeText(
-                                'Choose the specialty you want',
+                                '${LanguagesCubit.get(context).chooseTheSpecialtyYouWant()}',
                                 maxLines: 1,
                                 style: TextStyle(
+                                  fontFamily: SharedHelper.getCacheData(
+                                              key: LANGUAGES) ==
+                                          'AR'
+                                      ? 'Cairo'
+                                      : 'Poppins',
                                   fontSize: 15,
                                   color: mPrimaryDarkGrey,
                                   fontWeight: FontWeight.bold,
@@ -128,37 +168,42 @@ class HomeUserScreen extends StatelessWidget {
                               SizedBox(
                                 height: 10,
                               ),
-                              DecoratedBox(
-                                decoration: ShapeDecoration(
-                                  color: Color(0xffe2e8ea),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(3.0)),
+                              Container(
+                                padding: EdgeInsets.symmetric(horizontal: 50),
+                                width: double.infinity,
+                                child: DecoratedBox(
+                                  decoration: ShapeDecoration(
+                                    color: Color(0xffe2e8ea),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(3.0)),
+                                    ),
                                   ),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20),
-                                  child: DropdownButtonHideUnderline(
-                                    child: DropdownButton(
-                                      items: _cubit.cate.map(
-                                        (category) {
-                                          return DropdownMenuItem(
-                                            value: category.name,
-                                            child: AutoSizeText(
-                                              category.name,
-                                              maxLines: 1,
-                                              textAlign: TextAlign.center,
-                                              textDirection: TextDirection.rtl,
-                                            ),
-                                          );
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 20),
+                                    child: DropdownButtonHideUnderline(
+                                      child: DropdownButton(
+                                        items: _cubit.cate.map(
+                                          (category) {
+                                            return DropdownMenuItem(
+                                              value: category.name,
+                                              child: AutoSizeText(
+                                                category.name,
+                                                maxLines: 1,
+                                                textAlign: TextAlign.center,
+                                                textDirection:
+                                                    TextDirection.rtl,
+                                              ),
+                                            );
+                                          },
+                                        ).toList(),
+                                        onChanged: (value) {
+                                          _cubit.selecteCategory(
+                                              value.toString());
                                         },
-                                      ).toList(),
-                                      onChanged: (value) {
-                                        _cubit
-                                            .selecteCategory(value.toString());
-                                      },
-                                      value: _cubit.selectedCategories,
+                                        value: _cubit.selectedCategories,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -166,28 +211,37 @@ class HomeUserScreen extends StatelessWidget {
                             ],
                           ),
                           SizedBox(
-                            height: 25,
+                            height: 50,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 20, left: 20),
+                          Container(
+                            padding: EdgeInsets.symmetric(horizontal: 50),
+                            width: double.infinity,
                             child: MaterialButton(
                               onPressed: () {
-                                if (_formKey.currentState!.validate()) {
-                                  _cubit.getStoresWhereGovernment(
-                                    governName: _cubit.governController.text,
-                                    category: _cubit.selectedCategories,
-                                  );
-                                }
+                                _cubit.getStoresWhereGovernment(
+                                  governName: _cubit.selectedGovern,
+                                  category: _cubit.selectedCategories,
+                                );
                               },
-                              child:
-                                  state is! HomeGetStoresLoadingWhereGoverState
-                                      ? Text('Continue')
-                                      : Padding(
-                                          padding: const EdgeInsets.all(10.0),
-                                          child: CircularProgressIndicator(
-                                            color: Colors.white,
-                                          ),
-                                        ),
+                              child: state
+                                      is! HomeGetStoresLoadingWhereGoverState
+                                  ? Text(
+                                      '${LanguagesCubit.get(context).continueT()}',
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontFamily: SharedHelper.getCacheData(
+                                                    key: LANGUAGES) ==
+                                                'AR'
+                                            ? 'Cairo'
+                                            : 'Poppins',
+                                      ),
+                                    )
+                                  : Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: CircularProgressIndicator(
+                                        color: Colors.white,
+                                      ),
+                                    ),
                               color: mPrimaryGreen,
                               minWidth: MediaQuery.of(context).size.width / 1.9,
                               height: 50,

@@ -37,3 +37,5 @@ class RegisterGetCategoiresLoadingState extends RegisterStates {}
 class RegisterGetCategoiresSuccessState extends RegisterStates {}
 
 class RegisterGetCategoiresErorrState extends RegisterStates {}
+
+class HomeChooseGovernState extends RegisterStates {}

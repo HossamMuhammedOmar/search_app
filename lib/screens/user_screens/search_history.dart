@@ -3,9 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loading_animations/loading_animations.dart';
 import 'package:search_app/bloc/home/cubit.dart';
 import 'package:search_app/bloc/home/states.dart';
+import 'package:search_app/bloc/languages/cubit.dart';
 import 'package:search_app/helpers/shared_helper.dart';
 import 'package:search_app/model/order_model.dart';
 import 'package:search_app/widgets/navigation_widget.dart';
@@ -21,9 +21,7 @@ class SearchHistory extends StatelessWidget {
         primaryIconTheme: IconThemeData(color: mPrimaryLightBlue),
       ),
       child: BlocConsumer<HomeCubit, HomeStates>(
-        listener: (context, states) {
-          print(states);
-        },
+        listener: (context, states) {},
         builder: (context, states) {
           HomeCubit _cubit = HomeCubit.get(context);
           return Scaffold(
@@ -37,8 +35,13 @@ class SearchHistory extends StatelessWidget {
             appBar: AppBar(
               backgroundColor: Colors.white,
               title: Text(
-                'Your Search Proccess',
-                style: TextStyle(color: mPrimaryDarkGrey),
+                '${LanguagesCubit.get(context).yourSearchProccess()}',
+                style: TextStyle(
+                  color: mPrimaryDarkGrey,
+                  fontFamily: SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
+                      ? 'Cairo'
+                      : 'Poppins',
+                ),
               ),
             ),
             body: LayoutBuilder(
@@ -49,7 +52,7 @@ class SearchHistory extends StatelessWidget {
                     Container(
                       width: double.infinity,
                       height: localHeigh / 1.2,
-                      child: states is! HomeGetMyOrdersSuccessState
+                      child: states is HomeGetMyOrdersLoadingState
                           ? Center(child: CircularProgressIndicator())
                           : ListView.separated(
                               itemBuilder: (context, index) {
@@ -105,7 +108,6 @@ class SearchHistory extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Row(
-        textDirection: TextDirection.rtl,
         children: [
           Expanded(
             child: Container(
@@ -119,39 +121,42 @@ class SearchHistory extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(width: 20),
-          MaterialButton(
-            onPressed: () {
-              cubit.getStatesAndStoreFromOrder(oId: item.oId);
-              // cubit.getStoresWhereGovernmentDetails(
-              //   governName: item.government,
-              //   category: item.categories,
-              // );
-              // Transitioner(
-              //   context: context,
-              //   child: SeachDetails(),
-              //   animation: AnimationType.fadeIn, // Optional value
-              //   duration: Duration(milliseconds: 300), // Optional value
-              //   replacement: true, // Optional value
-              //   curveType: CurveType.decelerate, // Optional value
-              // );
-            },
-            child: Text(
-              'Show',
-            ),
-            color: mPrimaryGreen,
-            textColor: Colors.white,
-            minWidth: 20,
-          ),
-          SizedBox(width: 5),
-          MaterialButton(
-            onPressed: () {
-              cubit.deleteMyOrder(oId: item.oId);
-            },
-            child: Text('Delete'),
-            color: Color(0xffe74c3c),
-            textColor: Colors.white,
-            minWidth: 20,
+          Row(
+            children: [
+              MaterialButton(
+                onPressed: () {
+                  cubit.getStatesAndStoreFromOrder(oId: item.oId);
+                  // cubit.getStoresWhereGovernmentDetails(
+                  //   governName: item.government,
+                  //   category: item.categories,
+                  // );
+                  Transitioner(
+                    context: context,
+                    child: SeachDetails(),
+                    animation: AnimationType.fadeIn, // Optional value
+                    duration: Duration(milliseconds: 300), // Optional value
+                    replacement: true, // Optional value
+                    curveType: CurveType.decelerate, // Optional value
+                  );
+                },
+                child: Text(
+                  '${LanguagesCubit.get(context).show()}',
+                ),
+                color: mPrimaryGreen,
+                textColor: Colors.white,
+                minWidth: 20,
+              ),
+              SizedBox(width: 5),
+              MaterialButton(
+                onPressed: () {
+                  cubit.deleteMyOrder(oId: item.oId, imgUrl: item.image);
+                },
+                child: Text('${LanguagesCubit.get(context).delete()}'),
+                color: Color(0xffe74c3c),
+                textColor: Colors.white,
+                minWidth: 20,
+              ),
+            ],
           ),
         ],
       ),

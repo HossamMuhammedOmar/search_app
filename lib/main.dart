@@ -1,12 +1,13 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:search_app/bloc/home/cubit.dart';
-import 'package:search_app/bloc/languages/cubit.dart';
-import 'package:search_app/bloc/register/cubit.dart';
-import 'package:search_app/helpers/shared_helper.dart';
-import 'package:search_app/screens/temp_screen/choose_language_screen.dart';
+import 'package:search_app/constant/constant.dart';
+import 'package:search_app/screens/login_screen.dart';
+import '../bloc/home/cubit.dart';
+import '../bloc/languages/cubit.dart';
+import '../bloc/register/cubit.dart';
+import '../helpers/shared_helper.dart';
+import '../screens/temp_screen/choose_language_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,7 +31,9 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: ChooseLanguageScreen(),
+        home: SharedHelper.getCacheData(key: LANGUAGES) == null
+            ? ChooseLanguageScreen()
+            : LoginScreen(),
       ),
     );
   }

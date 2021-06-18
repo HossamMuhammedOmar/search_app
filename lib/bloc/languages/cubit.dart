@@ -237,7 +237,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
 
   String governorate() {
     if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
-      return 'المحافظه';
+      return 'المحافظة';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Governorate';
     }
@@ -246,7 +246,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
 
   String streetName() {
     if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
-      return 'إسم الشارع أو أقرب نقطه داله';
+      return 'إسم الشارع أو أقرب نقطه دالة';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Street name or nearest point';
     }
@@ -280,5 +280,212 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     return '';
   }
 
-//  Choose Categories
+  String home() {
+    if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
+      return 'الرئيسية';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
+      return 'Home';
+    }
+    return '';
+  }
+
+  String changeLanguage() {
+    if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
+      return 'تغيير اللغة';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
+      return 'Change Language';
+    }
+    return '';
+  }
+
+  String searchtracking() {
+    if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
+      return 'متابعة البحث';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
+      return 'Search Tracking';
+    }
+    return '';
+  }
+
+  String complaintsAndsuggestions() {
+    if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
+      return 'الشكاوي والإقتراحات';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
+      return 'Complaints and suggestions';
+    }
+    return '';
+  }
+
+  String logout() {
+    if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
+      return 'تسجيل الخروج';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
+      return 'Logout';
+    }
+    return '';
+  }
+
+  String searchForSomeThing() {
+    if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
+      return 'هل تبحث عن شئ؟';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
+      return 'Search for some thing?';
+    }
+    return '';
+  }
+
+  String chooseTheGovernorate() {
+    if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
+      return 'قم بإختيار المحافظة';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
+      return 'Choose the governorate';
+    }
+    return '';
+  }
+
+  String chooseTheSpecialtyYouWant() {
+    if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
+      return 'قم بإختيار التخصص الذي تريد';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
+      return 'Choose the specialty you want';
+    }
+    return '';
+  }
+
+  String continueT() {
+    if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
+      return 'المتابعة';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
+      return 'Continue';
+    }
+    return '';
+  }
+
+  String pleaseTryAgainLater() {
+    if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
+      return 'الرجاء إعادة المحاولة في وقت لاحق';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
+      return 'Please try again later!';
+    }
+    return '';
+  }
+
+  String noStoresInThisGovernorateInThisTime() {
+    if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
+      return 'لا توجد متاجر متاحة في هذه المحافظة في الوقت الحالي';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
+      return 'No Stores in this governorate in this time';
+    }
+    return '';
+  }
+
+  String enterNameOrShortDescriptionForTheItemYouAreLookingFor() {
+    if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
+      return 'أدخل اسمًا أو وصفًا مختصراً للمنتج الذي تبحث عنه';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
+      return 'Enter a name or a short description for the item you are looking for';
+    }
+    return '';
+  }
+
+  String thisFeildIsRequired() {
+    if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
+      return 'هذا الحقل إجباري';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
+      return 'this feild is required';
+    }
+    return '';
+  }
+
+  String ifYouWantToAddPictureOfTheItemYouAreLookingFor() {
+    if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
+      return 'إذا كنت تريد إضافة صورة للمنتج الذي تبحث عنه';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
+      return 'If you want to add a picture of the item you are looking for';
+    }
+    return '';
+  }
+
+  String enterImageUrl() {
+    if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
+      return 'أدخل رابط الصورة';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
+      return 'Enter image URL';
+    }
+    return '';
+  }
+
+  String or() {
+    if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
+      return 'أو';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
+      return 'OR';
+    }
+    return '';
+  }
+
+  String uploadImageFromYourDevice() {
+    if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
+      return 'تحميل الصورة من جهازك';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
+      return 'Upload image from your device';
+    }
+    return '';
+  }
+
+  String startSearch() {
+    if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
+      return 'إبدأ البحث';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
+      return 'Start Search';
+    }
+    return '';
+  }
+
+  String homeScreen() {
+    if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
+      return 'الصفحة الرئيسية';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
+      return 'Home Screen';
+    }
+    return '';
+  }
+
+  String languageSetting() {
+    if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
+      return 'اعدادات اللغة';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
+      return 'Language Setting';
+    }
+    return '';
+  }
+
+  String delete() {
+    if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
+      return 'حذف';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
+      return 'Delete';
+    }
+    return '';
+  }
+
+  String show() {
+    if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
+      return 'عرض';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
+      return 'Show';
+    }
+    return '';
+  }
+
+  String yourSearchProccess() {
+    if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
+      return 'عمليات البحث الخاصة بك';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
+      return 'Your Search Proccess';
+    }
+    return '';
+  }
+
+//  Your Search Proccess
 }

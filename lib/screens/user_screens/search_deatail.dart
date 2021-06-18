@@ -1,4 +1,6 @@
 import 'package:auto_size_text_pk/auto_size_text_pk.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:search_app/bloc/home/cubit.dart';
@@ -6,6 +8,7 @@ import 'package:search_app/bloc/home/states.dart';
 import 'package:search_app/constant/constant.dart';
 import 'package:search_app/model/user_model.dart';
 import 'package:search_app/screens/user_screens/search_history.dart';
+import 'package:search_app/widgets/my_dialog.dart';
 import 'package:transitioner/transitioner.dart';
 
 class SeachDetails extends StatelessWidget {
@@ -22,16 +25,21 @@ class SeachDetails extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 50),
                 child: Container(
                   height: MediaQuery.of(context).size.height / 1.46,
-                  child: ListView.separated(
-                    itemBuilder: (context, index) {
-                      return _buildItem(HomeCubit.get(context).userModel[index],
-                          context, states);
-                    },
-                    separatorBuilder: (context, index) {
-                      return SizedBox(height: 10);
-                    },
-                    itemCount: HomeCubit.get(context).userModel.length,
-                  ),
+                  child: states is! HomeGetStatesFromOrderLoadingState
+                      ? ListView.separated(
+                          itemBuilder: (context, index) {
+                            return _buildItem(
+                                HomeCubit.get(context).myStatesModel[index],
+                                context,
+                                states);
+                          },
+                          separatorBuilder: (context, index) {
+                            return SizedBox(height: 10);
+                          },
+                          itemCount:
+                              HomeCubit.get(context).myStatesModel.length,
+                        )
+                      : Center(child: CircularProgressIndicator()),
                 ),
               ),
               Container(
@@ -94,27 +102,129 @@ class SeachDetails extends StatelessWidget {
     );
   }
 
-  Widget _buildItem(UserModel item, context, HomeStates states) {
+  Widget _buildItem(item, context, HomeStates states) {
     return Row(
       children: [
-        Container(
-          width: MediaQuery.of(context).size.width / 2.8,
-          height: 70,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: Color(0xff1EB6FF),
-          ),
-          child: Center(
-            child: AutoSizeText(
-              'جاري البحث',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w400,
+        item['state'] == 'متوفر'
+            ? Row(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      AwesomeDialog(
+                        context: context,
+                        animType: AnimType.SCALE,
+                        headerAnimationLoop: false,
+                        dialogType: DialogType.SUCCES,
+                        body: Center(
+                          child: Column(
+                            children: [
+                              AutoSizeText(
+                                item['storeName'],
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Cairo',
+                                ),
+                              ),
+                              SizedBox(height: 10),
+                              Container(
+                                height: 1,
+                                width: double.infinity,
+                                color: Colors.grey.withOpacity(0.5),
+                              ),
+                              SizedBox(height: 20),
+                              AutoSizeText(
+                                item['governorate'],
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: 'NotoKufiArabic',
+                                ),
+                              ),
+                              SizedBox(height: 5),
+                              AutoSizeText(
+                                item['street'],
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: 'NotoKufiArabic',
+                                ),
+                              ),
+                              SizedBox(height: 5),
+                              AutoSizeText(
+                                item['storePhone'],
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        title: 'This is Ignored',
+                        desc: 'This is also Ignored',
+                        btnOkOnPress: () {},
+                      )..show();
+                    },
+                    child: Container(
+                      width: MediaQuery.of(context).size.width / 6,
+                      height: 70,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: mPrimaryYellow,
+                      ),
+                      child: Center(
+                        child: AutoSizeText(
+                          'تواصل الآن',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w400,
+                          ),
+                          maxLines: 1,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 5),
+                  Container(
+                    width: MediaQuery.of(context).size.width / 6,
+                    height: 70,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: mPrimaryGreen,
+                    ),
+                    child: Center(
+                      child: AutoSizeText(
+                        '${item['state']}',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w400,
+                        ),
+                        maxLines: 1,
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            : Container(
+                width: MediaQuery.of(context).size.width / 2.8,
+                height: 70,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: item['state'] != 'غير متوفر'
+                      ? Color(0xff1EB6FF)
+                      : Color(0xffe74c3c),
+                ),
+                child: Center(
+                  child: AutoSizeText(
+                    '${item['state']}',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w400,
+                    ),
+                    maxLines: 1,
+                  ),
+                ),
               ),
-              maxLines: 1,
-            ),
-          ),
-        ),
         Spacer(),
         Container(
           width: MediaQuery.of(context).size.width / 2,
@@ -125,7 +235,7 @@ class SeachDetails extends StatelessWidget {
           height: 70,
           child: Center(
             child: AutoSizeText(
-              '${item.storeName}',
+              '${item['storeName']}',
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,

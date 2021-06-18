@@ -20,7 +20,6 @@ class RegisterScreen extends StatelessWidget {
     final _nameController = TextEditingController();
     final _phoneController = TextEditingController();
     final _passwordController = TextEditingController();
-    final _governorateController = TextEditingController();
     final _streetController = TextEditingController();
 
     return BlocConsumer<RegisterCubit, RegisterStates>(
@@ -203,20 +202,53 @@ class RegisterScreen extends StatelessWidget {
                               SizedBox(
                                 height: 15,
                               ),
-                              TextFormField(
-                                validator: (String? value) {
-                                  if (value!.isEmpty) {
-                                    return 'Enter a Governorate';
-                                  }
-                                  return null;
-                                },
-                                controller: _governorateController,
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  labelText:
-                                      '${LanguagesCubit.get(context).governorate()}',
-                                  prefixIcon:
-                                      Icon(Icons.account_balance_rounded),
+                              Container(
+                                width: double.infinity,
+                                height: 60,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    width: 1,
+                                    color: Colors.grey.withOpacity(0.9),
+                                  ),
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: DecoratedBox(
+                                  decoration: ShapeDecoration(
+                                    color: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(3.0),
+                                      ),
+                                    ),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 20),
+                                    child: DropdownButtonHideUnderline(
+                                      child: DropdownButton(
+                                        icon: Icon(Icons.my_location),
+                                        items: _cubit.gov.map(
+                                          (govern) {
+                                            return DropdownMenuItem(
+                                              value: govern,
+                                              child: AutoSizeText(
+                                                govern,
+                                                maxLines: 1,
+                                                textAlign: TextAlign.center,
+                                                textDirection:
+                                                    TextDirection.rtl,
+                                              ),
+                                            );
+                                          },
+                                        ).toList(),
+                                        onChanged: (value) {
+                                          _cubit
+                                              .selecteGovern(value.toString());
+                                        },
+                                        value: _cubit.selectedGovern,
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
                               SizedBox(
@@ -293,8 +325,7 @@ class RegisterScreen extends StatelessWidget {
                                             password: _passwordController.text,
                                             type: SharedHelper.getCacheData(
                                                 key: USERTYPE),
-                                            governorate:
-                                                _governorateController.text,
+                                            governorate: _cubit.selectedGovern,
                                             street: _streetController.text,
                                             storePhone: _phoneController.text,
                                             storeName: _nameController.text,

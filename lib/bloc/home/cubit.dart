@@ -1,26 +1,60 @@
+import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:search_app/constant/constant.dart';
 import 'package:search_app/helpers/shared_helper.dart';
 import 'package:search_app/model/order_model.dart';
 import 'package:search_app/model/user_model.dart';
+import 'package:transitioner/transitioner.dart';
 import 'states.dart';
 import '../../model/categories_model.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 class HomeCubit extends Cubit<HomeStates> {
   HomeCubit() : super(HomeInitState());
 
   static HomeCubit get(context) => BlocProvider.of(context);
+  File? productImage;
+  final picker = ImagePicker();
+  String? productImageUrl;
   List<CategoriesModel> categories = [];
   List cate = [];
+  List gov = [
+    'أربيل',
+    'الأنبار',
+    'بابل',
+    'بغداد',
+    'البصرة',
+    'حلبجة',
+    'دهوك',
+    'القادسية',
+    'ديالى',
+    'ذي قار',
+    'السليمانية',
+    'صلاح الدين',
+    'كركوك',
+    'كربلاء',
+    'المثنى',
+    'ميسان',
+    'النجف',
+    'نينوى',
+    'واسط',
+  ];
   String selectedCategories = 'الصيدليات';
+  String selectedGovern = 'بغداد';
   TextEditingController governController = TextEditingController();
   List<UserModel> userModel = [];
   List<OrderModel> orderModel = [];
   List? states = [];
   List myStatesModel = [];
+
+  void selecteGovern(currentGov) {
+    selectedGovern = currentGov;
+    emit(HomeChooseGovernState());
+  }
 
   void selecteCategory(currentCategory) {
     selectedCategories = currentCategory;
@@ -46,20 +80,12 @@ class HomeCubit extends Cubit<HomeStates> {
         emit(HomeErorrCategoriesState());
       },
     );
-
-    // FirebaseFirestore.instance.collection('categories').snapshots().forEach(
-    //   (element) {
-    //     element.docs.forEach((element) {
-    //       print(element.data());
-    //     });
-    //   },
-    // ).then((value) {
-    //   emit(HomeSucessCategoriesState());
-    // });
   }
 
   void getStoresWhereGovernment({required governName, required category}) {
     userModel = [];
+    print(governName);
+    print(category);
     emit(HomeGetStoresLoadingWhereGoverState());
     FirebaseFirestore.instance
         .collection('user')
@@ -71,6 +97,8 @@ class HomeCubit extends Cubit<HomeStates> {
         value.docs.forEach((element) {
           userModel.add(UserModel.fromJson(element.data()));
         });
+        productImage = null;
+        productImageUrl = null;
         emit(HomeGetStoresSuccessWhereGoverState());
       },
     ).catchError(
@@ -79,17 +107,6 @@ class HomeCubit extends Cubit<HomeStates> {
         emit(HomeGetStoresErrorWhereGoverState());
       },
     );
-    // FirebaseFirestore.instance
-    //     .collection('user')
-    //     .where("shop.address.governorate", isEqualTo: governName)
-    //     .where("shop.categories", isEqualTo: category)
-    //     .snapshots()
-    //     .listen((event) {
-    //   event.docs.forEach((element) {
-    //     userModel.add(UserModel.fromJson(element.data()));
-    //   });
-    //   emit(HomeGetStoresSuccessWhereGoverState());
-    // });
   }
 
   void getStoresWhereGovernmentDetails(
@@ -106,6 +123,8 @@ class HomeCubit extends Cubit<HomeStates> {
         value.docs.forEach((element) {
           userModel.add(UserModel.fromJson(element.data()));
         });
+        productImage = null;
+        productImageUrl = null;
         emit(HomeGetStoresSuccessWhereGoverDetailsState());
       },
     ).catchError(
@@ -114,17 +133,6 @@ class HomeCubit extends Cubit<HomeStates> {
         emit(HomeGetStoresErrorWhereGoverDetailsState());
       },
     );
-    // FirebaseFirestore.instance
-    //     .collection('user')
-    //     .where("shop.address.governorate", isEqualTo: governName)
-    //     .where("shop.categories", isEqualTo: category)
-    //     .snapshots()
-    //     .listen((event) {
-    //   event.docs.forEach((element) {
-    //     userModel.add(UserModel.fromJson(element.data()));
-    //   });
-    //   emit(HomeGetStoresSuccessWhereGoverDetailsState());
-    // });
   }
 
   // CREATE NEW ORDER
@@ -155,9 +163,14 @@ class HomeCubit extends Cubit<HomeStates> {
         .get()
         .then((value) {
       value.docs.forEach((element) {
+        print("ELEMENT ${element.data()}");
         states?.add({
-          'state': 'search',
+          'state': 'جاري البحث',
           'storeId': element.data()['uId'],
+          'storeName': element.data()['shop']['address']['storeName'],
+          'governorate': element.data()['shop']['address']['governorate'],
+          'street': element.data()['shop']['address']['street'],
+          'storePhone': element.data()['shop']['address']['storePhone'],
         });
       });
       FirebaseFirestore.instance
@@ -177,36 +190,6 @@ class HomeCubit extends Cubit<HomeStates> {
     }).catchError((e) {
       print(e.toString());
     });
-    // FirebaseFirestore.instance
-    //     .collection('user')
-    //     .where("shop.address.governorate", isEqualTo: government)
-    //     .where("shop.categories", isEqualTo: categories)
-    //     .snapshots()
-    //     .listen(
-    //   (value) {
-    //     value.docs.forEach((element) {
-    //       states?.add({
-    //         'state': 'search',
-    //         'storeId': element.data()['uId'],
-    //       });
-    //     });
-
-    //     FirebaseFirestore.instance
-    //         .collection('orders')
-    //         .doc()
-    //         .set(orderModel.toMap())
-    //         .then(
-    //           (value) {},
-    //         )
-    //         .catchError(
-    //       (e) {
-    //         print(e.toString());
-    //         emit(HomeCreateOrderErorrState());
-    //       },
-    //     );
-    //     emit(HomeCreateOrderSuccessState());
-    //   },
-    // );
   }
 
   // GET MY ORDERS
@@ -232,30 +215,20 @@ class HomeCubit extends Cubit<HomeStates> {
         emit(HomeGetMyOrdersErrorState());
       },
     );
-
-    // emit(HomeGetMyOrdersLoadingState());
-    // FirebaseFirestore.instance
-    //     .collection('orders')
-    //     .where("uId", isEqualTo: SharedHelper.getCacheData(key: TOKEN))
-    //     .snapshots()
-    //     .listen((event) {
-    //   event.docs.forEach(
-    //     (element) {
-    //       orderModel.add(OrderModel.fromJson(element.data(), element.id));
-    //     },
-    //   );
-    //   emit(HomeGetMyOrdersSuccessState());
-    // });
   }
 
   // DELETE MY ORDER BY ID
-  void deleteMyOrder({required oId}) {
+  void deleteMyOrder({required oId, required imgUrl}) {
     emit(HomeDeleteMyOrderLoadingState());
     FirebaseFirestore.instance.collection('orders').doc(oId).delete().then(
       (value) {
         orderModel = [];
         getMyOrder();
         emit(HomeDeleteMyOrderSuccessState());
+        // Remove Image With Search
+        firebase_storage.FirebaseStorage.instance
+            .ref('products/$imgUrl')
+            .delete();
       },
     ).catchError(
       (e) {
@@ -273,10 +246,11 @@ class HomeCubit extends Cubit<HomeStates> {
       (value) {
         value.data()!.forEach((key, value) {
           if (key == 'states') {
-            myStatesModel.add(value);
+            for (int x = 0; x < value.length; x++) {
+              myStatesModel.add(value[x]);
+            }
           }
         });
-        print(myStatesModel);
         emit(HomeGetStatesFromOrderSuccessState());
       },
     ).catchError(
@@ -285,20 +259,79 @@ class HomeCubit extends Cubit<HomeStates> {
         emit(HomeGetStatesFromOrderErrorState());
       },
     );
-    // emit(HomeGetStatesFromOrderSuccessState());
-    // emit(HomeGetStatesFromOrderLoadingState());
-    // FirebaseFirestore.instance
-    //     .collection('orders')
-    //     .doc(oId)
-    //     .snapshots()
-    //     .listen((event) {
-    //   event.data()!.forEach((key, value) {
-    //     if (key == 'states') {
-    //       myStatesModel.add(value);
-    //       print(myStatesModel);
-    //     }
-    //   });
-    // });
-    // emit(HomeGetStatesFromOrderSuccessState());
+  }
+
+  void getUserType() {
+    emit(LoginGetUserTypeLoading());
+    FirebaseFirestore.instance
+        .collection('user')
+        .where("uId", isEqualTo: SharedHelper.getCacheData(key: TOKEN))
+        .get()
+        .then(
+      (value) {
+        value.docs.forEach((element) {
+          SharedHelper.cacheData(key: USERTYPE, value: element['type']);
+        });
+        emit(LoginGetUserTypeSuccess());
+      },
+    ).catchError(
+      (e) {
+        print(e.toString());
+        emit(LoginGetUserTypeError());
+      },
+    );
+  }
+
+  Future getImage() async {
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      productImage = File(pickedFile.path);
+      emit(HomeUploadImageSuccess());
+    } else {
+      print('No image selected.');
+      emit(HomeUploadImageError());
+    }
+  }
+
+  void removeProductImage(context, Widget child) {
+    productImage = null;
+    productImageUrl = null;
+
+    Transitioner(
+      context: context,
+      child: child,
+      animation: AnimationType.scale,
+      duration: Duration(milliseconds: 500),
+      replacement: true,
+      curveType: CurveType.elastic,
+    );
+  }
+
+  // UPLOAD IMAGE TO STORAGE
+  void uploadProductImage() {
+    emit(HomeStoreImageLoading());
+    firebase_storage.FirebaseStorage.instance
+        .ref()
+        .child('products/${Uri.file(productImage!.path).pathSegments.last}')
+        .putFile(productImage!)
+        .then(
+      (value) {
+        value.ref.getDownloadURL().then(
+          (value) {
+            productImageUrl = value;
+            emit(HomeStoreImageSuccess());
+          },
+        ).catchError(
+          (e) {
+            emit(HomeStoreImageError());
+          },
+        );
+      },
+    ).catchError(
+      (e) {
+        emit(HomeStoreImageError());
+      },
+    );
   }
 }

@@ -1,8 +1,10 @@
 import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:search_app/bloc/home/cubit.dart';
 import 'package:search_app/bloc/home/states.dart';
+import 'package:search_app/bloc/languages/cubit.dart';
 import 'package:search_app/constant/constant.dart';
 import 'package:search_app/helpers/shared_helper.dart';
 import 'package:search_app/screens/user_screens/result_screen.dart';
@@ -12,7 +14,6 @@ class AddDetaileScreen extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _urlController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeStates>(
@@ -30,17 +31,31 @@ class AddDetaileScreen extends StatelessWidget {
       },
       builder: (context, state) {
         HomeCubit _cubit = HomeCubit.get(context);
+        var productImage = _cubit.productImage;
+        var productImageUrl = _cubit.productImageUrl;
+
         return Scaffold(
           body: SingleChildScrollView(
             child: Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 40.0, vertical: 100),
               child: Column(
+                textDirection: SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
+                    ? TextDirection.rtl
+                    : TextDirection.ltr,
                 children: [
                   AutoSizeText(
-                    'Enter a name or a short description for the item you are looking for',
+                    '${LanguagesCubit.get(context).enterNameOrShortDescriptionForTheItemYouAreLookingFor()}',
+                    textDirection:
+                        SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
+                            ? TextDirection.rtl
+                            : TextDirection.ltr,
                     style: TextStyle(
                       fontSize: 18,
+                      fontFamily:
+                          SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
+                              ? 'Cairo'
+                              : 'Poppins',
                       fontWeight: FontWeight.bold,
                     ),
                     maxLines: 2,
@@ -53,12 +68,16 @@ class AddDetaileScreen extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      textDirection:
+                          SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
+                              ? TextDirection.rtl
+                              : TextDirection.ltr,
                       children: [
                         TextFormField(
                           controller: _nameController,
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return 'this feild is required';
+                              return '${LanguagesCubit.get(context).thisFeildIsRequired()}';
                             }
                           },
                           keyboardType: TextInputType.text,
@@ -72,8 +91,12 @@ class AddDetaileScreen extends StatelessWidget {
                           height: 30,
                         ),
                         AutoSizeText(
-                          'If you want to add a picture of the item you are looking for',
+                          '${LanguagesCubit.get(context).ifYouWantToAddPictureOfTheItemYouAreLookingFor()}',
                           maxLines: 2,
+                          textDirection:
+                              SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
+                                  ? TextDirection.rtl
+                                  : TextDirection.ltr,
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -87,7 +110,13 @@ class AddDetaileScreen extends StatelessWidget {
                           keyboardType: TextInputType.text,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
-                            labelText: 'Enter image URL',
+                            hintTextDirection:
+                                SharedHelper.getCacheData(key: LANGUAGES) ==
+                                        'AR'
+                                    ? TextDirection.rtl
+                                    : TextDirection.ltr,
+                            hintText:
+                                '${LanguagesCubit.get(context).enterImageUrl()}',
                           ),
                         ),
                         SizedBox(
@@ -95,7 +124,7 @@ class AddDetaileScreen extends StatelessWidget {
                         ),
                         Center(
                           child: AutoSizeText(
-                            'Or',
+                            '${LanguagesCubit.get(context).or()}',
                             textAlign: TextAlign.center,
                             maxLines: 1,
                             style: TextStyle(
@@ -108,49 +137,109 @@ class AddDetaileScreen extends StatelessWidget {
                         SizedBox(
                           height: 20,
                         ),
-                        Row(
-                          children: [
-                            AutoSizeText(
-                              'Upload image from your device',
-                              maxLines: 1,
-                              style: TextStyle(
-                                color: mPrimaryGrey,
-                                fontWeight: FontWeight.bold,
+                        productImage == null
+                            ? GestureDetector(
+                                onTap: () {
+                                  _cubit.getImage();
+                                },
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    AutoSizeText(
+                                      '${LanguagesCubit.get(context).uploadImageFromYourDevice()}',
+                                      maxLines: 1,
+                                      textDirection: SharedHelper.getCacheData(
+                                                  key: LANGUAGES) ==
+                                              'AR'
+                                          ? TextDirection.rtl
+                                          : TextDirection.ltr,
+                                      style: TextStyle(
+                                        color: mPrimaryGrey,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    SizedBox(width: 10),
+                                    Image.asset(
+                                      'assets/images/upload.png',
+                                      width: 20,
+                                    ),
+                                  ],
+                                ),
+                              )
+                            : Center(
+                                child: Column(
+                                  children: [
+                                    Image(
+                                      width: double.infinity,
+                                      image: FileImage(productImage),
+                                    ),
+                                    MaterialButton(
+                                      onPressed: () {
+                                        _cubit.removeProductImage(
+                                          context,
+                                          AddDetaileScreen(),
+                                        );
+                                      },
+                                      textColor: Colors.redAccent,
+                                      child: Text('Remove'),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                            SizedBox(width: 10),
-                            Image.asset(
-                              'assets/images/upload.png',
-                              width: 20,
-                            ),
-                          ],
-                        ),
                         SizedBox(
                           height: 30,
                         ),
                         MaterialButton(
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
-                              _cubit.createNewOrder(
-                                categories: _cubit.selectedCategories,
-                                date: DateTime.now().toString(),
-                                description: _nameController.text,
-                                image: '',
-                                uId: SharedHelper.getCacheData(key: TOKEN),
-                                government: _cubit.governController.text,
-                              );
+                              if (_cubit.productImage != null) {
+                                _cubit.uploadProductImage();
+                                print(productImageUrl);
+                                if (productImageUrl != null) {
+                                  _cubit.createNewOrder(
+                                    categories: _cubit.selectedCategories,
+                                    date: DateTime.now().toString(),
+                                    description: _nameController.text,
+                                    image: _cubit.productImageUrl.toString(),
+                                    uId: SharedHelper.getCacheData(key: TOKEN),
+                                    government: _cubit.selectedGovern,
+                                  );
+                                }
+                              } else {
+                                _cubit.createNewOrder(
+                                  categories: _cubit.selectedCategories,
+                                  date: DateTime.now().toString(),
+                                  description: _nameController.text,
+                                  image: _urlController.text,
+                                  uId: SharedHelper.getCacheData(key: TOKEN),
+                                  government: _cubit.selectedGovern,
+                                );
+                              }
                             }
                           },
-                          child: state is! HomeCreateOrderLoadingState
-                              ? Text('Start Search')
-                              : Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Center(
-                                    child: CircularProgressIndicator(
-                                      color: Colors.white,
+                          child: _cubit.productImage != null
+                              ? state is! HomeStoreImageLoading
+                                  ? Text(
+                                      '${LanguagesCubit.get(context).startSearch()}')
+                                  : Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Center(
+                                        child: CircularProgressIndicator(
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    )
+                              : state is! HomeCreateOrderLoadingState
+                                  ? Text(
+                                      '${LanguagesCubit.get(context).startSearch()}')
+                                  : Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Center(
+                                        child: CircularProgressIndicator(
+                                          color: Colors.white,
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ),
                           height: 50,
                           minWidth: double.infinity,
                           color: mPrimaryLightBlue,

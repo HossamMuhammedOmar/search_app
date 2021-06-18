@@ -16,8 +16,34 @@ class RegisterCubit extends Cubit<RegisterStates> {
   bool isEmailScreen = true;
 
   String selectedCategories = 'الصيدليات';
-
+  List gov = [
+    'أربيل',
+    'الأنبار',
+    'بابل',
+    'بغداد',
+    'البصرة',
+    'حلبجة',
+    'دهوك',
+    'القادسية',
+    'ديالى',
+    'ذي قار',
+    'السليمانية',
+    'صلاح الدين',
+    'كركوك',
+    'كربلاء',
+    'المثنى',
+    'ميسان',
+    'النجف',
+    'نينوى',
+    'واسط',
+  ];
+  String selectedGovern = 'بغداد';
   List categories = [];
+
+  void selecteGovern(currentGov) {
+    selectedGovern = currentGov;
+    emit(HomeChooseGovernState());
+  }
 
   void changeToEmailScreen() {
     isEmailScreen = true;

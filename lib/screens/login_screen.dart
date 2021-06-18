@@ -8,7 +8,7 @@ import 'package:search_app/bloc/login/cubit.dart';
 import 'package:search_app/bloc/login/states.dart';
 import 'package:search_app/constant/constant.dart';
 import 'package:search_app/helpers/shared_helper.dart';
-import 'package:search_app/screens/user_screens/home_screen.dart';
+import 'package:search_app/screens/switcher.dart';
 import 'package:search_app/screens/who_are_screen.dart';
 import 'package:transitioner/transitioner.dart';
 
@@ -21,152 +21,160 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => LoginCubit(),
-      child: BlocConsumer<LoginCubit, LoginStates>(
-        listener: (context, states) {
-          if (states is LoginSucessState) {
-            Fluttertoast.showToast(
-              msg: "Login Successfuly",
-              toastLength: Toast.LENGTH_LONG,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIosWeb: 5,
-              backgroundColor: Colors.green,
-              textColor: Colors.white,
-              fontSize: 16.0,
-            );
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(
-                builder: (context) => HomeUserScreen(),
-              ),
-              (route) => false,
-            );
-          }
-          if (states is LoginErorrState) {
-            Fluttertoast.showToast(
-              msg: "email or password incorrect!",
-              toastLength: Toast.LENGTH_LONG,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIosWeb: 5,
-              backgroundColor: Colors.red,
-              textColor: Colors.white,
-              fontSize: 16.0,
-            );
-          }
-        },
-        builder: (context, states) {
-          final _cubit = LoginCubit.get(context);
+    return SharedHelper.getCacheData(key: TOKEN) == null
+        ? BlocProvider(
+            create: (context) => LoginCubit(),
+            child: BlocConsumer<LoginCubit, LoginStates>(
+              listener: (context, states) {
+                if (states is LoginSucessState) {
+                  Fluttertoast.showToast(
+                    msg: "Login Successfuly",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.BOTTOM,
+                    timeInSecForIosWeb: 1,
+                    backgroundColor: mPrimaryGreen,
+                    textColor: Colors.white,
+                    fontSize: 16.0,
+                  );
 
-          return Scaffold(
-            backgroundColor: Colors.white,
-            body: LayoutBuilder(
-              builder: (context, constrains) {
-                double localHeight = constrains.maxHeight;
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SwitcherScreen(),
+                    ),
+                    (route) => false,
+                  );
+                }
+                if (states is LoginErorrState) {
+                  Fluttertoast.showToast(
+                    msg: "email or password incorrect!",
+                    toastLength: Toast.LENGTH_LONG,
+                    gravity: ToastGravity.BOTTOM,
+                    timeInSecForIosWeb: 5,
+                    backgroundColor: Colors.red,
+                    textColor: Colors.white,
+                    fontSize: 16.0,
+                  );
+                }
+              },
+              builder: (context, states) {
+                final _cubit = LoginCubit.get(context);
 
-                return LayoutBuilder(
-                  builder: (context, constraint) {
-                    // double localWidth = constrains.maxWidth;
-                    return Padding(
-                      padding: const EdgeInsets.only(top: 40),
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            Container(
-                              height: localHeight / 4,
-                              child: Image.asset(
-                                'assets/icons/chhhose.png',
-                                filterQuality: FilterQuality.low,
-                                fit: BoxFit.scaleDown,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                right: 50,
-                                left: 50,
-                                bottom: 50,
-                              ),
+                return Scaffold(
+                  backgroundColor: Colors.white,
+                  body: LayoutBuilder(
+                    builder: (context, constrains) {
+                      double localHeight = constrains.maxHeight;
+
+                      return LayoutBuilder(
+                        builder: (context, constraint) {
+                          // double localWidth = constrains.maxWidth;
+                          return Padding(
+                            padding: const EdgeInsets.only(top: 40),
+                            child: SingleChildScrollView(
                               child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  AutoSizeText(
-                                    '${LanguagesCubit.get(context).loginToYourAccount()}',
-                                    maxLines: 1,
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                      color: mPrimaryDarkGrey,
+                                  Container(
+                                    height: localHeight / 4,
+                                    child: Image.asset(
+                                      'assets/icons/chhhose.png',
+                                      filterQuality: FilterQuality.low,
+                                      fit: BoxFit.scaleDown,
                                     ),
                                   ),
                                   SizedBox(
                                     height: 20,
                                   ),
-                                  Column(
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          MaterialButton(
-                                            onPressed: () {
-                                              _cubit.changeToEmailScreen();
-                                            },
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(0),
-                                            ),
-                                            color: _cubit.isEmailScreen
-                                                ? mPrimaryBlue
-                                                : mPrimaryGrey,
-                                            textColor: Colors.white,
-                                            child: AutoSizeText(
-                                              '${LanguagesCubit.get(context).withEmail()}',
-                                            ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                      right: 50,
+                                      left: 50,
+                                      bottom: 50,
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        AutoSizeText(
+                                          '${LanguagesCubit.get(context).loginToYourAccount()}',
+                                          maxLines: 1,
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                            color: mPrimaryDarkGrey,
                                           ),
-                                          MaterialButton(
-                                            onPressed: () {
-                                              _cubit.changeToPhoneScreen();
-                                            },
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(0),
+                                        ),
+                                        SizedBox(
+                                          height: 20,
+                                        ),
+                                        Column(
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                MaterialButton(
+                                                  onPressed: () {
+                                                    _cubit
+                                                        .changeToEmailScreen();
+                                                  },
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            0),
+                                                  ),
+                                                  color: _cubit.isEmailScreen
+                                                      ? mPrimaryBlue
+                                                      : mPrimaryGrey,
+                                                  textColor: Colors.white,
+                                                  child: AutoSizeText(
+                                                    '${LanguagesCubit.get(context).withEmail()}',
+                                                  ),
+                                                ),
+                                                MaterialButton(
+                                                  onPressed: () {
+                                                    _cubit
+                                                        .changeToPhoneScreen();
+                                                  },
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            0),
+                                                  ),
+                                                  color: _cubit.isEmailScreen
+                                                      ? mPrimaryGrey
+                                                      : mPrimaryBlue,
+                                                  textColor: Colors.white,
+                                                  child: AutoSizeText(
+                                                    '${LanguagesCubit.get(context).withPhone()}',
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                            color: _cubit.isEmailScreen
-                                                ? mPrimaryGrey
-                                                : mPrimaryBlue,
-                                            textColor: Colors.white,
-                                            child: AutoSizeText(
-                                              '${LanguagesCubit.get(context).withPhone()}',
+                                            SizedBox(
+                                              height: 20,
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: 20,
-                                      ),
-                                    ],
+                                          ],
+                                        ),
+                                        _cubit.isEmailScreen
+                                            ? _emailScreen(context, states)
+                                            : _phoneScreen(context),
+                                      ],
+                                    ),
                                   ),
-                                  _cubit.isEmailScreen
-                                      ? _emailScreen(context, states)
-                                      : _phoneScreen(context),
                                 ],
                               ),
                             ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
+                          );
+                        },
+                      );
+                    },
+                  ),
                 );
               },
             ),
-          );
-        },
-      ),
-    );
+          )
+        : SwitcherScreen();
   }
 
   Widget _emailScreen(context, state) {
