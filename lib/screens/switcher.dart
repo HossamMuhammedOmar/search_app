@@ -28,7 +28,7 @@ class _SwitcherScreenState extends State<SwitcherScreen> {
         return states is! LoginGetUserTypeLoading
             ? SharedHelper.getCacheData(key: USERTYPE) == 'user'
                 ? HomeUserScreen()
-                : HomeScreen()
+                : HomeStoreScreen()
             : Scaffold(
                 body: Center(
                   child: LoadingJumpingLine.circle(

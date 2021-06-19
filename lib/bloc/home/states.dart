@@ -96,3 +96,19 @@ class HomeStoreImageSuccess extends HomeStates {}
 
 // STORE IMAGE STATES
 class HomeStoreImageError extends HomeStates {}
+
+// GET USER BY ID STATES
+class GetUserByIdLoading extends HomeStates {}
+
+// GET USER BY ID STATES
+class GetUserByIdSuccess extends HomeStates {}
+
+// GET USER BY ID STATES
+class GetUserByIdError extends HomeStates {}
+
+////////////////// STORES STATE \\\\\\\\\\\\\
+class GetAllStoreOrderLoading extends HomeStates {}
+
+class GetAllStoreOrderSuccess extends HomeStates {}
+
+class GetAllStoreOrderError extends HomeStates {}

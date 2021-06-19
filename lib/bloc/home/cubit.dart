@@ -50,6 +50,8 @@ class HomeCubit extends Cubit<HomeStates> {
   List<OrderModel> orderModel = [];
   List? states = [];
   List myStatesModel = [];
+  List<UserModel> userById = [];
+  List myOrders = [];
 
   void selecteGovern(currentGov) {
     selectedGovern = currentGov;
@@ -219,6 +221,7 @@ class HomeCubit extends Cubit<HomeStates> {
 
   // DELETE MY ORDER BY ID
   void deleteMyOrder({required oId, required imgUrl}) {
+    String url = imgUrl;
     emit(HomeDeleteMyOrderLoadingState());
     FirebaseFirestore.instance.collection('orders').doc(oId).delete().then(
       (value) {
@@ -227,8 +230,16 @@ class HomeCubit extends Cubit<HomeStates> {
         emit(HomeDeleteMyOrderSuccessState());
         // Remove Image With Search
         firebase_storage.FirebaseStorage.instance
-            .ref('products/$imgUrl')
-            .delete();
+            .refFromURL(url.toString())
+            .delete()
+            .then(
+              (value) {},
+            )
+            .catchError(
+          (e) {
+            print(e.toString());
+          },
+        );
       },
     ).catchError(
       (e) {
@@ -334,4 +345,72 @@ class HomeCubit extends Cubit<HomeStates> {
       },
     );
   }
+
+  // GET USER BY ID
+  void getUserById({required uId}) {
+    emit(GetUserByIdLoading());
+    FirebaseFirestore.instance
+        .collection('user')
+        .where("uId", isEqualTo: uId)
+        .get()
+        .then(
+      (value) {
+        value.docs.forEach((element) {
+          userById.add(UserModel.fromJson(element.data()));
+        });
+        emit(GetUserByIdSuccess());
+      },
+    ).catchError(
+      (e) {
+        print(e.toString());
+        emit(GetUserByIdError());
+      },
+    );
+  }
+  /////////////////////// STORE CASES \\\\\\\\\\\\\\\\\\\
+
+  // GET ALL ORDERS WHER GOVERN AND CATEGORIES
+  void getAllOrdersWhereGovernAndCategorie({required gov, required cat}) {
+    myOrders = [];
+    emit(GetAllStoreOrderLoading());
+    FirebaseFirestore.instance
+        .collection('orders')
+        .where('government', isEqualTo: gov)
+        .where('categories', isEqualTo: cat)
+        .get()
+        .then(
+      (value) {
+        value.docs.forEach((element) {
+          element.data().forEach((key, v) {
+            if (key == 'states') {
+              myOrders.add(OrderModel.fromJson(element.data(), element.id));
+            }
+          });
+        });
+        emit(GetAllStoreOrderSuccess());
+      },
+    ).catchError(
+      (e) {
+        print(e.toString());
+        emit(GetAllStoreOrderError());
+      },
+    );
+  }
+
+  // EDITE STATE
+  // void editOrderState({required oId, required index}) {
+  //   print(index);
+  //   FirebaseFirestore.instance
+  //       .collection('orders')
+  //       .doc(oId)
+  //       .update({'states': myOrders[0].states})
+  //       .then(
+  //         (value) {},
+  //       )
+  //       .catchError(
+  //         (e) {
+  //           print(e.toString());
+  //         },
+  //       );
+  // }
 }

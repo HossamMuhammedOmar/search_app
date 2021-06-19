@@ -1,14 +1,11 @@
 import 'dart:async';
 import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:search_app/bloc/languages/cubit.dart';
 import 'package:search_app/helpers/shared_helper.dart';
-import 'package:search_app/screens/service_screen/home_screen.dart';
-import 'package:search_app/screens/user_screens/home_screen.dart';
 import 'package:search_app/widgets/navigation_widget.dart';
 import 'package:transitioner/transitioner.dart';
-import '../../constant/constant.dart';
+import '../../../constant/constant.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 class ChangeLanguage extends StatelessWidget {

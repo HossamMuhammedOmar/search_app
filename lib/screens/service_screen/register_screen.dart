@@ -37,7 +37,7 @@ class RegisterScreen extends StatelessWidget {
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-              builder: (context) => HomeScreen(),
+              builder: (context) => HomeStoreScreen(),
             ),
             (route) => false,
           );
@@ -335,7 +335,7 @@ class RegisterScreen extends StatelessWidget {
                                           if (state is RegisterStoreSucessState)
                                             Transitioner(
                                               context: context,
-                                              child: HomeScreen(),
+                                              child: HomeStoreScreen(),
                                               animation: AnimationType
                                                   .fadeIn, // Optional value
                                               duration: Duration(

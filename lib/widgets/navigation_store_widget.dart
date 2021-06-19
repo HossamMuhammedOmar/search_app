@@ -1,16 +1,16 @@
 import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:flutter/material.dart';
-import 'package:search_app/bloc/home/cubit.dart';
-import 'package:search_app/bloc/languages/cubit.dart';
-import 'package:search_app/screens/login_screen.dart';
+import 'package:search_app/screens/service_screen/change_language_store.dart';
+import 'package:search_app/screens/service_screen/oreder_traking.dart';
+import '../bloc/home/cubit.dart';
+import '../bloc/languages/cubit.dart';
+import '../screens/login_screen.dart';
+import '../screens/service_screen/home_screen.dart';
 import 'package:transitioner/transitioner.dart';
 import '../constant/constant.dart';
 import '../helpers/shared_helper.dart';
-import '../screens/user_screens/change_language.dart';
-import '../screens/user_screens/home_screen.dart';
-import '../screens/user_screens/search_history.dart';
 
-class NavigationDrawerWidget extends StatelessWidget {
+class NavigationStoreWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -91,7 +91,7 @@ class NavigationDrawerWidget extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               _buildMenuItem(
-                text: '${LanguagesCubit.get(context).searchtracking()}',
+                text: '${LanguagesCubit.get(context).orderTracking()}',
                 icon: Icons.history,
                 onClick: () => _selectedItem(context, 2),
               ),
@@ -162,45 +162,37 @@ class NavigationDrawerWidget extends StatelessWidget {
       case 0:
         Transitioner(
           context: context,
-          child: HomeUserScreen(),
+          child: HomeStoreScreen(),
           animation: AnimationType.fadeIn, // Optional value
           duration: Duration(milliseconds: 800), // Optional value
           replacement: true, // Optional value
           curveType: CurveType.decelerate, // Optional value
         );
-        // Navigator.of(context).push(
-        //   MaterialPageRoute(builder: (context) => HomeUserScreen()),
-        // );
         break;
       case 1:
         Transitioner(
           context: context,
-          child: ChangeLanguage(),
+          child: ChangeLanguageStore(),
           animation: AnimationType.fadeIn, // Optional value
           duration: Duration(milliseconds: 800), // Optional value
           replacement: true, // Optional value
           curveType: CurveType.decelerate, // Optional value
         );
-        // Navigator.of(context).push(
-        //   MaterialPageRoute(builder: (context) => ChangeLanguage()),
-        // );
         break;
       case 2:
-        HomeCubit.get(context).getMyOrder();
+        HomeCubit.get(context).getAllOrdersWhereGovernAndCategorie(
+            gov: HomeCubit.get(context).userById[0].governorate,
+            cat: HomeCubit.get(context).userById[0].categories);
         Transitioner(
           context: context,
-          child: SearchHistory(),
+          child: OrderTracking(),
           animation: AnimationType.fadeIn, // Optional value
           duration: Duration(milliseconds: 300), // Optional value
           replacement: true, // Optional value
           curveType: CurveType.decelerate, // Optional value
         );
-        // Navigator.of(context).push(
-        //   MaterialPageRoute(builder: (context) => SearchHistory()),
-        // );
         break;
       case 4:
-        HomeCubit.get(context).getMyOrder();
         SharedHelper.removeCacheData(key: TOKEN);
         SharedHelper.removeCacheData(key: USERTYPE);
         Transitioner(
@@ -211,9 +203,6 @@ class NavigationDrawerWidget extends StatelessWidget {
           replacement: true, // Optional value
           curveType: CurveType.decelerate, // Optional value
         );
-        // Navigator.of(context).push(
-        //   MaterialPageRoute(builder: (context) => SearchHistory()),
-        // );
         break;
     }
   }
