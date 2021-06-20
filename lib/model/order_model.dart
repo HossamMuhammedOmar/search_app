@@ -4,10 +4,8 @@ class OrderModel {
   String? description;
   String? image;
   String? uId;
-  List? states;
   String? government;
   String? oId;
-  String? state;
   String? storeId;
 
   OrderModel({
@@ -18,8 +16,6 @@ class OrderModel {
     this.uId,
     this.government,
     this.oId,
-    this.states,
-    this.state,
     this.storeId,
   });
 
@@ -30,7 +26,6 @@ class OrderModel {
     image = json?['image'];
     uId = json?['uId'];
     government = json?['government'];
-    states = json?['states'];
     this.oId = oId;
   }
 
@@ -42,7 +37,6 @@ class OrderModel {
       'image': image,
       'uId': uId,
       'government': government,
-      'states': states,
     };
   }
 }

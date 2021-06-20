@@ -6,9 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:search_app/bloc/home/cubit.dart';
 import 'package:search_app/bloc/home/states.dart';
 import 'package:search_app/constant/constant.dart';
-import 'package:search_app/model/user_model.dart';
 import 'package:search_app/screens/user_screens/search_history.dart';
-import 'package:search_app/widgets/my_dialog.dart';
 import 'package:transitioner/transitioner.dart';
 
 class SeachDetails extends StatelessWidget {

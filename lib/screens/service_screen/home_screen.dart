@@ -1,3 +1,4 @@
+import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:search_app/bloc/home/cubit.dart';
@@ -32,6 +33,7 @@ class _HomeStoreScreenState extends State<HomeStoreScreen> {
             primaryIconTheme: IconThemeData(color: mPrimaryLightBlue),
           ),
           child: Scaffold(
+            backgroundColor: Colors.white,
             drawerScrimColor: Colors.black.withOpacity(0.7),
             endDrawer: SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
                 ? NavigationStoreWidget()
@@ -51,11 +53,41 @@ class _HomeStoreScreenState extends State<HomeStoreScreen> {
               ),
               backgroundColor: Colors.white,
             ),
-            body: TextButton(
-              onPressed: () {
-                print(_cubit.userById[0].email);
-              },
-              child: Text('Click Click'),
+            body: Center(
+              child: Column(
+                children: [
+                  Image.asset('assets/images/wwww.png'),
+                  SizedBox(height: 20),
+                  AutoSizeText(
+                    '${LanguagesCubit.get(context).welcome()}',
+                    style: TextStyle(
+                      fontSize: 26,
+                      fontFamily:
+                          SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
+                              ? 'Cairo'
+                              : 'Poppins',
+                    ),
+                  ),
+                  AutoSizeText(
+                    '${HomeCubit.get(context).userById[0].storeName}',
+                    style: TextStyle(
+                      fontSize: 26,
+                      fontFamily: 'NotoKufiArabic',
+                      color: mPrimaryLightBlue,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    '${LanguagesCubit.get(context).followingNewOrdersNow()}',
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontSize: 22,
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         );

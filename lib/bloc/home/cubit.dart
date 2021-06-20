@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:search_app/constant/constant.dart';
 import 'package:search_app/helpers/shared_helper.dart';
 import 'package:search_app/model/order_model.dart';
+import 'package:search_app/model/states_model.dart';
 import 'package:search_app/model/user_model.dart';
 import 'package:transitioner/transitioner.dart';
 import 'states.dart';
@@ -48,11 +49,12 @@ class HomeCubit extends Cubit<HomeStates> {
   TextEditingController governController = TextEditingController();
   List<UserModel> userModel = [];
   List<OrderModel> orderModel = [];
-  List? states = [];
   List myStatesModel = [];
   List<UserModel> userById = [];
-  List myOrders = [];
-
+  List<StatesModel> myState = [];
+  List myOrder = [];
+  String? sId = '';
+  String? STATE = 'جاري البحث';
   void selecteGovern(currentGov) {
     selectedGovern = currentGov;
     emit(HomeChooseGovernState());
@@ -146,7 +148,6 @@ class HomeCubit extends Cubit<HomeStates> {
     required String uId,
     required String government,
   }) {
-    states = [];
     OrderModel orderModel = OrderModel(
       categories: categories,
       date: date,
@@ -154,39 +155,46 @@ class HomeCubit extends Cubit<HomeStates> {
       image: image,
       uId: uId,
       government: government,
-      states: states,
     );
     emit(HomeCreateOrderLoadingState());
-
     FirebaseFirestore.instance
         .collection('user')
         .where("shop.address.governorate", isEqualTo: government)
         .where("shop.categories", isEqualTo: categories)
         .get()
         .then((value) {
-      value.docs.forEach((element) {
-        print("ELEMENT ${element.data()}");
-        states?.add({
-          'state': 'جاري البحث',
-          'storeId': element.data()['uId'],
-          'storeName': element.data()['shop']['address']['storeName'],
-          'governorate': element.data()['shop']['address']['governorate'],
-          'street': element.data()['shop']['address']['street'],
-          'storePhone': element.data()['shop']['address']['storePhone'],
-        });
-      });
-      FirebaseFirestore.instance
-          .collection('orders')
-          .doc()
-          .set(orderModel.toMap())
-          .then(
-        (value) {
-          emit(HomeCreateOrderSuccessState());
-        },
-      ).catchError(
-        (e) {
-          print(e.toString());
-          emit(HomeCreateOrderErorrState());
+      final doc = FirebaseFirestore.instance.collection('orders').doc();
+      value.docs.forEach(
+        (element) {
+          final sId = FirebaseFirestore.instance
+              .collection('orders')
+              .doc(doc.id)
+              .collection('states')
+              .doc();
+
+          final statesModel = StatesModel(
+            storeId: element.data()['uId'],
+            storeName: element.data()['shop']['address']['storeName'],
+            governorate: element.data()['shop']['address']['governorate'],
+            street: element.data()['shop']['address']['street'],
+            storePhone: element.data()['shop']['address']['storePhone'],
+            state: 'جاري البحث',
+            cat: element.data()['shop']['categories'],
+            sId: sId.id,
+          );
+
+          doc.set(orderModel.toMap()).then(
+            (v) {
+              sId.set(statesModel.toMap()).then((value) {}).catchError((e) {
+                print(e.toString());
+              });
+              emit(HomeCreateOrderSuccessState());
+            },
+          ).catchError(
+            (e) {
+              emit(HomeCreateOrderErorrState());
+            },
+          );
         },
       );
     }).catchError((e) {
@@ -229,17 +237,19 @@ class HomeCubit extends Cubit<HomeStates> {
         getMyOrder();
         emit(HomeDeleteMyOrderSuccessState());
         // Remove Image With Search
-        firebase_storage.FirebaseStorage.instance
-            .refFromURL(url.toString())
-            .delete()
-            .then(
-              (value) {},
-            )
-            .catchError(
-          (e) {
-            print(e.toString());
-          },
-        );
+        if (url.isNotEmpty) {
+          firebase_storage.FirebaseStorage.instance
+              .refFromURL(url.toString())
+              .delete()
+              .then(
+                (value) {},
+              )
+              .catchError(
+            (e) {
+              print(e.toString());
+            },
+          );
+        }
       },
     ).catchError(
       (e) {
@@ -253,14 +263,16 @@ class HomeCubit extends Cubit<HomeStates> {
   void getStatesAndStoreFromOrder({required oId}) {
     myStatesModel = [];
     emit(HomeGetStatesFromOrderLoadingState());
-    FirebaseFirestore.instance.collection('orders').doc(oId).get().then(
+    FirebaseFirestore.instance
+        .collection('orders')
+        .doc(oId)
+        .collection('states')
+        .get()
+        .then(
       (value) {
-        value.data()!.forEach((key, value) {
-          if (key == 'states') {
-            for (int x = 0; x < value.length; x++) {
-              myStatesModel.add(value[x]);
-            }
-          }
+        // print(value.docs.first.data());
+        value.docs.forEach((element) {
+          myStatesModel.add(element.data());
         });
         emit(HomeGetStatesFromOrderSuccessState());
       },
@@ -371,7 +383,7 @@ class HomeCubit extends Cubit<HomeStates> {
 
   // GET ALL ORDERS WHER GOVERN AND CATEGORIES
   void getAllOrdersWhereGovernAndCategorie({required gov, required cat}) {
-    myOrders = [];
+    myOrder = [];
     emit(GetAllStoreOrderLoading());
     FirebaseFirestore.instance
         .collection('orders')
@@ -380,13 +392,29 @@ class HomeCubit extends Cubit<HomeStates> {
         .get()
         .then(
       (value) {
-        value.docs.forEach((element) {
-          element.data().forEach((key, v) {
-            if (key == 'states') {
-              myOrders.add(OrderModel.fromJson(element.data(), element.id));
-            }
-          });
-        });
+        value.docs.forEach(
+          (element) {
+            FirebaseFirestore.instance
+                .collection('orders')
+                .doc(element.id)
+                .collection('states')
+                .where('storeId',
+                    isEqualTo: SharedHelper.getCacheData(key: TOKEN))
+                .where('state', isEqualTo: 'جاري البحث')
+                .get()
+                .then(
+              (value) {
+                print("VALUE ${value.docs.length}");
+                if (value.docs.length != 0) {
+                  myOrder.add(OrderModel.fromJson(element.data(), element.id));
+                }
+                emit(GetAllStoreOrderSuccess());
+              },
+            ).catchError(
+              (e) {},
+            );
+          },
+        );
         emit(GetAllStoreOrderSuccess());
       },
     ).catchError(
@@ -397,20 +425,46 @@ class HomeCubit extends Cubit<HomeStates> {
     );
   }
 
+  // GET ALL STATES WITH ORDER ID
+  void getAllStateWihtOrderId({required oId}) {}
+
   // EDITE STATE
-  // void editOrderState({required oId, required index}) {
-  //   print(index);
-  //   FirebaseFirestore.instance
-  //       .collection('orders')
-  //       .doc(oId)
-  //       .update({'states': myOrders[0].states})
-  //       .then(
-  //         (value) {},
-  //       )
-  //       .catchError(
-  //         (e) {
-  //           print(e.toString());
-  //         },
-  //       );
-  // }
+  void editOrderState({
+    required oId,
+    required newS,
+    required cat,
+    required gov,
+  }) {
+    print("RRRRR");
+    emit(EditStateLoaing());
+    FirebaseFirestore.instance
+        .collection('orders')
+        .doc(oId)
+        .collection('states')
+        .where('storeId', isEqualTo: SharedHelper.getCacheData(key: TOKEN))
+        .get()
+        .then(
+      (value) {
+        value.docs.forEach((element) {
+          sId = element.data()['sId'];
+          STATE = element.data()['state'];
+          FirebaseFirestore.instance
+              .collection('orders')
+              .doc(oId)
+              .collection('states')
+              .doc(sId)
+              .update({'state': newS}).then((value) {
+            getAllOrdersWhereGovernAndCategorie(cat: cat, gov: gov);
+          }).catchError((e) {
+            print(e.toString());
+          });
+        });
+      },
+    ).catchError(
+      (e) {
+        print(e.toString());
+        emit(EditStateError());
+      },
+    );
+  }
 }

@@ -496,5 +496,22 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     return '';
   }
 
-//  Your Search Proccess
+  String welcome() {
+    if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
+      return 'أهلاً بك';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
+      return 'Welcome';
+    }
+    return '';
+  }
+
+  String followingNewOrdersNow() {
+    if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
+      return 'إبدأ الآن بمتابعة الطلبات';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
+      return 'Following New Orders Now';
+    }
+    return '';
+  }
+//
 }

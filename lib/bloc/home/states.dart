@@ -112,3 +112,12 @@ class GetAllStoreOrderLoading extends HomeStates {}
 class GetAllStoreOrderSuccess extends HomeStates {}
 
 class GetAllStoreOrderError extends HomeStates {}
+
+// EDIT STATE
+class EditStateLoaing extends HomeStates {}
+
+// EDIT STATE
+class EditStateSuccess extends HomeStates {}
+
+// EDIT STATE
+class EditStateError extends HomeStates {}
