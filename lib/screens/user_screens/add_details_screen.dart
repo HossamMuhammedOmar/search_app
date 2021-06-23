@@ -1,7 +1,6 @@
 import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:search_app/bloc/home/cubit.dart';
 import 'package:search_app/bloc/home/states.dart';
 import 'package:search_app/bloc/languages/cubit.dart';
@@ -31,14 +30,15 @@ class AddDetaileScreen extends StatelessWidget {
       },
       builder: (context, state) {
         HomeCubit _cubit = HomeCubit.get(context);
+
         var productImage = _cubit.productImage;
         var productImageUrl = _cubit.productImageUrl;
 
         return Scaffold(
-          body: SingleChildScrollView(
-            child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 40.0, vertical: 100),
+          body: Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 40.0, vertical: 100),
+            child: SingleChildScrollView(
               child: Column(
                 textDirection: SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
                     ? TextDirection.rtl
@@ -193,18 +193,14 @@ class AddDetaileScreen extends StatelessWidget {
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
                               if (_cubit.productImage != null) {
-                                _cubit.uploadProductImage();
-                                print(productImageUrl);
-                                if (productImageUrl != null) {
-                                  _cubit.createNewOrder(
-                                    categories: _cubit.selectedCategories,
-                                    date: DateTime.now().toString(),
-                                    description: _nameController.text,
-                                    image: _cubit.productImageUrl.toString(),
-                                    uId: SharedHelper.getCacheData(key: TOKEN),
-                                    government: _cubit.selectedGovern,
-                                  );
-                                }
+                                _cubit.uploadProductImage(
+                                  categories: _cubit.selectedCategories,
+                                  date: DateTime.now().toString(),
+                                  description: _nameController.text,
+                                  image: _cubit.productImageUrl.toString(),
+                                  uId: SharedHelper.getCacheData(key: TOKEN),
+                                  government: _cubit.selectedGovern,
+                                );
                               } else {
                                 _cubit.createNewOrder(
                                   categories: _cubit.selectedCategories,

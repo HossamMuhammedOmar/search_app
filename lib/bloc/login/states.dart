@@ -17,3 +17,14 @@ class LoginSucessState extends LoginStates {}
 
 // STATES FOR REGISTERATION PROCESS
 class LoginErorrState extends LoginStates {}
+
+// STATES FOR LOGIN PROCESS
+class LoginPhoneLoaingState extends LoginStates {}
+
+// STATES FOR REGISTERATION PROCESS
+class LoginPhoneSucessState extends LoginStates {}
+
+// STATES FOR REGISTERATION PROCESS
+class LoginPhoneErorrState extends LoginStates {}
+
+class LoginChangePasswordVisibility extends LoginStates {}

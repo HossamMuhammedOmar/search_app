@@ -7,10 +7,12 @@ import 'package:search_app/bloc/register/cubit.dart';
 import 'package:search_app/bloc/register/states.dart';
 import 'package:search_app/constant/constant.dart';
 import 'package:search_app/helpers/shared_helper.dart';
+import 'package:search_app/screens/login_screen.dart';
 import 'package:search_app/screens/user_screens/home_screen.dart';
 import 'package:transitioner/transitioner.dart';
 
 import '../who_are_screen.dart';
+import 'otp_screen.dart';
 
 class RegisterUserScreen extends StatelessWidget {
   final _formEmailKey = GlobalKey<FormState>();
@@ -245,10 +247,6 @@ class RegisterUserScreen extends StatelessWidget {
                   border: OutlineInputBorder(),
                   labelText: '${LanguagesCubit.get(context).password()}',
                   prefixIcon: Icon(Icons.lock_outline),
-                  suffixIcon: IconButton(
-                    icon: Icon(Icons.visibility),
-                    onPressed: () {},
-                  ),
                 ),
                 keyboardType: TextInputType.visiblePassword,
               ),
@@ -301,7 +299,16 @@ class RegisterUserScreen extends StatelessWidget {
                   : TextDirection.ltr,
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Transitioner(
+                  context: context,
+                  child: LoginScreen(),
+                  animation: AnimationType.fadeIn, // Optional value
+                  duration: Duration(milliseconds: 300), // Optional value
+                  replacement: true, // Optional value
+                  curveType: CurveType.decelerate, // Optional value
+                );
+              },
               child: AutoSizeText(
                 '${LanguagesCubit.get(context).login()}',
                 textDirection: SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
@@ -356,7 +363,13 @@ class RegisterUserScreen extends StatelessWidget {
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: '${LanguagesCubit.get(context).phoneNumber()}',
-                  prefixIcon: Icon(Icons.phone),
+                  prefixIcon: Container(
+                    padding: const EdgeInsets.all(20),
+                    child: Text(
+                      '+9647',
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
                 ),
                 keyboardType: TextInputType.phone,
               ),
@@ -371,8 +384,12 @@ class RegisterUserScreen extends StatelessWidget {
           textColor: Colors.white,
           onPressed: () {
             if (_formPhoneKey.currentState!.validate()) {
-              print(_namePhoneController.text);
-              print(_phoneController.text);
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => OtpScreen(
+                  name: _namePhoneController.text,
+                  phone: _phoneController.text,
+                ),
+              ));
             }
           },
           minWidth: double.infinity,
@@ -394,7 +411,16 @@ class RegisterUserScreen extends StatelessWidget {
                   : TextDirection.ltr,
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Transitioner(
+                  context: context,
+                  child: LoginScreen(),
+                  animation: AnimationType.fadeIn, // Optional value
+                  duration: Duration(milliseconds: 300), // Optional value
+                  replacement: true, // Optional value
+                  curveType: CurveType.decelerate, // Optional value
+                );
+              },
               child: Text(
                 '${LanguagesCubit.get(context).login()}',
                 textDirection: SharedHelper.getCacheData(key: LANGUAGES) == 'AR'

@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:search_app/bloc/login/states.dart';
 import 'package:search_app/constant/constant.dart';
@@ -11,6 +12,8 @@ class LoginCubit extends Cubit<LoginStates> {
   static LoginCubit get(context) => BlocProvider.of(context);
 
   bool isEmailScreen = true;
+  IconData icon = Icons.visibility;
+  bool hidePassword = true;
 
   void changeToEmailScreen() {
     isEmailScreen = true;
@@ -20,6 +23,22 @@ class LoginCubit extends Cubit<LoginStates> {
   void changeToPhoneScreen() {
     isEmailScreen = false;
     emit(LoginPhoneScreenState());
+  }
+
+  void loginWithPhoneNumber({required phoneNumber}) {
+    emit(LoginPhoneLoaingState());
+    FirebaseAuth.instance.signInWithPhoneNumber(phoneNumber).then(
+      (value) {
+        print(value.verificationId);
+        // SharedHelper.cacheData(key: TOKEN, value: value.verificationId);
+        emit(LoginPhoneSucessState());
+      },
+    ).catchError(
+      (e) {
+        print(e.toString());
+        emit(LoginPhoneErorrState());
+      },
+    );
   }
 
   void loginWithEmail(String email, String password) {
@@ -40,5 +59,11 @@ class LoginCubit extends Cubit<LoginStates> {
         print(e.toString());
       },
     );
+  }
+
+  void changePasswordVisibaility() {
+    hidePassword = !hidePassword;
+    icon = hidePassword ? Icons.visibility : Icons.visibility_off;
+    emit(LoginChangePasswordVisibility());
   }
 }

@@ -39,6 +39,7 @@ class StatesModel {
       'state': state,
       'cat': cat,
       'sId': sId,
+      'date': DateTime.now(),
     };
   }
 }

@@ -24,7 +24,13 @@ class _HomeStoreScreenState extends State<HomeStoreScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeStates>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is GetUserByIdSuccess) {
+          HomeCubit.get(context).getAllOrdersWhereGovernAndCategorie(
+              gov: HomeCubit.get(context).userById[0].governorate,
+              cat: HomeCubit.get(context).userById[0].categories);
+        }
+      },
       builder: (context, state) {
         HomeCubit _cubit = HomeCubit.get(context);
 
@@ -42,6 +48,31 @@ class _HomeStoreScreenState extends State<HomeStoreScreen> {
                 ? NavigationStoreWidget()
                 : null,
             appBar: AppBar(
+              actions: [
+                Stack(
+                  alignment: Alignment.topLeft,
+                  children: [
+                    IconButton(
+                      onPressed: () {},
+                      icon: Icon(Icons.notifications),
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(3),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Text(
+                        '1',
+                        style: TextStyle(
+                          color: Colors.red,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+              ],
               title: Text(
                 '${LanguagesCubit.get(context).homeScreen()}',
                 style: TextStyle(
@@ -58,34 +89,42 @@ class _HomeStoreScreenState extends State<HomeStoreScreen> {
                 children: [
                   Image.asset('assets/images/wwww.png'),
                   SizedBox(height: 20),
-                  AutoSizeText(
-                    '${LanguagesCubit.get(context).welcome()}',
-                    style: TextStyle(
-                      fontSize: 26,
-                      fontFamily:
-                          SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
-                              ? 'Cairo'
-                              : 'Poppins',
-                    ),
-                  ),
-                  AutoSizeText(
-                    '${HomeCubit.get(context).userById[0].storeName}',
-                    style: TextStyle(
-                      fontSize: 26,
-                      fontFamily: 'NotoKufiArabic',
-                      color: mPrimaryLightBlue,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    '${LanguagesCubit.get(context).followingNewOrdersNow()}',
-                    style: TextStyle(
-                      fontFamily: 'Poppins',
-                      fontSize: 22,
-                    ),
-                  )
+                  if (_cubit.userById.isNotEmpty)
+                    state is! GetUserByIdLoading
+                        ? Column(
+                            children: [
+                              AutoSizeText(
+                                '${LanguagesCubit.get(context).welcome()}',
+                                style: TextStyle(
+                                  fontSize: 26,
+                                  fontFamily: SharedHelper.getCacheData(
+                                              key: LANGUAGES) ==
+                                          'AR'
+                                      ? 'Cairo'
+                                      : 'Poppins',
+                                ),
+                              ),
+                              AutoSizeText(
+                                '${_cubit.userById[0].storeName!}',
+                                style: TextStyle(
+                                  fontSize: 26,
+                                  fontFamily: 'NotoKufiArabic',
+                                  color: mPrimaryLightBlue,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                '${LanguagesCubit.get(context).followingNewOrdersNow()}',
+                                style: TextStyle(
+                                  fontFamily: 'Poppins',
+                                  fontSize: 22,
+                                ),
+                              ),
+                            ],
+                          )
+                        : LinearProgressIndicator(),
                 ],
               ),
             ),

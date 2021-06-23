@@ -1,7 +1,9 @@
 import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:flutter/material.dart';
 import 'package:search_app/screens/service_screen/change_language_store.dart';
+import 'package:search_app/screens/service_screen/edite_profile_screen.dart';
 import 'package:search_app/screens/service_screen/oreder_traking.dart';
+import 'package:search_app/screens/service_screen/sugg_store_screen.dart';
 import '../bloc/home/cubit.dart';
 import '../bloc/languages/cubit.dart';
 import '../screens/login_screen.dart';
@@ -104,6 +106,12 @@ class NavigationStoreWidget extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               _buildMenuItem(
+                text: '${LanguagesCubit.get(context).editProfile()}',
+                icon: Icons.edit,
+                onClick: () => _selectedItem(context, 5),
+              ),
+              const SizedBox(height: 16),
+              _buildMenuItem(
                 text: '${LanguagesCubit.get(context).logout()}',
                 icon: Icons.logout,
                 onClick: () => _selectedItem(context, 4),
@@ -192,12 +200,34 @@ class NavigationStoreWidget extends StatelessWidget {
           curveType: CurveType.decelerate, // Optional value
         );
         break;
+      case 3:
+        Transitioner(
+          context: context,
+          child: SuggStoreScreen(),
+          animation: AnimationType.fadeIn, // Optional value
+          duration: Duration(milliseconds: 300), // Optional value
+          replacement: true, // Optional value
+          curveType: CurveType.decelerate, // Optional value
+        );
+        break;
       case 4:
         SharedHelper.removeCacheData(key: TOKEN);
         SharedHelper.removeCacheData(key: USERTYPE);
         Transitioner(
           context: context,
           child: LoginScreen(),
+          animation: AnimationType.fadeIn, // Optional value
+          duration: Duration(milliseconds: 300), // Optional value
+          replacement: true, // Optional value
+          curveType: CurveType.decelerate, // Optional value
+        );
+        break;
+      case 5:
+        HomeCubit.get(context)
+            .getMyData(uId: SharedHelper.getCacheData(key: TOKEN));
+        Transitioner(
+          context: context,
+          child: EditProfileScreen(),
           animation: AnimationType.fadeIn, // Optional value
           duration: Duration(milliseconds: 300), // Optional value
           replacement: true, // Optional value

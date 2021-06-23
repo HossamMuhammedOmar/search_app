@@ -26,10 +26,13 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => LanguagesCubit()),
         BlocProvider(create: (context) => RegisterCubit()..getAllCategories()),
         BlocProvider(
-          create: (context) => HomeCubit()..getAllCategories(),
+          create: (context) => HomeCubit()
+            ..getAllCategories()
+            ..getUserBlock(uId: SharedHelper.getCacheData(key: TOKEN)),
         ),
       ],
       child: MaterialApp(
+        title: 'Where is it',
         debugShowCheckedModeBanner: false,
         home: SharedHelper.getCacheData(key: LANGUAGES) == null
             ? ChooseLanguageScreen()

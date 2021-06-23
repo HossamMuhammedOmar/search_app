@@ -8,7 +8,9 @@ import 'package:search_app/bloc/login/cubit.dart';
 import 'package:search_app/bloc/login/states.dart';
 import 'package:search_app/constant/constant.dart';
 import 'package:search_app/helpers/shared_helper.dart';
+import 'package:search_app/screens/admin_screen.dart';
 import 'package:search_app/screens/switcher.dart';
+import 'package:search_app/screens/user_screens/otp_screen_login.dart';
 import 'package:search_app/screens/who_are_screen.dart';
 import 'package:transitioner/transitioner.dart';
 
@@ -36,7 +38,6 @@ class LoginScreen extends StatelessWidget {
                     textColor: Colors.white,
                     fontSize: 16.0,
                   );
-
                   Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
@@ -74,12 +75,20 @@ class LoginScreen extends StatelessWidget {
                             child: SingleChildScrollView(
                               child: Column(
                                 children: [
-                                  Container(
-                                    height: localHeight / 4,
-                                    child: Image.asset(
-                                      'assets/icons/chhhose.png',
-                                      filterQuality: FilterQuality.low,
-                                      fit: BoxFit.scaleDown,
+                                  GestureDetector(
+                                    onLongPress: () {
+                                      Navigator.of(context).pushAndRemoveUntil(
+                                          MaterialPageRoute(
+                                              builder: (_) => AdminScreen()),
+                                          (route) => false);
+                                    },
+                                    child: Container(
+                                      height: localHeight / 4,
+                                      child: Image.asset(
+                                        'assets/icons/chhhose.png',
+                                        filterQuality: FilterQuality.low,
+                                        fit: BoxFit.scaleDown,
+                                      ),
                                     ),
                                   ),
                                   SizedBox(
@@ -211,14 +220,16 @@ class LoginScreen extends StatelessWidget {
                   }
                 },
                 controller: _passwordController,
-                obscureText: true,
+                obscureText: LoginCubit.get(context).hidePassword,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: '${LanguagesCubit.get(context).password()}',
                   prefixIcon: Icon(Icons.lock_outline),
                   suffixIcon: IconButton(
-                    icon: Icon(Icons.visibility),
-                    onPressed: () {},
+                    icon: Icon(LoginCubit.get(context).icon),
+                    onPressed: () {
+                      LoginCubit.get(context).changePasswordVisibaility();
+                    },
                   ),
                 ),
                 keyboardType: TextInputType.visiblePassword,
@@ -317,7 +328,13 @@ class LoginScreen extends StatelessWidget {
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: '${LanguagesCubit.get(context).phoneNumber()}',
-                  prefixIcon: Icon(Icons.phone),
+                  prefixIcon: Container(
+                    padding: const EdgeInsets.all(20),
+                    child: Text(
+                      '+9647',
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
                 ),
                 keyboardType: TextInputType.phone,
               ),
@@ -329,7 +346,13 @@ class LoginScreen extends StatelessWidget {
         ),
         MaterialButton(
           onPressed: () {
-            if (_formPhoneKey.currentState!.validate()) {}
+            if (_formPhoneKey.currentState!.validate()) {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => OtpScreenLogin(phone: _phoneController.text),
+                ),
+              );
+            }
           },
           minWidth: double.infinity,
           textColor: Colors.white,

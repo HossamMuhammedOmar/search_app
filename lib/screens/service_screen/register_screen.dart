@@ -339,8 +339,8 @@ class RegisterScreen extends StatelessWidget {
                                               animation: AnimationType
                                                   .fadeIn, // Optional value
                                               duration: Duration(
-                                                  milliseconds:
-                                                      1000), // Optional value
+                                                milliseconds: 1000,
+                                              ), // Optional value
                                               replacement:
                                                   true, // Optional value
                                               curveType: CurveType

@@ -70,7 +70,7 @@ class SeachDetails extends StatelessWidget {
                             Transitioner(
                               context: context,
                               child: SearchHistory(),
-                              animation: AnimationType.fadeIn, // Optional value
+                              animation: AnimationType.fadeIn,
                               duration:
                                   Duration(milliseconds: 300), // Optional value
                               replacement: true, // Optional value

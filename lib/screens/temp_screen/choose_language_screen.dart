@@ -35,7 +35,7 @@ class ChooseLanguageScreen extends StatelessWidget {
                       child: Image.asset('assets/images/online_ad.png'),
                     ),
                     AutoSizeText(
-                      'مرحباً بك ، برجاء قم بإختيار لغة واجهة التطبيق',
+                      'مرحباً بك ، الرجاء قم بإختيار لغة واجهة التطبيق',
                       textAlign: TextAlign.center,
                       maxLines: 1,
                       style: TextStyle(
@@ -84,24 +84,12 @@ class ChooseLanguageScreen extends StatelessWidget {
                               replacement: true, // Optional value
                               curveType: CurveType.bounceOut, // Optional value
                             );
-                            // Navigator.pushAndRemoveUntil(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //     builder: (context) => OnBoardingScreen(),
-                            //   ),
-                            //   (route) => false,
-                            // );
                           },
                           minWidth: 120,
                           textColor: Colors.white,
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Image(
-                                image: AssetImage('assets/icons/ar_icon.png'),
-                                width: 18,
-                              ),
-                              SizedBox(width: 10),
                               Text(
                                 'العربية',
                                 style: TextStyle(
@@ -128,12 +116,6 @@ class ChooseLanguageScreen extends StatelessWidget {
                               replacement: true, // Optional value
                               curveType: CurveType.bounceOut, // Optional value
                             );
-                            // Navigator.pushAndRemoveUntil(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //       builder: (context) => OnBoardingScreen()),
-                            //   (route) => false,
-                            // );
                           },
                           minWidth: 120,
                           child: Row(
@@ -144,11 +126,6 @@ class ChooseLanguageScreen extends StatelessWidget {
                                 style: TextStyle(
                                   fontSize: 18,
                                 ),
-                              ),
-                              SizedBox(width: 10),
-                              Image(
-                                image: AssetImage('assets/icons/us_icon.png'),
-                                width: 18,
                               ),
                             ],
                           ),

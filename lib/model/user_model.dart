@@ -12,6 +12,7 @@ class UserModel {
   String? storeName;
   String? governorate;
   String? street;
+  bool? block;
 
   UserModel({
     this.name,
@@ -25,6 +26,7 @@ class UserModel {
     this.categories,
     this.storePhone,
     this.shop,
+    this.block,
   });
 
   UserModel.fromJson(Map<String, dynamic>? json) {
@@ -33,6 +35,7 @@ class UserModel {
     phone = json?['phone'];
     type = json?['type'];
     uId = json?['uId'];
+    block = json?['block'];
     // shop = ShopModel.fromJson(json?['shop']);
     categories = json?['shop']['categories'];
     street = json?['shop']['address']['street'];
@@ -48,6 +51,8 @@ class UserModel {
       'phone': phone,
       'type': type,
       'uId': uId,
+      if (type == 'store') 'block': false,
+      if (type == 'user') 'block': false,
       if (type == 'store')
         'shop': {
           'categories': categories,

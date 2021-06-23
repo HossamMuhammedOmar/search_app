@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:search_app/bloc/home/cubit.dart';
 import 'package:search_app/bloc/languages/cubit.dart';
 import 'package:search_app/screens/login_screen.dart';
+import 'package:search_app/screens/user_screens/sugg_user_screen.dart';
 import 'package:transitioner/transitioner.dart';
 import '../constant/constant.dart';
 import '../helpers/shared_helper.dart';
@@ -168,9 +169,6 @@ class NavigationDrawerWidget extends StatelessWidget {
           replacement: true, // Optional value
           curveType: CurveType.decelerate, // Optional value
         );
-        // Navigator.of(context).push(
-        //   MaterialPageRoute(builder: (context) => HomeUserScreen()),
-        // );
         break;
       case 1:
         Transitioner(
@@ -181,9 +179,6 @@ class NavigationDrawerWidget extends StatelessWidget {
           replacement: true, // Optional value
           curveType: CurveType.decelerate, // Optional value
         );
-        // Navigator.of(context).push(
-        //   MaterialPageRoute(builder: (context) => ChangeLanguage()),
-        // );
         break;
       case 2:
         HomeCubit.get(context).getMyOrder();
@@ -195,12 +190,19 @@ class NavigationDrawerWidget extends StatelessWidget {
           replacement: true, // Optional value
           curveType: CurveType.decelerate, // Optional value
         );
-        // Navigator.of(context).push(
-        //   MaterialPageRoute(builder: (context) => SearchHistory()),
-        // );
+        break;
+      case 3:
+        HomeCubit.get(context).getMyOrder();
+        Transitioner(
+          context: context,
+          child: SuggUserScreen(),
+          animation: AnimationType.fadeIn, // Optional value
+          duration: Duration(milliseconds: 300), // Optional value
+          replacement: true, // Optional value
+          curveType: CurveType.decelerate, // Optional value
+        );
         break;
       case 4:
-        HomeCubit.get(context).getMyOrder();
         SharedHelper.removeCacheData(key: TOKEN);
         SharedHelper.removeCacheData(key: USERTYPE);
         Transitioner(
@@ -211,9 +213,6 @@ class NavigationDrawerWidget extends StatelessWidget {
           replacement: true, // Optional value
           curveType: CurveType.decelerate, // Optional value
         );
-        // Navigator.of(context).push(
-        //   MaterialPageRoute(builder: (context) => SearchHistory()),
-        // );
         break;
     }
   }

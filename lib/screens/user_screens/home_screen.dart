@@ -12,6 +12,8 @@ import 'package:search_app/screens/user_screens/no_result_screen.dart';
 import 'package:search_app/widgets/navigation_widget.dart';
 import 'package:transitioner/transitioner.dart';
 
+import 'block_screen.dart';
+
 class HomeUserScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -218,10 +220,24 @@ class HomeUserScreen extends StatelessWidget {
                             width: double.infinity,
                             child: MaterialButton(
                               onPressed: () {
-                                _cubit.getStoresWhereGovernment(
-                                  governName: _cubit.selectedGovern,
-                                  category: _cubit.selectedCategories,
-                                );
+                                if (_cubit.userBlock.first['block']) {
+                                  Transitioner(
+                                    context: context,
+                                    child: BlockScreen(),
+                                    animation:
+                                        AnimationType.scale, // Optional value
+                                    duration: Duration(
+                                        milliseconds: 300), // Optional value
+                                    replacement: false, // Optional value
+                                    curveType:
+                                        CurveType.decelerate, // Optional value
+                                  );
+                                } else {
+                                  _cubit.getStoresWhereGovernment(
+                                    governName: _cubit.selectedGovern,
+                                    category: _cubit.selectedCategories,
+                                  );
+                                }
                               },
                               child: state
                                       is! HomeGetStoresLoadingWhereGoverState

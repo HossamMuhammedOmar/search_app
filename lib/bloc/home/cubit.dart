@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -8,6 +9,7 @@ import 'package:search_app/constant/constant.dart';
 import 'package:search_app/helpers/shared_helper.dart';
 import 'package:search_app/model/order_model.dart';
 import 'package:search_app/model/states_model.dart';
+import 'package:search_app/model/sugg_model.dart';
 import 'package:search_app/model/user_model.dart';
 import 'package:transitioner/transitioner.dart';
 import 'states.dart';
@@ -55,6 +57,9 @@ class HomeCubit extends Cubit<HomeStates> {
   List myOrder = [];
   String? sId = '';
   String? STATE = 'جاري البحث';
+  List<SuggModel> suggModel = [];
+  List userAdminModle = [];
+  List userAdminIDS = [];
   void selecteGovern(currentGov) {
     selectedGovern = currentGov;
     emit(HomeChooseGovernState());
@@ -267,10 +272,10 @@ class HomeCubit extends Cubit<HomeStates> {
         .collection('orders')
         .doc(oId)
         .collection('states')
+        .orderBy('date', descending: true)
         .get()
         .then(
       (value) {
-        // print(value.docs.first.data());
         value.docs.forEach((element) {
           myStatesModel.add(element.data());
         });
@@ -332,7 +337,14 @@ class HomeCubit extends Cubit<HomeStates> {
   }
 
   // UPLOAD IMAGE TO STORAGE
-  void uploadProductImage() {
+  void uploadProductImage({
+    required String categories,
+    required String date,
+    required String description,
+    required String image,
+    required String uId,
+    required String government,
+  }) {
     emit(HomeStoreImageLoading());
     firebase_storage.FirebaseStorage.instance
         .ref()
@@ -344,6 +356,15 @@ class HomeCubit extends Cubit<HomeStates> {
           (value) {
             productImageUrl = value;
             emit(HomeStoreImageSuccess());
+            createNewOrder(
+              categories: categories,
+              date: date,
+              description: description,
+              image: productImageUrl.toString(),
+              uId: uId,
+              government: government,
+            );
+            emit(HomeCreateOrderSuccessState());
           },
         ).catchError(
           (e) {
@@ -360,6 +381,7 @@ class HomeCubit extends Cubit<HomeStates> {
 
   // GET USER BY ID
   void getUserById({required uId}) {
+    userById = [];
     emit(GetUserByIdLoading());
     FirebaseFirestore.instance
         .collection('user')
@@ -379,6 +401,7 @@ class HomeCubit extends Cubit<HomeStates> {
       },
     );
   }
+
   /////////////////////// STORE CASES \\\\\\\\\\\\\\\\\\\
 
   // GET ALL ORDERS WHER GOVERN AND CATEGORIES
@@ -404,7 +427,6 @@ class HomeCubit extends Cubit<HomeStates> {
                 .get()
                 .then(
               (value) {
-                print("VALUE ${value.docs.length}");
                 if (value.docs.length != 0) {
                   myOrder.add(OrderModel.fromJson(element.data(), element.id));
                 }
@@ -435,7 +457,6 @@ class HomeCubit extends Cubit<HomeStates> {
     required cat,
     required gov,
   }) {
-    print("RRRRR");
     emit(EditStateLoaing());
     FirebaseFirestore.instance
         .collection('orders')
@@ -453,7 +474,12 @@ class HomeCubit extends Cubit<HomeStates> {
               .doc(oId)
               .collection('states')
               .doc(sId)
-              .update({'state': newS}).then((value) {
+              .update({
+            'state': newS,
+            if (newS == 'غير متوفر')
+              'date': DateTime.now().subtract(Duration(days: 10)),
+            if (newS == 'متوفر') 'date': DateTime.now(),
+          }).then((value) {
             getAllOrdersWhereGovernAndCategorie(cat: cat, gov: gov);
           }).catchError((e) {
             print(e.toString());
@@ -464,6 +490,278 @@ class HomeCubit extends Cubit<HomeStates> {
       (e) {
         print(e.toString());
         emit(EditStateError());
+      },
+    );
+  }
+
+  // SEND SUGG
+  void sendSugg({required message}) {
+    emit(SendSuggLoding());
+    FirebaseFirestore.instance
+        .collection('sugg')
+        .add({'message': message}).then(
+      (value) {
+        emit(SendSuggSuccsess());
+      },
+    ).catchError(
+      (e) {
+        emit(SendSuggErorr());
+        print(e.toString());
+      },
+    );
+  }
+
+  ///////////////////// ADMIN \\\\\\\\\\\\\\\\\\\
+  void adminLogin(String email, String password) {
+    emit(AdminLoginLoaingState());
+    FirebaseAuth.instance
+        .signInWithEmailAndPassword(
+      email: email,
+      password: password,
+    )
+        .then(
+      (value) {
+        emit(AdminLoginSucessState());
+      },
+    ).catchError(
+      (e) {
+        emit(AdminLoginErorrState());
+        print(e.toString());
+      },
+    );
+  }
+
+  int orderCount = 0;
+  int userCount = 0;
+  int searchCount = 0;
+  int storeCount = 0;
+  int categoriesCount = 0;
+  int suggCount = 0;
+
+  void getOrderCount() {
+    emit(AdminOrderCountLoaingState());
+    FirebaseFirestore.instance.collection('orders').get().then(
+      (value) {
+        orderCount = value.docs.length;
+        emit(AdminOrderCountSucessState());
+      },
+    ).catchError(
+      (e) {
+        print(e.toString());
+        emit(AdminOrderCountErorrState());
+      },
+    );
+  }
+
+  void getUserCount() {
+    userAdminModle = [];
+    userAdminIDS = [];
+    emit(AdminUserCountLoaingState());
+    FirebaseFirestore.instance.collection('user').get().then(
+      (value) {
+        userCount = value.docs.length;
+        value.docs.forEach((element) {
+          userAdminModle.add(element.data());
+          userAdminIDS.add(element.id);
+        });
+        emit(AdminUserCountSucessState());
+      },
+    ).catchError(
+      (e) {
+        print(e.toString());
+        emit(AdminUserCountErorrState());
+      },
+    );
+  }
+
+  void getSearchCount() {
+    emit(AdminSearchCountLoaingState());
+    FirebaseFirestore.instance
+        .collection('user')
+        .where('type', isEqualTo: 'user')
+        .get()
+        .then(
+      (value) {
+        searchCount = value.docs.length;
+        emit(AdminSearchCountSucessState());
+      },
+    ).catchError(
+      (e) {
+        print(e.toString());
+        emit(AdminSearchCountErorrState());
+      },
+    );
+  }
+
+  void getStoreCount() {
+    emit(AdminStoreCountLoaingState());
+    FirebaseFirestore.instance
+        .collection('user')
+        .where('type', isEqualTo: 'store')
+        .get()
+        .then(
+      (value) {
+        storeCount = value.docs.length;
+        emit(AdminStoreCountSucessState());
+      },
+    ).catchError(
+      (e) {
+        print(e.toString());
+        emit(AdminStoreCountErorrState());
+      },
+    );
+  }
+
+  void getCategoriesCount() {
+    emit(AdminCategoriesCountLoaingState());
+    FirebaseFirestore.instance.collection('categories').get().then(
+      (value) {
+        categoriesCount = value.docs.length;
+        emit(AdminCategoriesCountSucessState());
+      },
+    ).catchError(
+      (e) {
+        print(e.toString());
+        emit(AdminCategoriesCountErorrState());
+      },
+    );
+  }
+
+  void getSuggCount() {
+    suggModel = [];
+    emit(AdminSuggCountLoaingState());
+    FirebaseFirestore.instance.collection('sugg').get().then(
+      (value) {
+        suggCount = value.docs.length;
+        value.docs.forEach((element) {
+          suggModel.add(SuggModel.fromJson(element.data()));
+        });
+        emit(AdminSuggCountSucessState());
+      },
+    ).catchError(
+      (e) {
+        print(e.toString());
+        emit(AdminSuggCountErorrState());
+      },
+    );
+  }
+
+  void addCategories({required name}) {
+    CategoriesModel categoriesModel = CategoriesModel(name);
+    emit(AdminAddCategoriesLoaingState());
+    FirebaseFirestore.instance
+        .collection('categories')
+        .add(categoriesModel.toMap())
+        .then(
+      (value) {
+        emit(AdminAddCategoriesSucessState());
+      },
+    ).catchError(
+      (e) {
+        print(e.toString());
+        emit(AdminAddCategoriesErorrState());
+      },
+    );
+  }
+
+  void blockUser({required uId}) {
+    FirebaseFirestore.instance
+        .collection('user')
+        .doc(uId)
+        .update({'block': true})
+        .then(
+          (value) {},
+        )
+        .catchError(
+          (e) {
+            print(e.toString());
+          },
+        );
+  }
+
+  void unBlockUser({required uId}) {
+    FirebaseFirestore.instance
+        .collection('user')
+        .doc(uId)
+        .update({'block': false})
+        .then(
+          (value) {},
+        )
+        .catchError(
+          (e) {
+            print(e.toString());
+          },
+        );
+  }
+
+  List myData = [];
+  String myId = '';
+  void getMyData({required uId}) {
+    myData = [];
+    emit(GetDataByIdLoading());
+    FirebaseFirestore.instance
+        .collection('user')
+        .where("uId", isEqualTo: uId)
+        .get()
+        .then(
+      (value) {
+        value.docs.forEach((element) {
+          myId = element.id;
+          myData.add(element.data());
+        });
+        emit(GetDataByIdSuccess());
+      },
+    ).catchError(
+      (e) {
+        print(e.toString());
+        emit(GetDataByIdError());
+      },
+    );
+  }
+
+  void updateProfile({
+    required id,
+    String? name,
+    String? phone,
+    String? street,
+  }) {
+    emit(UpdateProfileLoading());
+    FirebaseFirestore.instance.collection('user').doc(id).update({
+      'shop.address.storeName': name,
+      'shop.address.storePhone': phone,
+      'shop.address.street': street,
+    }).then(
+      (value) {
+        emit(UpdateProfileSuccess());
+      },
+    ).catchError(
+      (e) {
+        print(e.toString());
+        emit(UpdateProfileError());
+      },
+    );
+  }
+
+  List userBlock = [];
+  // GET USER BY ID
+  void getUserBlock({required uId}) {
+    userBlock = [];
+    emit(GetUserByIdLoading());
+    FirebaseFirestore.instance
+        .collection('user')
+        .where("uId", isEqualTo: uId)
+        .get()
+        .then(
+      (value) {
+        value.docs.forEach((element) {
+          userBlock.add(element.data());
+        });
+        emit(GetUserByIdSuccess());
+      },
+    ).catchError(
+      (e) {
+        print(e.toString());
+        emit(GetUserByIdError());
       },
     );
   }

@@ -1,4 +1,6 @@
 import 'package:auto_size_text_pk/auto_size_text_pk.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_screen_image_null_safe/full_screen_image_null_safe.dart';
@@ -9,6 +11,7 @@ import 'package:search_app/bloc/languages/cubit.dart';
 import 'package:search_app/constant/constant.dart';
 import 'package:search_app/helpers/shared_helper.dart';
 import 'package:search_app/model/order_model.dart';
+import 'package:search_app/screens/service_screen/report_screen.dart';
 import 'package:search_app/widgets/navigation_store_widget.dart';
 
 class OrderTracking extends StatelessWidget {
@@ -76,75 +79,162 @@ class OrderTracking extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          if (oItem.image!.isNotEmpty)
-            Container(
-                height: 100,
-                child: FullScreenWidget(
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(16),
-                    child: Image.network(
-                      "${oItem.image}",
-                    ),
-                  ),
-                )),
-          SizedBox(width: 8),
           Expanded(
-            child: AutoSizeText(
+            child: Text(
               '${oItem.description}',
-              maxLines: 10,
-              style: TextStyle(fontSize: 18),
+              maxLines: 1,
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w700,
+              ),
+              overflow: TextOverflow.ellipsis,
             ),
           ),
-          SizedBox(width: 8),
-          Row(
-            children: [
-              Container(
-                color: Color(0xff2ecc71),
-                child: TextButton(
-                  onPressed: () {
-                    cubit.editOrderState(
-                      oId: oItem.oId,
-                      newS: 'متوفر',
-                      gov: cubit.userById[0].governorate,
-                      cat: cubit.userById[0].categories,
-                    );
-                  },
-                  child: Text(
-                    'متوفر',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                    ),
+          SizedBox(width: 10),
+          MaterialButton(
+            onPressed: () {
+              AwesomeDialog(
+                context: context,
+                animType: AnimType.SCALE,
+                headerAnimationLoop: false,
+                dialogType: DialogType.INFO_REVERSED,
+                body: Center(
+                  child: Column(
+                    children: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) => ReportScreen(
+                                uId: oItem.uId,
+                              ),
+                            ),
+                          );
+                        },
+                        child: Text(
+                          'إبلاغ',
+                          style: TextStyle(color: Colors.red),
+                        ),
+                      ),
+                      AutoSizeText(
+                        '${oItem.description}',
+                        maxLines: 10,
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      SizedBox(height: 20),
+                      if (oItem.image!.isNotEmpty)
+                        Container(
+                          height: 250,
+                          child: FullScreenWidget(
+                            child: ClipRRect(
+                              child: FancyShimmerImage(
+                                imageUrl: '${oItem.image}',
+                              ),
+                            ),
+                          ),
+                        ),
+                    ],
                   ),
                 ),
-              ),
-              Container(
-                color: Colors.red.shade500,
-                child: TextButton(
-                  onPressed: () {
-                    cubit.editOrderState(
-                      oId: oItem.oId,
-                      newS: 'غير متوفر',
-                      gov: cubit.userById[0].governorate,
-                      cat: cubit.userById[0].categories,
-                    );
-                  },
-                  child: Text(
-                    'غير متوفر',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                    ),
-                  ),
-                ),
-              ),
-            ],
+                title: 'This is Ignored',
+                desc: 'This is also Ignored',
+                btnCancelText: 'غير متوفر',
+                btnOkText: 'متوفر',
+                btnOkOnPress: () {
+                  cubit.editOrderState(
+                    oId: oItem.oId,
+                    newS: 'متوفر',
+                    gov: cubit.userById[0].governorate,
+                    cat: cubit.userById[0].categories,
+                  );
+                },
+                btnCancelOnPress: () {
+                  cubit.editOrderState(
+                    oId: oItem.oId,
+                    newS: 'غير متوفر',
+                    gov: cubit.userById[0].governorate,
+                    cat: cubit.userById[0].categories,
+                  );
+                },
+              )..show();
+            },
+            child: Text('show'),
+            textColor: Colors.white,
+            color: mPrimaryGreen,
           )
         ],
       ),
+      // child: Row(
+      //   crossAxisAlignment: CrossAxisAlignment.center,
+      //   mainAxisAlignment: MainAxisAlignment.start,
+      //   children: [
+      //     if (oItem.image!.isNotEmpty)
+      //       Container(
+      //           height: 100,
+      //           child: FullScreenWidget(
+      //             child: ClipRRect(
+      //               borderRadius: BorderRadius.circular(16),
+      //               child: Image.network(
+      //                 "${oItem.image}",
+      //               ),
+      //             ),
+      //           )),
+      //     SizedBox(width: 8),
+      //     Expanded(
+      //       child: AutoSizeText(
+      //         '${oItem.description}',
+      //         maxLines: 10,
+      //         style: TextStyle(fontSize: 18),
+      //       ),
+      //     ),
+      //     SizedBox(width: 8),
+      //     Row(
+      //       children: [
+      //         Container(
+      //           color: Color(0xff2ecc71),
+      //           child: TextButton(
+      //             onPressed: () {
+      //               cubit.editOrderState(
+      //                 oId: oItem.oId,
+      //                 newS: 'متوفر',
+      //                 gov: cubit.userById[0].governorate,
+      //                 cat: cubit.userById[0].categories,
+      //               );
+      //             },
+      //             child: Text(
+      //               'متوفر',
+      //               style: TextStyle(
+      //                 color: Colors.white,
+      //                 fontSize: 16,
+      //               ),
+      //             ),
+      //           ),
+      //         ),
+      //         Container(
+      //           color: Colors.red.shade500,
+      //           child: TextButton(
+      //             onPressed: () {
+      //               cubit.editOrderState(
+      //                 oId: oItem.oId,
+      //                 newS: 'غير متوفر',
+      //                 gov: cubit.userById[0].governorate,
+      //                 cat: cubit.userById[0].categories,
+      //               );
+      //             },
+      //             child: Text(
+      //               'غير متوفر',
+      //               style: TextStyle(
+      //                 color: Colors.white,
+      //                 fontSize: 16,
+      //               ),
+      //             ),
+      //           ),
+      //         ),
+      //       ],
+      //     )
+      //   ],
+      // ),
     );
   }
 }

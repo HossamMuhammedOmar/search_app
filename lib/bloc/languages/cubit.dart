@@ -24,33 +24,41 @@ class LanguagesCubit extends Cubit<LanguagesState> {
       return 'الصفحه الرئيسيه';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Home Screen';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
     }
     return '';
   }
 
   String onBoardingDescription1() {
     if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
-      return 'يوفر التطبيق إمكانيه البحث عن أي شئ تريده والوصول لأقرب بائع مع تفاصيل التواصل معه';
+      return 'يوفر تطبيق ( وين موجود ) إمكانيه البحث عن أي شئ تريده والوصول لأقرب بائع مع تفاصيل التواصل معه';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'The app provides your with the ability to search for anything and find the nearest seller with all contact details';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
     }
     return '';
   }
 
   String onBoardingDescription2() {
     if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
-      return 'تطبيق يوفر عليك الوقت والجهد للعثور على الشي الذي تبحث عنه من خلال ادراج صوره او وصف للشي الذي تطلبه';
+      return 'تطبيق ( وين موجود ) يوفر عليك الوقت والجهد للعثور على الشي الذي تبحث عنه من خلال ادراج صوره او وصف للشي الذي تطلبه';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'An app that saves your time & effort as it helps you to find any thing through uploading a photo or write a description';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
     }
     return '';
   }
 
   String onBoardingDescription3() {
     if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
-      return 'تطبيق يساهم في زياده مبيعاتك من خلال التسجيل كمقدم خدمه وانتظار الطلبات من الزبائن';
+      return 'تطبيق ( وين موجود ) يساهم في زياده مبيعاتك من خلال التسجيل كمقدم خدمه وانتظار الطلبات من الزبائن، كلما كانت استجابتك للطلب اسرع زادت فرصة تواصل الزبون معك قبل غيرك';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'An app that contributes to increasing your sales. You can register as a service provider and wait for the customers\' requests. The faster you reply, the more chance the customer will contact you';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
     }
     return '';
   }
@@ -60,6 +68,8 @@ class LanguagesCubit extends Cubit<LanguagesState> {
       return 'ابحث عن اي شئ!';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Find anything!';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
     }
     return '';
   }
@@ -69,6 +79,8 @@ class LanguagesCubit extends Cubit<LanguagesState> {
       return 'وفر وقتك وجهدك!';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Save your time & effort!';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
     }
     return '';
   }
@@ -78,6 +90,8 @@ class LanguagesCubit extends Cubit<LanguagesState> {
       return 'زود مبيعاتك!';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Increase your sales!';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
     }
     return '';
   }
@@ -87,6 +101,8 @@ class LanguagesCubit extends Cubit<LanguagesState> {
       return 'تخطي';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'SKIP';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
     }
     return '';
   }
@@ -96,6 +112,8 @@ class LanguagesCubit extends Cubit<LanguagesState> {
       return 'تسجيل الدخول';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Login to your account';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
     }
     return '';
   }
@@ -105,6 +123,8 @@ class LanguagesCubit extends Cubit<LanguagesState> {
       return 'البريد الإلكتروني';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Email Address';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
     }
     return '';
   }
@@ -114,6 +134,8 @@ class LanguagesCubit extends Cubit<LanguagesState> {
       return 'كلمه المرور';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Password';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
     }
     return '';
   }
@@ -123,6 +145,8 @@ class LanguagesCubit extends Cubit<LanguagesState> {
       return 'دخول';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Login';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
     }
     return '';
   }
@@ -132,6 +156,8 @@ class LanguagesCubit extends Cubit<LanguagesState> {
       return 'ليس لديك حساب؟';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Don\'nt have an account?';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
     }
     return '';
   }
@@ -141,6 +167,8 @@ class LanguagesCubit extends Cubit<LanguagesState> {
       return 'أنشئ حساب';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Create new';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
     }
     return '';
   }
@@ -150,6 +178,8 @@ class LanguagesCubit extends Cubit<LanguagesState> {
       return 'بالبريد';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'With email';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
     }
     return '';
   }
@@ -159,6 +189,8 @@ class LanguagesCubit extends Cubit<LanguagesState> {
       return 'بالهاتف';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'With phone';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
     }
     return '';
   }
@@ -168,6 +200,8 @@ class LanguagesCubit extends Cubit<LanguagesState> {
       return 'رقم الهاتف';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Phone number';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
     }
     return '';
   }
@@ -177,6 +211,8 @@ class LanguagesCubit extends Cubit<LanguagesState> {
       return 'من أنت؟';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Who are you?';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
     }
     return '';
   }
@@ -186,6 +222,8 @@ class LanguagesCubit extends Cubit<LanguagesState> {
       return 'هل تريد إنشاء حساب جديد للبحث عن منتج أم تريد إنشاء حساب كمقدم خدمة؟';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Do you want to create a new account to search for a product, Or do you want to create an account as a service provider?';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
     }
     return '';
   }
@@ -195,6 +233,8 @@ class LanguagesCubit extends Cubit<LanguagesState> {
       return 'أبحث عن منتج';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Search for a product';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
     }
     return '';
   }
@@ -204,6 +244,8 @@ class LanguagesCubit extends Cubit<LanguagesState> {
       return 'مقدم خدمة';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Service provider';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
     }
     return '';
   }
@@ -213,6 +255,8 @@ class LanguagesCubit extends Cubit<LanguagesState> {
       return 'تسجيل';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'REGISTER';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
     }
     return '';
   }
@@ -222,6 +266,8 @@ class LanguagesCubit extends Cubit<LanguagesState> {
       return 'تسجيل حساب جديد';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Create your new account...';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
     }
     return '';
   }
@@ -231,6 +277,8 @@ class LanguagesCubit extends Cubit<LanguagesState> {
       return 'إسم المحل';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Shop name';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
     }
     return '';
   }
@@ -240,6 +288,8 @@ class LanguagesCubit extends Cubit<LanguagesState> {
       return 'المحافظة';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Governorate';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
     }
     return '';
   }
@@ -249,6 +299,8 @@ class LanguagesCubit extends Cubit<LanguagesState> {
       return 'إسم الشارع أو أقرب نقطه دالة';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Street name or nearest point';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
     }
     return '';
   }
@@ -258,6 +310,8 @@ class LanguagesCubit extends Cubit<LanguagesState> {
       return 'إسم المستخدم';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'User name';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
     }
     return '';
   }
@@ -267,6 +321,8 @@ class LanguagesCubit extends Cubit<LanguagesState> {
       return 'لديك حساب بالفعل ؟';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Have an account?';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
     }
     return '';
   }
@@ -276,6 +332,8 @@ class LanguagesCubit extends Cubit<LanguagesState> {
       return 'إختار القسم';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Choose Categories';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
     }
     return '';
   }
@@ -285,6 +343,8 @@ class LanguagesCubit extends Cubit<LanguagesState> {
       return 'الرئيسية';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Home';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
     }
     return '';
   }
@@ -294,6 +354,8 @@ class LanguagesCubit extends Cubit<LanguagesState> {
       return 'تغيير اللغة';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Change Language';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
     }
     return '';
   }
@@ -303,6 +365,8 @@ class LanguagesCubit extends Cubit<LanguagesState> {
       return 'متابعة البحث';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Search Tracking';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
     }
     return '';
   }
@@ -312,6 +376,8 @@ class LanguagesCubit extends Cubit<LanguagesState> {
       return 'الشكاوي والإقتراحات';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Complaints and suggestions';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
     }
     return '';
   }
@@ -321,6 +387,8 @@ class LanguagesCubit extends Cubit<LanguagesState> {
       return 'تسجيل الخروج';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Logout';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
     }
     return '';
   }
@@ -330,6 +398,8 @@ class LanguagesCubit extends Cubit<LanguagesState> {
       return 'هل تبحث عن شئ؟';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Search for some thing?';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
     }
     return '';
   }
@@ -339,6 +409,8 @@ class LanguagesCubit extends Cubit<LanguagesState> {
       return 'قم بإختيار المحافظة';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Choose the governorate';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
     }
     return '';
   }
@@ -348,6 +420,8 @@ class LanguagesCubit extends Cubit<LanguagesState> {
       return 'قم بإختيار التخصص الذي تريد';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Choose the specialty you want';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
     }
     return '';
   }
@@ -357,6 +431,8 @@ class LanguagesCubit extends Cubit<LanguagesState> {
       return 'المتابعة';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Continue';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
     }
     return '';
   }
@@ -366,6 +442,8 @@ class LanguagesCubit extends Cubit<LanguagesState> {
       return 'الرجاء إعادة المحاولة في وقت لاحق';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Please try again later!';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
     }
     return '';
   }
@@ -375,6 +453,8 @@ class LanguagesCubit extends Cubit<LanguagesState> {
       return 'لا توجد متاجر متاحة في هذه المحافظة في الوقت الحالي';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'No Stores in this governorate in this time';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
     }
     return '';
   }
@@ -384,6 +464,8 @@ class LanguagesCubit extends Cubit<LanguagesState> {
       return 'أدخل اسمًا أو وصفًا مختصراً للمنتج الذي تبحث عنه';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Enter a name or a short description for the item you are looking for';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
     }
     return '';
   }
@@ -393,6 +475,8 @@ class LanguagesCubit extends Cubit<LanguagesState> {
       return 'هذا الحقل إجباري';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'this feild is required';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
     }
     return '';
   }
@@ -402,6 +486,8 @@ class LanguagesCubit extends Cubit<LanguagesState> {
       return 'إذا كنت تريد إضافة صورة للمنتج الذي تبحث عنه';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'If you want to add a picture of the item you are looking for';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
     }
     return '';
   }
@@ -411,6 +497,8 @@ class LanguagesCubit extends Cubit<LanguagesState> {
       return 'أدخل رابط الصورة';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Enter image URL';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
     }
     return '';
   }
@@ -420,6 +508,8 @@ class LanguagesCubit extends Cubit<LanguagesState> {
       return 'أو';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'OR';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
     }
     return '';
   }
@@ -429,6 +519,8 @@ class LanguagesCubit extends Cubit<LanguagesState> {
       return 'تحميل الصورة من جهازك';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Upload image from your device';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
     }
     return '';
   }
@@ -438,6 +530,8 @@ class LanguagesCubit extends Cubit<LanguagesState> {
       return 'إبدأ البحث';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Start Search';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
     }
     return '';
   }
@@ -447,6 +541,8 @@ class LanguagesCubit extends Cubit<LanguagesState> {
       return 'الصفحة الرئيسية';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Home Screen';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
     }
     return '';
   }
@@ -456,6 +552,8 @@ class LanguagesCubit extends Cubit<LanguagesState> {
       return 'اعدادات اللغة';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Language Setting';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
     }
     return '';
   }
@@ -465,6 +563,8 @@ class LanguagesCubit extends Cubit<LanguagesState> {
       return 'حذف';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Delete';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
     }
     return '';
   }
@@ -474,6 +574,8 @@ class LanguagesCubit extends Cubit<LanguagesState> {
       return 'عرض';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Show';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
     }
     return '';
   }
@@ -483,6 +585,8 @@ class LanguagesCubit extends Cubit<LanguagesState> {
       return 'عمليات البحث الخاصة بك';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Your Search Proccess';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
     }
     return '';
   }
@@ -492,6 +596,8 @@ class LanguagesCubit extends Cubit<LanguagesState> {
       return 'متابعة الطلبات';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Order Tracking';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
     }
     return '';
   }
@@ -501,6 +607,8 @@ class LanguagesCubit extends Cubit<LanguagesState> {
       return 'أهلاً بك';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Welcome';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
     }
     return '';
   }
@@ -510,8 +618,77 @@ class LanguagesCubit extends Cubit<LanguagesState> {
       return 'إبدأ الآن بمتابعة الطلبات';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Following New Orders Now';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
     }
     return '';
   }
-//
+
+  String send() {
+    if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
+      return 'إرسال';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
+      return 'Send';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
+    }
+    return '';
+  }
+
+  String completeSendSuccess() {
+    if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
+      return 'تم الإرسال بنجاح';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
+      return 'sent succesfully';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
+    }
+    return '';
+  }
+
+  String editProfile() {
+    if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
+      return 'تعديل بياناتي';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
+      return 'Edit profile';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
+    }
+    return '';
+  }
+
+  String update() {
+    if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
+      return 'تحديث';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
+      return 'Update';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
+    }
+    return '';
+  }
+
+  String report() {
+    if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
+      return 'إبلاغ';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
+      return 'Report';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
+    }
+    return '';
+  }
+
+  String sendComplete() {
+    if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
+      return 'تم الارسال بنجاح';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
+      return 'sent succesfully';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
+    }
+    return '';
+  }
+
+//  editProfile
 }

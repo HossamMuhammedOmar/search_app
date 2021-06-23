@@ -30,11 +30,6 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           replacement: true, // Optional value
           curveType: CurveType.elastic, // Optional value
         ),
-        // Navigator.pushAndRemoveUntil(
-        //   context,
-        //   MaterialPageRoute(builder: (c) => LoginScreen()),
-        //   (route) => false,
-        // ),
       },
     );
   }

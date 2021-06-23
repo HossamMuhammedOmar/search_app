@@ -121,3 +121,72 @@ class EditStateSuccess extends HomeStates {}
 
 // EDIT STATE
 class EditStateError extends HomeStates {}
+
+// SEND SUGG
+class SendSuggLoding extends HomeStates {}
+
+// SEND SUGG
+class SendSuggSuccsess extends HomeStates {}
+
+// SEND SUGG
+class SendSuggErorr extends HomeStates {}
+
+class AdminLoginLoaingState extends HomeStates {}
+
+class AdminLoginSucessState extends HomeStates {}
+
+class AdminLoginErorrState extends HomeStates {}
+
+class AdminOrderCountLoaingState extends HomeStates {}
+
+class AdminOrderCountSucessState extends HomeStates {}
+
+class AdminOrderCountErorrState extends HomeStates {}
+
+class AdminUserCountLoaingState extends HomeStates {}
+
+class AdminUserCountSucessState extends HomeStates {}
+
+class AdminUserCountErorrState extends HomeStates {}
+
+class AdminSearchCountLoaingState extends HomeStates {}
+
+class AdminSearchCountSucessState extends HomeStates {}
+
+class AdminSearchCountErorrState extends HomeStates {}
+
+class AdminStoreCountLoaingState extends HomeStates {}
+
+class AdminStoreCountSucessState extends HomeStates {}
+
+class AdminStoreCountErorrState extends HomeStates {}
+
+class AdminCategoriesCountLoaingState extends HomeStates {}
+
+class AdminCategoriesCountSucessState extends HomeStates {}
+
+class AdminCategoriesCountErorrState extends HomeStates {}
+
+class AdminSuggCountLoaingState extends HomeStates {}
+
+class AdminSuggCountSucessState extends HomeStates {}
+
+class AdminSuggCountErorrState extends HomeStates {}
+
+class AdminAddCategoriesLoaingState extends HomeStates {}
+
+class AdminAddCategoriesSucessState extends HomeStates {}
+
+class AdminAddCategoriesErorrState extends HomeStates {}
+
+class GetDataByIdLoading extends HomeStates {}
+
+class GetDataByIdSuccess extends HomeStates {}
+
+class GetDataByIdError extends HomeStates {}
+
+class UpdateProfileLoading extends HomeStates {}
+
+class UpdateProfileSuccess extends HomeStates {}
+
+class UpdateProfileError extends HomeStates {}

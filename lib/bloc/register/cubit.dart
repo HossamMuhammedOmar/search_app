@@ -97,7 +97,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
     );
   }
 
-  void registerWithPhone() {}
+  void registerWithPhone({required phone, required name}) {}
 
   // Store User Data
   void storeNewUserData({
