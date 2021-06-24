@@ -1,4 +1,3 @@
-import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -24,13 +23,9 @@ class EditProfileScreen extends StatelessWidget {
       child: BlocConsumer<HomeCubit, HomeStates>(
         listener: (context, state) {
           if (state is GetDataByIdSuccess) {
-            _nameContoroller.text = HomeCubit.get(context).myData.first['shop']
-                ['address']['storeName'];
-            _phoneContoroller.text = HomeCubit.get(context).myData.first['shop']
-                ['address']['storePhone'];
-            _streetContoroller.text = HomeCubit.get(context)
-                .myData
-                .first['shop']['address']['street'];
+            _nameContoroller.text = HomeCubit.get(context).myData.first['shop']['address']['storeName'];
+            _phoneContoroller.text = HomeCubit.get(context).myData.first['shop']['address']['storePhone'];
+            _streetContoroller.text = HomeCubit.get(context).myData.first['shop']['address']['street'];
           }
 
           if (state is UpdateProfileSuccess) {
@@ -49,21 +44,15 @@ class EditProfileScreen extends StatelessWidget {
           return Scaffold(
             backgroundColor: Colors.white,
             drawerScrimColor: Colors.black.withOpacity(0.7),
-            endDrawer: SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
-                ? NavigationStoreWidget()
-                : null,
-            drawer: SharedHelper.getCacheData(key: LANGUAGES) != 'AR'
-                ? NavigationStoreWidget()
-                : null,
+            endDrawer: SharedHelper.getCacheData(key: LANGUAGES) == 'AR' ? NavigationStoreWidget() : null,
+            drawer: SharedHelper.getCacheData(key: LANGUAGES) != 'AR' ? NavigationStoreWidget() : null,
             appBar: AppBar(
               backgroundColor: Colors.white,
               title: Text(
                 '${LanguagesCubit.get(context).editProfile()}',
                 style: TextStyle(
                   color: mPrimaryDarkGrey,
-                  fontFamily: SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
-                      ? 'Cairo'
-                      : 'Poppins',
+                  fontFamily: SharedHelper.getCacheData(key: LANGUAGES) == 'AR' ? 'Cairo' : 'Poppins',
                 ),
               ),
             ),
@@ -136,11 +125,8 @@ class EditProfileScreen extends StatelessWidget {
                                         }
                                       },
                                       child: state is! UpdateProfileLoading
-                                          ? Text(
-                                              '${LanguagesCubit.get(context).update()}')
-                                          : Center(
-                                              child: CircularProgressIndicator(
-                                                  color: Colors.white)),
+                                          ? Text('${LanguagesCubit.get(context).update()}')
+                                          : Center(child: CircularProgressIndicator(color: Colors.white)),
                                       textColor: Colors.white,
                                       color: mPrimaryLightBlue,
                                     )

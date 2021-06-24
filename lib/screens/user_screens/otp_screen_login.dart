@@ -1,12 +1,10 @@
 import 'package:auto_size_text_pk/auto_size_text_pk.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pinput/pin_put/pin_put.dart';
 import 'package:search_app/constant/constant.dart';
 import 'package:search_app/helpers/shared_helper.dart';
-import 'package:search_app/model/user_model.dart';
 import 'package:search_app/screens/user_screens/home_screen.dart';
 
 class OtpScreenLogin extends StatefulWidget {
@@ -70,12 +68,11 @@ class _OtpScreenLoginState extends State<OtpScreenLogin> {
                 onSubmit: (pin) async {
                   try {
                     await FirebaseAuth.instance
-                        .signInWithCredential(PhoneAuthProvider.credential(
-                            verificationId: _verificationCode!, smsCode: pin))
+                        .signInWithCredential(
+                            PhoneAuthProvider.credential(verificationId: _verificationCode!, smsCode: pin))
                         .then((value) async {
                       if (value.user != null) {
-                        SharedHelper.cacheData(
-                            key: TOKEN, value: value.user?.uid);
+                        SharedHelper.cacheData(key: TOKEN, value: value.user?.uid);
                         Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
@@ -108,15 +105,11 @@ class _OtpScreenLoginState extends State<OtpScreenLogin> {
     await FirebaseAuth.instance.verifyPhoneNumber(
         phoneNumber: '+9647${widget.phone}',
         verificationCompleted: (PhoneAuthCredential credential) async {
-          await FirebaseAuth.instance
-              .signInWithCredential(credential)
-              .then((value) async {
+          await FirebaseAuth.instance.signInWithCredential(credential).then((value) async {
             if (value.user != null) {
               SharedHelper.cacheData(key: TOKEN, value: value.user?.uid);
               Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(builder: (context) => HomeUserScreen()),
-                  (route) => false);
+                  context, MaterialPageRoute(builder: (context) => HomeUserScreen()), (route) => false);
             }
           });
         },
@@ -138,7 +131,6 @@ class _OtpScreenLoginState extends State<OtpScreenLogin> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _verifyPhone();
   }

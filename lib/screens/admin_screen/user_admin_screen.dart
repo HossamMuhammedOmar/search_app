@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:search_app/bloc/home/cubit.dart';
 import 'package:search_app/bloc/home/states.dart';
-import 'package:transitioner/transitioner.dart';
 
 class UserAdminScreen extends StatelessWidget {
   @override
