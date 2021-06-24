@@ -190,3 +190,9 @@ class UpdateProfileLoading extends HomeStates {}
 class UpdateProfileSuccess extends HomeStates {}
 
 class UpdateProfileError extends HomeStates {}
+
+class GetAllAdsLoading extends HomeStates {}
+
+class GetAllAdsSuccess extends HomeStates {}
+
+class GetAllAdsError extends HomeStates {}

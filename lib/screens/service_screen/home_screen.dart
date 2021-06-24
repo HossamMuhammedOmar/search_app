@@ -7,6 +7,7 @@ import 'package:search_app/bloc/languages/cubit.dart';
 import 'package:search_app/constant/constant.dart';
 import 'package:search_app/helpers/shared_helper.dart';
 import 'package:search_app/widgets/navigation_store_widget.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class HomeStoreScreen extends StatefulWidget {
   @override
@@ -48,31 +49,6 @@ class _HomeStoreScreenState extends State<HomeStoreScreen> {
                 ? NavigationStoreWidget()
                 : null,
             appBar: AppBar(
-              actions: [
-                Stack(
-                  alignment: Alignment.topLeft,
-                  children: [
-                    IconButton(
-                      onPressed: () {},
-                      icon: Icon(Icons.notifications),
-                    ),
-                    Container(
-                      padding: EdgeInsets.all(3),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Text(
-                        '1',
-                        style: TextStyle(
-                          color: Colors.red,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ],
-                )
-              ],
               title: Text(
                 '${LanguagesCubit.get(context).homeScreen()}',
                 style: TextStyle(
@@ -91,38 +67,81 @@ class _HomeStoreScreenState extends State<HomeStoreScreen> {
                   SizedBox(height: 20),
                   if (_cubit.userById.isNotEmpty)
                     state is! GetUserByIdLoading
-                        ? Column(
-                            children: [
-                              AutoSizeText(
-                                '${LanguagesCubit.get(context).welcome()}',
-                                style: TextStyle(
-                                  fontSize: 26,
-                                  fontFamily: SharedHelper.getCacheData(
-                                              key: LANGUAGES) ==
-                                          'AR'
-                                      ? 'Cairo'
-                                      : 'Poppins',
+                        ? Expanded(
+                            child: Column(
+                              children: [
+                                AutoSizeText(
+                                  '${LanguagesCubit.get(context).welcome()}',
+                                  style: TextStyle(
+                                    fontSize: 26,
+                                    fontFamily: SharedHelper.getCacheData(
+                                                key: LANGUAGES) ==
+                                            'AR'
+                                        ? 'Cairo'
+                                        : 'Poppins',
+                                  ),
                                 ),
-                              ),
-                              AutoSizeText(
-                                '${_cubit.userById[0].storeName!}',
-                                style: TextStyle(
-                                  fontSize: 26,
-                                  fontFamily: 'NotoKufiArabic',
-                                  color: mPrimaryLightBlue,
+                                AutoSizeText(
+                                  '${_cubit.userById[0].storeName!}',
+                                  style: TextStyle(
+                                    fontSize: 26,
+                                    fontFamily: SharedHelper.getCacheData(
+                                                key: LANGUAGES) ==
+                                            'AR'
+                                        ? 'NotoKufiArabic'
+                                        : 'Poppins',
+                                    color: mPrimaryLightBlue,
+                                  ),
                                 ),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                '${LanguagesCubit.get(context).followingNewOrdersNow()}',
-                                style: TextStyle(
-                                  fontFamily: 'Poppins',
-                                  fontSize: 22,
+                                Text(
+                                  '${LanguagesCubit.get(context).followingNewOrdersNow()}',
+                                  style: TextStyle(
+                                    fontFamily: SharedHelper.getCacheData(
+                                                key: LANGUAGES) ==
+                                            'AR'
+                                        ? 'NotoKufiArabic'
+                                        : 'Poppins',
+                                    fontSize: 22,
+                                  ),
                                 ),
-                              ),
-                            ],
+                                Spacer(),
+                                SizedBox(
+                                  height: 30,
+                                ),
+                                Container(
+                                  child: CarouselSlider(
+                                    // items: model.data.banners
+                                    //     .map(
+                                    //       (e) => Image(
+                                    //         image: NetworkImage(e.image),
+                                    //         width: double.infinity,
+                                    //         fit: BoxFit.cover,
+                                    //       ),
+                                    //     )
+                                    //     .toList(),
+                                    items: [
+                                      Image.asset(
+                                        'assets/images/ads-space.png',
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ],
+                                    options: CarouselOptions(
+                                      height: 100,
+                                      initialPage: 0,
+                                      enableInfiniteScroll: true,
+                                      reverse: false,
+                                      autoPlay: true,
+                                      autoPlayInterval: Duration(seconds: 10),
+                                      autoPlayAnimationDuration:
+                                          Duration(seconds: 1),
+                                      autoPlayCurve: Curves.fastOutSlowIn,
+                                      scrollDirection: Axis.horizontal,
+                                      viewportFraction: 1,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           )
                         : LinearProgressIndicator(),
                 ],

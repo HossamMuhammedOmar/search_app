@@ -40,7 +40,7 @@ class _OtpScreenLoginState extends State<OtpScreenLogin> {
             Center(
               child: RichText(
                 text: TextSpan(
-                  text: 'Verify +70 ${widget.phone}',
+                  text: 'Verify ( +964 - ${widget.phone} )',
                   style: TextStyle(
                     fontSize: 22,
                     fontFamily: 'Poppins',
@@ -68,11 +68,12 @@ class _OtpScreenLoginState extends State<OtpScreenLogin> {
                 onSubmit: (pin) async {
                   try {
                     await FirebaseAuth.instance
-                        .signInWithCredential(
-                            PhoneAuthProvider.credential(verificationId: _verificationCode!, smsCode: pin))
+                        .signInWithCredential(PhoneAuthProvider.credential(
+                            verificationId: _verificationCode!, smsCode: pin))
                         .then((value) async {
                       if (value.user != null) {
-                        SharedHelper.cacheData(key: TOKEN, value: value.user?.uid);
+                        SharedHelper.cacheData(
+                            key: TOKEN, value: value.user?.uid);
                         Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
@@ -103,13 +104,17 @@ class _OtpScreenLoginState extends State<OtpScreenLogin> {
 
   _verifyPhone() async {
     await FirebaseAuth.instance.verifyPhoneNumber(
-        phoneNumber: '+9647${widget.phone}',
+        phoneNumber: '+964${widget.phone}',
         verificationCompleted: (PhoneAuthCredential credential) async {
-          await FirebaseAuth.instance.signInWithCredential(credential).then((value) async {
+          await FirebaseAuth.instance
+              .signInWithCredential(credential)
+              .then((value) async {
             if (value.user != null) {
               SharedHelper.cacheData(key: TOKEN, value: value.user?.uid);
               Navigator.pushAndRemoveUntil(
-                  context, MaterialPageRoute(builder: (context) => HomeUserScreen()), (route) => false);
+                  context,
+                  MaterialPageRoute(builder: (context) => HomeUserScreen()),
+                  (route) => false);
             }
           });
         },

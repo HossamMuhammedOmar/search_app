@@ -119,6 +119,7 @@ class OrderTracking extends StatelessWidget {
                       ),
                       AutoSizeText(
                         '${oItem.description}',
+                        textAlign: TextAlign.center,
                         maxLines: 10,
                         style: TextStyle(fontSize: 20),
                       ),
@@ -165,76 +166,6 @@ class OrderTracking extends StatelessWidget {
           )
         ],
       ),
-      // child: Row(
-      //   crossAxisAlignment: CrossAxisAlignment.center,
-      //   mainAxisAlignment: MainAxisAlignment.start,
-      //   children: [
-      //     if (oItem.image!.isNotEmpty)
-      //       Container(
-      //           height: 100,
-      //           child: FullScreenWidget(
-      //             child: ClipRRect(
-      //               borderRadius: BorderRadius.circular(16),
-      //               child: Image.network(
-      //                 "${oItem.image}",
-      //               ),
-      //             ),
-      //           )),
-      //     SizedBox(width: 8),
-      //     Expanded(
-      //       child: AutoSizeText(
-      //         '${oItem.description}',
-      //         maxLines: 10,
-      //         style: TextStyle(fontSize: 18),
-      //       ),
-      //     ),
-      //     SizedBox(width: 8),
-      //     Row(
-      //       children: [
-      //         Container(
-      //           color: Color(0xff2ecc71),
-      //           child: TextButton(
-      //             onPressed: () {
-      //               cubit.editOrderState(
-      //                 oId: oItem.oId,
-      //                 newS: 'متوفر',
-      //                 gov: cubit.userById[0].governorate,
-      //                 cat: cubit.userById[0].categories,
-      //               );
-      //             },
-      //             child: Text(
-      //               'متوفر',
-      //               style: TextStyle(
-      //                 color: Colors.white,
-      //                 fontSize: 16,
-      //               ),
-      //             ),
-      //           ),
-      //         ),
-      //         Container(
-      //           color: Colors.red.shade500,
-      //           child: TextButton(
-      //             onPressed: () {
-      //               cubit.editOrderState(
-      //                 oId: oItem.oId,
-      //                 newS: 'غير متوفر',
-      //                 gov: cubit.userById[0].governorate,
-      //                 cat: cubit.userById[0].categories,
-      //               );
-      //             },
-      //             child: Text(
-      //               'غير متوفر',
-      //               style: TextStyle(
-      //                 color: Colors.white,
-      //                 fontSize: 16,
-      //               ),
-      //             ),
-      //           ),
-      //         ),
-      //       ],
-      //     )
-      //   ],
-      // ),
     );
   }
 }

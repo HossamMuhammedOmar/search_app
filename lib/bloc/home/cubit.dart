@@ -94,8 +94,6 @@ class HomeCubit extends Cubit<HomeStates> {
 
   void getStoresWhereGovernment({required governName, required category}) {
     userModel = [];
-    print(governName);
-    print(category);
     emit(HomeGetStoresLoadingWhereGoverState());
     FirebaseFirestore.instance
         .collection('user')
@@ -119,7 +117,8 @@ class HomeCubit extends Cubit<HomeStates> {
     );
   }
 
-  void getStoresWhereGovernmentDetails({required governName, required category}) {
+  void getStoresWhereGovernmentDetails(
+      {required governName, required category}) {
     userModel = [];
     emit(HomeGetStoresLoadingWhereGoverDetailsState());
     FirebaseFirestore.instance
@@ -171,7 +170,11 @@ class HomeCubit extends Cubit<HomeStates> {
       final doc = FirebaseFirestore.instance.collection('orders').doc();
       value.docs.forEach(
         (element) {
-          final sId = FirebaseFirestore.instance.collection('orders').doc(doc.id).collection('states').doc();
+          final sId = FirebaseFirestore.instance
+              .collection('orders')
+              .doc(doc.id)
+              .collection('states')
+              .doc();
 
           final statesModel = StatesModel(
             storeId: element.data()['uId'],
@@ -379,7 +382,11 @@ class HomeCubit extends Cubit<HomeStates> {
   void getUserById({required uId}) {
     userById = [];
     emit(GetUserByIdLoading());
-    FirebaseFirestore.instance.collection('user').where("uId", isEqualTo: uId).get().then(
+    FirebaseFirestore.instance
+        .collection('user')
+        .where("uId", isEqualTo: uId)
+        .get()
+        .then(
       (value) {
         value.docs.forEach((element) {
           userById.add(UserModel.fromJson(element.data()));
@@ -413,7 +420,8 @@ class HomeCubit extends Cubit<HomeStates> {
                 .collection('orders')
                 .doc(element.id)
                 .collection('states')
-                .where('storeId', isEqualTo: SharedHelper.getCacheData(key: TOKEN))
+                .where('storeId',
+                    isEqualTo: SharedHelper.getCacheData(key: TOKEN))
                 .where('state', isEqualTo: 'جاري البحث')
                 .get()
                 .then(
@@ -460,9 +468,15 @@ class HomeCubit extends Cubit<HomeStates> {
         value.docs.forEach((element) {
           sId = element.data()['sId'];
           STATE = element.data()['state'];
-          FirebaseFirestore.instance.collection('orders').doc(oId).collection('states').doc(sId).update({
+          FirebaseFirestore.instance
+              .collection('orders')
+              .doc(oId)
+              .collection('states')
+              .doc(sId)
+              .update({
             'state': newS,
-            if (newS == 'غير متوفر') 'date': DateTime.now().subtract(Duration(days: 10)),
+            if (newS == 'غير متوفر')
+              'date': DateTime.now().subtract(Duration(days: 10)),
             if (newS == 'متوفر') 'date': DateTime.now(),
           }).then((value) {
             getAllOrdersWhereGovernAndCategorie(cat: cat, gov: gov);
@@ -482,7 +496,9 @@ class HomeCubit extends Cubit<HomeStates> {
   // SEND SUGG
   void sendSugg({required message}) {
     emit(SendSuggLoding());
-    FirebaseFirestore.instance.collection('sugg').add({'message': message}).then(
+    FirebaseFirestore.instance
+        .collection('sugg')
+        .add({'message': message}).then(
       (value) {
         emit(SendSuggSuccsess());
       },
@@ -559,7 +575,11 @@ class HomeCubit extends Cubit<HomeStates> {
 
   void getSearchCount() {
     emit(AdminSearchCountLoaingState());
-    FirebaseFirestore.instance.collection('user').where('type', isEqualTo: 'user').get().then(
+    FirebaseFirestore.instance
+        .collection('user')
+        .where('type', isEqualTo: 'user')
+        .get()
+        .then(
       (value) {
         searchCount = value.docs.length;
         emit(AdminSearchCountSucessState());
@@ -574,7 +594,11 @@ class HomeCubit extends Cubit<HomeStates> {
 
   void getStoreCount() {
     emit(AdminStoreCountLoaingState());
-    FirebaseFirestore.instance.collection('user').where('type', isEqualTo: 'store').get().then(
+    FirebaseFirestore.instance
+        .collection('user')
+        .where('type', isEqualTo: 'store')
+        .get()
+        .then(
       (value) {
         storeCount = value.docs.length;
         emit(AdminStoreCountSucessState());
@@ -624,7 +648,10 @@ class HomeCubit extends Cubit<HomeStates> {
   void addCategories({required name}) {
     CategoriesModel categoriesModel = CategoriesModel(name);
     emit(AdminAddCategoriesLoaingState());
-    FirebaseFirestore.instance.collection('categories').add(categoriesModel.toMap()).then(
+    FirebaseFirestore.instance
+        .collection('categories')
+        .add(categoriesModel.toMap())
+        .then(
       (value) {
         emit(AdminAddCategoriesSucessState());
       },
@@ -671,7 +698,11 @@ class HomeCubit extends Cubit<HomeStates> {
   void getMyData({required uId}) {
     myData = [];
     emit(GetDataByIdLoading());
-    FirebaseFirestore.instance.collection('user').where("uId", isEqualTo: uId).get().then(
+    FirebaseFirestore.instance
+        .collection('user')
+        .where("uId", isEqualTo: uId)
+        .get()
+        .then(
       (value) {
         value.docs.forEach((element) {
           myId = element.id;
@@ -715,7 +746,11 @@ class HomeCubit extends Cubit<HomeStates> {
   void getUserBlock({required uId}) {
     userBlock = [];
     emit(GetUserByIdLoading());
-    FirebaseFirestore.instance.collection('user').where("uId", isEqualTo: uId).get().then(
+    FirebaseFirestore.instance
+        .collection('user')
+        .where("uId", isEqualTo: uId)
+        .get()
+        .then(
       (value) {
         value.docs.forEach((element) {
           userBlock.add(element.data());
@@ -726,6 +761,21 @@ class HomeCubit extends Cubit<HomeStates> {
       (e) {
         print(e.toString());
         emit(GetUserByIdError());
+      },
+    );
+  }
+
+  // ADS
+  void getAllAds() {
+    emit(GetAllAdsLoading());
+    FirebaseFirestore.instance.collection('ads').get().then(
+      (value) {
+        emit(GetAllAdsSuccess());
+      },
+    ).catchError(
+      (e) {
+        print(e.toString());
+        emit(GetAllAdsError());
       },
     );
   }

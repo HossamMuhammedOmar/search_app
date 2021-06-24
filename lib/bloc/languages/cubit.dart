@@ -274,9 +274,9 @@ class LanguagesCubit extends Cubit<LanguagesState> {
 
   String shopName() {
     if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
-      return 'إسم المحل';
+      return 'إسم المحل أو المهنه';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
-      return 'Shop name';
+      return 'Shop name Or career name';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
       return '';
     }
@@ -689,6 +689,4 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     }
     return '';
   }
-
-//  editProfile
 }

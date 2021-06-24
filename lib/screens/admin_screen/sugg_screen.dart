@@ -12,28 +12,30 @@ class SuggAdimnScreen extends StatelessWidget {
       builder: (context, state) {
         HomeCubit _cubit = HomeCubit.get(context);
         return Scaffold(
-            backgroundColor: Color(0xff2A2D40),
-            appBar: AppBar(
-              backgroundColor: Color(0xff212332),
-              title: Text('suggestions'),
-            ),
-            body: state is! AdminSuggCountLoaingState
-                ? ListView.separated(
-                    itemBuilder: (context, index) => _buildItems(
-                      _cubit.suggModel[index],
-                      _cubit,
-                    ),
-                    separatorBuilder: (context, index) => Container(
-                      width: double.infinity,
-                      height: 2,
-                      color: Color(0xff323548),
-                    ),
-                    itemCount: _cubit.suggModel.length,
-                  )
-                : Center(
-                    child: CircularProgressIndicator(
+          backgroundColor: Color(0xff2A2D40),
+          appBar: AppBar(
+            backgroundColor: Color(0xff212332),
+            title: Text('suggestions'),
+          ),
+          body: state is! AdminSuggCountLoaingState
+              ? ListView.separated(
+                  itemBuilder: (context, index) => _buildItems(
+                    _cubit.suggModel[index],
+                    _cubit,
+                  ),
+                  separatorBuilder: (context, index) => Container(
+                    width: double.infinity,
+                    height: 2,
+                    color: Color(0xff323548),
+                  ),
+                  itemCount: _cubit.suggModel.length,
+                )
+              : Center(
+                  child: CircularProgressIndicator(
                     color: Colors.white,
-                  )));
+                  ),
+                ),
+        );
       },
     );
   }

@@ -133,7 +133,7 @@ class NavigationDrawerWidget extends StatelessWidget {
         textDirection: SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
             ? TextDirection.rtl
             : TextDirection.ltr,
-        maxLines: 2,
+        maxLines: 3,
         style: TextStyle(
           fontFamily: SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
               ? 'Cairo'

@@ -1,3 +1,4 @@
+import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -22,13 +23,14 @@ class SuggStoreScreen extends StatelessWidget {
           if (states is SendSuggSuccsess) {
             _messageColntoller.text = '';
             Fluttertoast.showToast(
-                msg: "${LanguagesCubit.get(context).completeSendSuccess()}",
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.BOTTOM,
-                timeInSecForIosWeb: 1,
-                backgroundColor: mPrimaryGreen,
-                textColor: Colors.white,
-                fontSize: 16.0);
+              msg: "${LanguagesCubit.get(context).completeSendSuccess()}",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: mPrimaryGreen,
+              textColor: Colors.white,
+              fontSize: 16.0,
+            );
           }
         },
         builder: (context, states) {
@@ -44,8 +46,9 @@ class SuggStoreScreen extends StatelessWidget {
                 : null,
             appBar: AppBar(
               backgroundColor: Colors.white,
-              title: Text(
+              title: AutoSizeText(
                 '${LanguagesCubit.get(context).complaintsAndsuggestions()}',
+                maxLines: 1,
                 style: TextStyle(
                   color: mPrimaryDarkGrey,
                   fontFamily: SharedHelper.getCacheData(key: LANGUAGES) == 'AR'

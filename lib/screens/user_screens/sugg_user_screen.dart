@@ -1,3 +1,4 @@
+import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -44,8 +45,9 @@ class SuggUserScreen extends StatelessWidget {
                 : null,
             appBar: AppBar(
               backgroundColor: Colors.white,
-              title: Text(
+              title: AutoSizeText(
                 '${LanguagesCubit.get(context).complaintsAndsuggestions()}',
+                maxLines: 1,
                 style: TextStyle(
                   color: mPrimaryDarkGrey,
                   fontFamily: SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
