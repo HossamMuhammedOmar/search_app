@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>766152865357-hgl7ni212s3nftd90mjtmob7j0khvhgb.apps.googleusercontent.com</string>
+	<string>766152865357-6oi4np6532gbut976m74h8qgl44kb9fp.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.766152865357-hgl7ni212s3nftd90mjtmob7j0khvhgb</string>
+	<string>com.googleusercontent.apps.766152865357-6oi4np6532gbut976m74h8qgl44kb9fp</string>
 	<key>ANDROID_CLIENT_ID</key>
 	<string>766152865357-dlkd4oes7iakekv3i7re2tv7pm33g4i9.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
@@ -15,22 +15,22 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.searchApp</string>
+	<string>com.whereitis</string>
 	<key>PROJECT_ID</key>
 	<string>search-app-4f00e</string>
 	<key>STORAGE_BUCKET</key>
 	<string>search-app-4f00e.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_APPINVITE_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_GCM_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:766152865357:ios:50dabcb14bdddd62418e04</string>
+	<string>1:766152865357:ios:7151e247b4a88057418e04</string>
 </dict>
 </plist>

@@ -32,30 +32,23 @@ class AddDetaileScreen extends StatelessWidget {
         HomeCubit _cubit = HomeCubit.get(context);
 
         var productImage = _cubit.productImage;
-        var productImageUrl = _cubit.productImageUrl;
+        // var productImageUrl = _cubit.productImageUrl;
 
         return Scaffold(
           body: Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 40.0, vertical: 100),
+            padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 100),
             child: SingleChildScrollView(
               child: Column(
-                textDirection: SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
-                    ? TextDirection.rtl
-                    : TextDirection.ltr,
+                textDirection:
+                    SharedHelper.getCacheData(key: LANGUAGES) == 'AR' ? TextDirection.rtl : TextDirection.ltr,
                 children: [
                   AutoSizeText(
                     '${LanguagesCubit.get(context).enterNameOrShortDescriptionForTheItemYouAreLookingFor()}',
                     textDirection:
-                        SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
-                            ? TextDirection.rtl
-                            : TextDirection.ltr,
+                        SharedHelper.getCacheData(key: LANGUAGES) == 'AR' ? TextDirection.rtl : TextDirection.ltr,
                     style: TextStyle(
                       fontSize: 18,
-                      fontFamily:
-                          SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
-                              ? 'Cairo'
-                              : 'Poppins',
+                      fontFamily: SharedHelper.getCacheData(key: LANGUAGES) == 'AR' ? 'Cairo' : 'Poppins',
                       fontWeight: FontWeight.bold,
                     ),
                     maxLines: 2,
@@ -69,9 +62,7 @@ class AddDetaileScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       textDirection:
-                          SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
-                              ? TextDirection.rtl
-                              : TextDirection.ltr,
+                          SharedHelper.getCacheData(key: LANGUAGES) == 'AR' ? TextDirection.rtl : TextDirection.ltr,
                       children: [
                         TextFormField(
                           controller: _nameController,
@@ -94,9 +85,7 @@ class AddDetaileScreen extends StatelessWidget {
                           '${LanguagesCubit.get(context).ifYouWantToAddPictureOfTheItemYouAreLookingFor()}',
                           maxLines: 2,
                           textDirection:
-                              SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
-                                  ? TextDirection.rtl
-                                  : TextDirection.ltr,
+                              SharedHelper.getCacheData(key: LANGUAGES) == 'AR' ? TextDirection.rtl : TextDirection.ltr,
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -110,13 +99,10 @@ class AddDetaileScreen extends StatelessWidget {
                           keyboardType: TextInputType.text,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
-                            hintTextDirection:
-                                SharedHelper.getCacheData(key: LANGUAGES) ==
-                                        'AR'
-                                    ? TextDirection.rtl
-                                    : TextDirection.ltr,
-                            hintText:
-                                '${LanguagesCubit.get(context).enterImageUrl()}',
+                            hintTextDirection: SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
+                                ? TextDirection.rtl
+                                : TextDirection.ltr,
+                            hintText: '${LanguagesCubit.get(context).enterImageUrl()}',
                           ),
                         ),
                         SizedBox(
@@ -148,9 +134,7 @@ class AddDetaileScreen extends StatelessWidget {
                                     AutoSizeText(
                                       '${LanguagesCubit.get(context).uploadImageFromYourDevice()}',
                                       maxLines: 1,
-                                      textDirection: SharedHelper.getCacheData(
-                                                  key: LANGUAGES) ==
-                                              'AR'
+                                      textDirection: SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
                                           ? TextDirection.rtl
                                           : TextDirection.ltr,
                                       style: TextStyle(
@@ -215,8 +199,7 @@ class AddDetaileScreen extends StatelessWidget {
                           },
                           child: _cubit.productImage != null
                               ? state is! HomeStoreImageLoading
-                                  ? Text(
-                                      '${LanguagesCubit.get(context).startSearch()}')
+                                  ? Text('${LanguagesCubit.get(context).startSearch()}')
                                   : Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: Center(
@@ -226,8 +209,7 @@ class AddDetaileScreen extends StatelessWidget {
                                       ),
                                     )
                               : state is! HomeCreateOrderLoadingState
-                                  ? Text(
-                                      '${LanguagesCubit.get(context).startSearch()}')
+                                  ? Text('${LanguagesCubit.get(context).startSearch()}')
                                   : Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: Center(

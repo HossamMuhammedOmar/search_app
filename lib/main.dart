@@ -14,11 +14,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await SharedHelper.init();
-  SystemChrome.setPreferredOrientations(
-      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-  runApp(
-    MyApp(),
-  );
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+  return runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -37,9 +34,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Where is it',
         debugShowCheckedModeBanner: false,
-        home: SharedHelper.getCacheData(key: LANGUAGES) == null
-            ? ChooseLanguageScreen()
-            : LoginScreen(),
+        home: SharedHelper.getCacheData(key: LANGUAGES) == null ? ChooseLanguageScreen() : LoginScreen(),
       ),
     );
   }
