@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:search_app/constant/constant.dart';
 import 'package:search_app/helpers/shared_helper.dart';
+import 'package:search_app/model/ads_model.dart';
 import 'package:search_app/model/order_model.dart';
 import 'package:search_app/model/states_model.dart';
 import 'package:search_app/model/sugg_model.dart';
@@ -21,8 +22,11 @@ class HomeCubit extends Cubit<HomeStates> {
 
   static HomeCubit get(context) => BlocProvider.of(context);
   File? productImage;
+  File? adsImage;
   final picker = ImagePicker();
   String? productImageUrl;
+  String? adsImageUrl;
+
   List<CategoriesModel> categories = [];
   List cate = [];
   List gov = [
@@ -213,6 +217,7 @@ class HomeCubit extends Cubit<HomeStates> {
     FirebaseFirestore.instance
         .collection('orders')
         .where("uId", isEqualTo: SharedHelper.getCacheData(key: TOKEN))
+        .orderBy('date', descending: true)
         .get()
         .then(
       (value) {
@@ -321,18 +326,10 @@ class HomeCubit extends Cubit<HomeStates> {
     }
   }
 
-  void removeProductImage(context, Widget child) {
+  void removeProductImage(context) {
     productImage = null;
     productImageUrl = null;
-
-    Transitioner(
-      context: context,
-      child: child,
-      animation: AnimationType.scale,
-      duration: Duration(milliseconds: 500),
-      replacement: true,
-      curveType: CurveType.elastic,
-    );
+    emit(RemoveProductImageState());
   }
 
   // UPLOAD IMAGE TO STORAGE
@@ -765,17 +762,117 @@ class HomeCubit extends Cubit<HomeStates> {
     );
   }
 
+  List<AdsModel> adsModel = [];
   // ADS
   void getAllAds() {
+    adsModel = [];
     emit(GetAllAdsLoading());
     FirebaseFirestore.instance.collection('ads').get().then(
       (value) {
+        value.docs.forEach((element) {
+          adsModel.add(AdsModel.fromJson(element.data()));
+        });
         emit(GetAllAdsSuccess());
       },
     ).catchError(
       (e) {
         print(e.toString());
         emit(GetAllAdsError());
+      },
+    );
+  }
+
+  void addNewAds({required imageUrl}) {
+    emit(AddNewAdsLoading());
+    AdsModel adsModel = AdsModel(imageUrl);
+    var doc = FirebaseFirestore.instance.collection('ads').doc();
+    doc.set(adsModel.toMap(doc.id)).then(
+      (value) {
+        getAllAds();
+        emit(AddNewAdsSuccess());
+      },
+    ).catchError(
+      (e) {
+        emit(AddNewAdsError());
+        print(e.toString());
+      },
+    );
+  }
+
+  void deleteAdsById({required id, required imgUrl}) {
+    emit(DeleteAdsLoading());
+    String url = imgUrl;
+    FirebaseFirestore.instance.collection('ads').doc(id).delete().then(
+      (value) {
+        if (url.isEmpty) {
+          print('ssss');
+          firebase_storage.FirebaseStorage.instance
+              .refFromURL(url.toString())
+              .delete()
+              .then(
+            (value) {
+              getAllAds();
+              emit(DeleteAdsSuccess());
+            },
+          ).catchError(
+            (e) {
+              print(e.toString());
+            },
+          );
+        } else {
+          print('sssaasda');
+          getAllAds();
+          emit(DeleteAdsSuccess());
+        }
+      },
+    ).catchError(
+      (e) {
+        print(e.toString());
+        emit(DeleteAdsError());
+      },
+    );
+  }
+
+  Future getAdsImage() async {
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      adsImage = File(pickedFile.path);
+      emit(AdsUploadImageSuccess());
+    } else {
+      print('No image selected.');
+      emit(AdsUploadImageError());
+    }
+  }
+
+  void removeAdsImage(context) {
+    adsImage = null;
+    adsImageUrl = null;
+    emit(RemoveAdsImageState());
+  }
+
+  void uploadAdsImage() {
+    emit(AddNewAdsLoading());
+    firebase_storage.FirebaseStorage.instance
+        .ref()
+        .child('ads/${Uri.file(adsImage!.path).pathSegments.last}')
+        .putFile(adsImage!)
+        .then(
+      (value) {
+        value.ref.getDownloadURL().then((value) {
+          adsImageUrl = value;
+          addNewAds(imageUrl: adsImageUrl);
+
+          emit(StoreAdsImageSuccess());
+        }).catchError((e) {
+          print(e.toString());
+          emit(StoreAdsImageError());
+        });
+      },
+    ).catchError(
+      (e) {
+        print(e.toString());
+        emit(StoreAdsImageError());
       },
     );
   }

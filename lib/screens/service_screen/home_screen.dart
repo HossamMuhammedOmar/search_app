@@ -1,4 +1,5 @@
 import 'package:auto_size_text_pk/auto_size_text_pk.dart';
+import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:search_app/bloc/home/cubit.dart';
@@ -68,79 +69,79 @@ class _HomeStoreScreenState extends State<HomeStoreScreen> {
                   if (_cubit.userById.isNotEmpty)
                     state is! GetUserByIdLoading
                         ? Expanded(
-                            child: Column(
-                              children: [
-                                AutoSizeText(
-                                  '${LanguagesCubit.get(context).welcome()}',
-                                  style: TextStyle(
-                                    fontSize: 26,
-                                    fontFamily: SharedHelper.getCacheData(
-                                                key: LANGUAGES) ==
-                                            'AR'
-                                        ? 'Cairo'
-                                        : 'Poppins',
-                                  ),
-                                ),
-                                AutoSizeText(
-                                  '${_cubit.userById[0].storeName!}',
-                                  style: TextStyle(
-                                    fontSize: 26,
-                                    fontFamily: SharedHelper.getCacheData(
-                                                key: LANGUAGES) ==
-                                            'AR'
-                                        ? 'NotoKufiArabic'
-                                        : 'Poppins',
-                                    color: mPrimaryLightBlue,
-                                  ),
-                                ),
-                                Text(
-                                  '${LanguagesCubit.get(context).followingNewOrdersNow()}',
-                                  style: TextStyle(
-                                    fontFamily: SharedHelper.getCacheData(
-                                                key: LANGUAGES) ==
-                                            'AR'
-                                        ? 'NotoKufiArabic'
-                                        : 'Poppins',
-                                    fontSize: 22,
-                                  ),
-                                ),
-                                Spacer(),
-                                SizedBox(
-                                  height: 30,
-                                ),
-                                Container(
-                                  child: CarouselSlider(
-                                    // items: model.data.banners
-                                    //     .map(
-                                    //       (e) => Image(
-                                    //         image: NetworkImage(e.image),
-                                    //         width: double.infinity,
-                                    //         fit: BoxFit.cover,
-                                    //       ),
-                                    //     )
-                                    //     .toList(),
-                                    items: [
-                                      Image.asset(
-                                        'assets/images/ads-space.png',
-                                        fit: BoxFit.cover,
+                            child: LayoutBuilder(
+                              builder: (context, constraint) {
+                                var localHeight = constraint.maxHeight;
+                                return Column(
+                                  children: [
+                                    AutoSizeText(
+                                      '${LanguagesCubit.get(context).welcome()}',
+                                      style: TextStyle(
+                                        fontSize: 26,
+                                        fontFamily: SharedHelper.getCacheData(
+                                                    key: LANGUAGES) ==
+                                                'AR'
+                                            ? 'Cairo'
+                                            : 'Poppins',
                                       ),
-                                    ],
-                                    options: CarouselOptions(
-                                      height: 100,
-                                      initialPage: 0,
-                                      enableInfiniteScroll: true,
-                                      reverse: false,
-                                      autoPlay: true,
-                                      autoPlayInterval: Duration(seconds: 10),
-                                      autoPlayAnimationDuration:
-                                          Duration(seconds: 1),
-                                      autoPlayCurve: Curves.fastOutSlowIn,
-                                      scrollDirection: Axis.horizontal,
-                                      viewportFraction: 1,
                                     ),
-                                  ),
-                                ),
-                              ],
+                                    AutoSizeText(
+                                      '${_cubit.userById[0].storeName!}',
+                                      style: TextStyle(
+                                        fontSize: 26,
+                                        fontFamily: SharedHelper.getCacheData(
+                                                    key: LANGUAGES) ==
+                                                'AR'
+                                            ? 'NotoKufiArabic'
+                                            : 'Poppins',
+                                        color: mPrimaryLightBlue,
+                                      ),
+                                    ),
+                                    Text(
+                                      '${LanguagesCubit.get(context).followingNewOrdersNow()}',
+                                      style: TextStyle(
+                                        fontFamily: SharedHelper.getCacheData(
+                                                    key: LANGUAGES) ==
+                                                'AR'
+                                            ? 'NotoKufiArabic'
+                                            : 'Poppins',
+                                        fontSize: 22,
+                                      ),
+                                    ),
+                                    Spacer(),
+                                    SizedBox(
+                                      height: 30,
+                                    ),
+                                    Container(
+                                      child: CarouselSlider(
+                                        items: _cubit.adsModel
+                                            .map(
+                                              (e) => FancyShimmerImage(
+                                                imageUrl: e.image.toString(),
+                                                width: double.infinity,
+                                                boxFit: BoxFit.cover,
+                                              ),
+                                            )
+                                            .toList(),
+                                        options: CarouselOptions(
+                                          height: localHeight / 2.2,
+                                          initialPage: 0,
+                                          enableInfiniteScroll: true,
+                                          reverse: false,
+                                          autoPlay: true,
+                                          autoPlayInterval:
+                                              Duration(seconds: 10),
+                                          autoPlayAnimationDuration:
+                                              Duration(milliseconds: 500),
+                                          autoPlayCurve: Curves.easeIn,
+                                          scrollDirection: Axis.horizontal,
+                                          viewportFraction: 1,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
                             ),
                           )
                         : LinearProgressIndicator(),

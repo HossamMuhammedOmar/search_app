@@ -161,6 +161,8 @@ class NavigationDrawerWidget extends StatelessWidget {
     Navigator.of(context).pop();
     switch (index) {
       case 0:
+        HomeCubit.get(context).getAllAds();
+
         Transitioner(
           context: context,
           child: HomeUserScreen(),

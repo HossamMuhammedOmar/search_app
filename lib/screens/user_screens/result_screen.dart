@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:search_app/bloc/home/cubit.dart';
 import 'package:search_app/bloc/home/states.dart';
+import 'package:search_app/bloc/languages/cubit.dart';
 import 'package:search_app/constant/constant.dart';
+import 'package:search_app/helpers/shared_helper.dart';
 import 'package:search_app/model/user_model.dart';
 import 'package:search_app/screens/user_screens/home_screen.dart';
 import 'package:transitioner/transitioner.dart';
@@ -15,11 +17,38 @@ class ResultScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.white,
+            title: TextButton(
+              onPressed: () {
+                HomeCubit.get(context).getMyOrder();
+                Transitioner(
+                  context: context,
+                  child: HomeUserScreen(),
+                  animation: AnimationType.fadeIn, // Optional value
+                  duration: Duration(milliseconds: 300), // Optional value
+                  replacement: true, // Optional value
+                  curveType: CurveType.decelerate, // Optional value
+                );
+              },
+              child: Text(
+                '${LanguagesCubit.get(context).home()}',
+                style: TextStyle(
+                  fontFamily: SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
+                      ? 'Cairo'
+                      : 'Poppins',
+                  fontSize: 16,
+                  color: mPrimaryGreen,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
           body: Column(
             children: [
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 50),
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                 child: Container(
                   height: MediaQuery.of(context).size.height / 1.65,
                   child: ListView.separated(
@@ -56,32 +85,6 @@ class ResultScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        MaterialButton(
-                          onPressed: () {
-                            Transitioner(
-                              context: context,
-                              child: HomeUserScreen(),
-                              animation: AnimationType.fadeIn, // Optional value
-                              duration:
-                                  Duration(milliseconds: 300), // Optional value
-                              replacement: true, // Optional value
-                              curveType: CurveType.decelerate, // Optional value
-                            );
-                          },
-                          child: Text(
-                            'الرئيسية',
-                            style: TextStyle(
-                              fontFamily: 'Cairo',
-                              color: mPrimaryGreen,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          textColor: Colors.white,
-                          minWidth: 120,
-                        )
                       ],
                     ),
                   ),
@@ -99,7 +102,7 @@ class ResultScreen extends StatelessWidget {
       children: [
         Container(
           width: MediaQuery.of(context).size.width / 2.8,
-          height: 70,
+          height: 60,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             color: Color(0xff1EB6FF),
@@ -122,7 +125,7 @@ class ResultScreen extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
             color: mPrimaryGrey.withOpacity(0.3),
           ),
-          height: 70,
+          height: 60,
           child: Center(
             child: AutoSizeText(
               '${item.storeName}',

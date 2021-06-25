@@ -670,9 +670,9 @@ class LanguagesCubit extends Cubit<LanguagesState> {
 
   String report() {
     if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
-      return 'إبلاغ';
+      return 'إضغط للإبلاغ';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
-      return 'Report';
+      return 'Click to report';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
       return '';
     }
@@ -684,6 +684,50 @@ class LanguagesCubit extends Cubit<LanguagesState> {
       return 'تم الارسال بنجاح';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'sent succesfully';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
+    }
+    return '';
+  }
+
+  String reachedTheMaximumSearchNumber() {
+    if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
+      return 'لقد وصلت للحد الأقصي من عمليات البحث الرجاء حذف عمليات البحث القديمه لتتمكن من البحث مجدداً';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
+      return 'You have reached the maximum number of searches, please delete your old searches to be able to search again';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
+    }
+    return '';
+  }
+
+  String onlyFiveSearch() {
+    if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
+      return 'لديك ١٠ عمليات بحث نشطه فقط، الرجاء حذف البحث بعد الوصول إلي المنتج المطلوب حتي تسطيع البحث مجدداً';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
+      return 'You only have 10 active searches, please delete the search after you have found the product, To search again';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
+    }
+    return '';
+  }
+
+  String searchingNow() {
+    if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
+      return 'يتم البحث الآن وفي حال توفر المنتج عند احدى المتاجر سيظهر زر التواصل معه';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
+      return 'Searching... If the product is available at a store, a button will appear for you to contact the store!';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return '';
+    }
+    return '';
+  }
+
+  String back() {
+    if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
+      return 'رجوع';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
+      return 'Back';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
       return '';
     }

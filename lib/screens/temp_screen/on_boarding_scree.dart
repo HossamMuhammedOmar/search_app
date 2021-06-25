@@ -71,7 +71,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
       backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.only(
-          bottom: 30,
+          bottom: 10,
           right: 30,
           left: 30,
         ),
@@ -107,31 +107,40 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                           height: 300,
                         ),
                         SizedBox(height: 20.0),
-                        AutoSizeText(
-                          '${onBoardingdata[index].title}',
-                          textDirection:
-                              SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
-                                  ? TextDirection.rtl
-                                  : TextDirection.ltr,
-                          maxLines: 1,
-                          style: TextStyle(
-                            fontSize: 22.0,
-                            fontWeight: FontWeight.bold,
+                        Container(
+                          height: MediaQuery.of(context).size.height / 3,
+                          child: Column(
+                            children: [
+                              AutoSizeText(
+                                '${onBoardingdata[index].title}',
+                                textDirection:
+                                    SharedHelper.getCacheData(key: LANGUAGES) ==
+                                            'AR'
+                                        ? TextDirection.rtl
+                                        : TextDirection.ltr,
+                                maxLines: 1,
+                                style: TextStyle(
+                                  fontSize: 22.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(height: 20.0),
+                              AutoSizeText(
+                                '${onBoardingdata[index].description}',
+                                maxLines: 4,
+                                textDirection:
+                                    SharedHelper.getCacheData(key: LANGUAGES) ==
+                                            'AR'
+                                        ? TextDirection.rtl
+                                        : TextDirection.ltr,
+                                style: TextStyle(
+                                  fontSize: 22.0,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                                textAlign: TextAlign.start,
+                              ),
+                            ],
                           ),
-                        ),
-                        SizedBox(height: 20.0),
-                        AutoSizeText(
-                          '${onBoardingdata[index].description}',
-                          textDirection:
-                              SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
-                                  ? TextDirection.rtl
-                                  : TextDirection.ltr,
-                          style: TextStyle(
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.w400,
-                          ),
-                          maxLines: 5,
-                          textAlign: TextAlign.start,
                         ),
                       ],
                     ),

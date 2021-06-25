@@ -113,8 +113,10 @@ class OrderTracking extends StatelessWidget {
                           );
                         },
                         child: Text(
-                          'إبلاغ',
-                          style: TextStyle(color: Colors.red),
+                          '${LanguagesCubit.get(context).report()}',
+                          style: TextStyle(
+                            color: Colors.red,
+                          ),
                         ),
                       ),
                       AutoSizeText(

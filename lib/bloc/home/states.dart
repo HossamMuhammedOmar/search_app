@@ -196,3 +196,29 @@ class GetAllAdsLoading extends HomeStates {}
 class GetAllAdsSuccess extends HomeStates {}
 
 class GetAllAdsError extends HomeStates {}
+
+class RemoveProductImageState extends HomeStates {}
+
+class AddNewAdsLoading extends HomeStates {}
+
+class AddNewAdsSuccess extends HomeStates {}
+
+class AddNewAdsError extends HomeStates {}
+
+class DeleteAdsLoading extends HomeStates {}
+
+class DeleteAdsSuccess extends HomeStates {}
+
+class DeleteAdsError extends HomeStates {}
+
+class AdsUploadImageSuccess extends HomeStates {}
+
+class AdsUploadImageError extends HomeStates {}
+
+class RemoveAdsImageState extends HomeStates {}
+
+class StoreAdsImageLoading extends HomeStates {}
+
+class StoreAdsImageSuccess extends HomeStates {}
+
+class StoreAdsImageError extends HomeStates {}

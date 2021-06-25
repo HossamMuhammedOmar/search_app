@@ -31,8 +31,8 @@ class AddDetaileScreen extends StatelessWidget {
       },
       builder: (context, state) {
         HomeCubit _cubit = HomeCubit.get(context);
-
         var productImage = _cubit.productImage;
+
         return Scaffold(
           body: Stack(
             children: [
@@ -193,9 +193,9 @@ class AddDetaileScreen extends StatelessWidget {
                                         ),
                                         MaterialButton(
                                           onPressed: () {
+                                            productImage = null;
                                             _cubit.removeProductImage(
                                               context,
-                                              AddDetaileScreen(),
                                             );
                                           },
                                           textColor: Colors.redAccent,

@@ -46,14 +46,15 @@ class UserAdminScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              '${item['email']}',
-              style: TextStyle(
-                fontSize: 22,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
+            if (item['email'] != null)
+              Text(
+                '${item['email']}',
+                style: TextStyle(
+                  fontSize: 22,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
             SizedBox(height: 5),
             if (item['name'] != null)
               Text(

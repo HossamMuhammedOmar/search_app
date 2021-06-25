@@ -80,12 +80,16 @@ class SearchHistory extends StatelessWidget {
                           padding: const EdgeInsets.all(25.0),
                           child: Center(
                             child: AutoSizeText(
-                              'لديك ١٠ عمليات بحث نشطه فقط، الرجاء حذف البحث بعد الوصول إلي المنتج المطلوب حتي تسطيع البحث مجدداً',
+                              '${LanguagesCubit.get(context).onlyFiveSearch()}',
                               maxLines: 2,
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 color: mPrimaryDarkGrey,
-                                fontFamily: 'Cairo',
+                                fontFamily:
+                                    SharedHelper.getCacheData(key: LANGUAGES) ==
+                                            'AR'
+                                        ? 'Cairo'
+                                        : 'Poppins',
                                 fontSize: 20,
                               ),
                             ),

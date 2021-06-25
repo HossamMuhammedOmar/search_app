@@ -328,10 +328,11 @@ class LoginScreen extends StatelessWidget {
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: '${LanguagesCubit.get(context).phoneNumber()}',
+                  hintText: '*** *** ****',
                   prefixIcon: Container(
                     padding: const EdgeInsets.all(20),
                     child: Text(
-                      '+9647',
+                      '+964',
                       textAlign: TextAlign.center,
                     ),
                   ),

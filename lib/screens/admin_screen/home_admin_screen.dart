@@ -6,8 +6,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:search_app/bloc/home/cubit.dart';
 import 'package:search_app/bloc/home/states.dart';
 import 'package:search_app/constant/constant.dart';
+import 'package:search_app/screens/admin_screen/ads_screen.dart';
 import 'package:search_app/screens/admin_screen/sugg_screen.dart';
 import 'package:search_app/screens/admin_screen/user_admin_screen.dart';
+import 'package:search_app/screens/login_screen.dart';
 
 class HomeAdminScreen extends StatefulWidget {
   @override
@@ -57,7 +59,7 @@ class _HomeAdminScreenState extends State<HomeAdminScreen> {
           body: state is! AdminOrderCountLoaingState
               ? SingleChildScrollView(
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 30),
+                    padding: const EdgeInsets.only(top: 30, bottom: 30),
                     child: Column(
                       children: [
                         Container(
@@ -370,6 +372,49 @@ class _HomeAdminScreenState extends State<HomeAdminScreen> {
                             ),
                           ),
                           color: Color(0xffe0a110),
+                          minWidth: MediaQuery.of(context).size.width / 2,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        MaterialButton(
+                          onPressed: () {
+                            _cubit.getAllAds();
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (_) => AdsScreen(),
+                              ),
+                            );
+                          },
+                          textColor: Colors.white,
+                          child: Text(
+                            'Ads',
+                            style: TextStyle(
+                              fontSize: 16,
+                            ),
+                          ),
+                          color: Color(0xff0A99F3),
+                          minWidth: MediaQuery.of(context).size.width / 2,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        MaterialButton(
+                          onPressed: () {
+                            Navigator.of(context).pushAndRemoveUntil(
+                                MaterialPageRoute(
+                                  builder: (_) => LoginScreen(),
+                                ),
+                                (route) => false);
+                          },
+                          textColor: Colors.white,
+                          child: Text(
+                            'Logout',
+                            style: TextStyle(
+                              fontSize: 16,
+                            ),
+                          ),
+                          color: Colors.red,
                           minWidth: MediaQuery.of(context).size.width / 2,
                         ),
                       ],
