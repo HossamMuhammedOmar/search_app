@@ -1,5 +1,6 @@
 import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:flutter/material.dart';
+import 'package:search_app/bloc/home/cubit.dart';
 import 'package:search_app/bloc/languages/cubit.dart';
 import 'package:search_app/constant/constant.dart';
 import 'package:search_app/helpers/shared_helper.dart';

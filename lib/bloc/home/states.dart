@@ -222,3 +222,11 @@ class StoreAdsImageLoading extends HomeStates {}
 class StoreAdsImageSuccess extends HomeStates {}
 
 class StoreAdsImageError extends HomeStates {}
+
+class StoreNotificationLoading extends HomeStates {}
+
+class MarkStoreNotifcationReadLoading extends HomeStates {}
+
+class MarkStoreNotifcationReadSuccess extends HomeStates {}
+
+class MarkStoreNotifcationReadError extends HomeStates {}

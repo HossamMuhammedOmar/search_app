@@ -5,12 +5,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:search_app/bloc/login/states.dart';
 import 'package:search_app/constant/constant.dart';
 import 'package:search_app/helpers/shared_helper.dart';
+import 'package:search_app/model/user_model.dart';
 
 class LoginCubit extends Cubit<LoginStates> {
   LoginCubit() : super(LoginInitState());
 
   static LoginCubit get(context) => BlocProvider.of(context);
 
+  List<UserModel> USERMODEL = [];
   bool isEmailScreen = true;
   IconData icon = Icons.visibility;
   bool hidePassword = true;

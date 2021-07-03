@@ -4,6 +4,8 @@ const LANGUAGES = 'language';
 const ONBOARDING = 'onBoarding';
 const USERTYPE = 'userType';
 const TOKEN = 'token';
+const STORECATEGORIES = 'categories';
+const STOREGOVERNMENT = 'government';
 
 const mPrimaryGreen = Color(0xff2ecc71);
 const mPrimaryBlue = Color(0xff3498db);

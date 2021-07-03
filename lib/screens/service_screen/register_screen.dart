@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:loading_animations/loading_animations.dart';
+import 'package:search_app/bloc/home/cubit.dart';
 import 'package:search_app/bloc/languages/cubit.dart';
 import 'package:search_app/bloc/register/cubit.dart';
 import 'package:search_app/bloc/register/states.dart';
@@ -57,6 +58,7 @@ class RegisterScreen extends StatelessWidget {
       },
       builder: (context, state) {
         RegisterCubit _cubit = RegisterCubit.get(context);
+
         return Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(

@@ -10,8 +10,10 @@ import 'package:search_app/helpers/shared_helper.dart';
 import 'package:search_app/model/ads_model.dart';
 import 'package:search_app/model/order_model.dart';
 import 'package:search_app/model/states_model.dart';
+import 'package:search_app/model/store_notification_model.dart';
 import 'package:search_app/model/sugg_model.dart';
 import 'package:search_app/model/user_model.dart';
+import 'package:search_app/model/user_notification_model.dart';
 import 'package:transitioner/transitioner.dart';
 import 'states.dart';
 import '../../model/categories_model.dart';
@@ -28,6 +30,7 @@ class HomeCubit extends Cubit<HomeStates> {
   String? adsImageUrl;
 
   List<CategoriesModel> categories = [];
+  List<CategoriesModel> categoriesHome = [];
   List cate = [];
   List gov = [
     'أربيل',
@@ -51,6 +54,7 @@ class HomeCubit extends Cubit<HomeStates> {
     'واسط',
   ];
   String selectedCategories = 'الصيدليات';
+  String selectedCategoriesHome = 'الصيدليات';
   String selectedGovern = 'بغداد';
   TextEditingController governController = TextEditingController();
   List<UserModel> userModel = [];
@@ -75,8 +79,15 @@ class HomeCubit extends Cubit<HomeStates> {
     emit(HomeChooseCategoriesState());
   }
 
+  void selecteCategoryHome(currentCategory) {
+    selectedCategories = currentCategory;
+    emit(HomeChooseCategoriesState());
+  }
+
   // GET ALL CATEGORIES
   void getAllCategories() {
+    categories = [];
+    categoriesHome = [];
     emit(HomeLoadingCategoriesState());
     FirebaseFirestore.instance.collection('categories').get().then(
       (value) {
@@ -84,6 +95,7 @@ class HomeCubit extends Cubit<HomeStates> {
           (element) {
             categories.add(CategoriesModel.fromJson(element.data()));
             cate.add(CategoriesModel.fromJson(element.data()));
+            categoriesHome.add(CategoriesModel.fromJson(element.data()));
           },
         );
         emit(HomeSucessCategoriesState());
@@ -171,6 +183,18 @@ class HomeCubit extends Cubit<HomeStates> {
         .where("shop.categories", isEqualTo: categories)
         .get()
         .then((value) {
+      var docN =
+          FirebaseFirestore.instance.collection('store_notifications').doc();
+      var docID = docN.id;
+      docN.set({
+        'government': government,
+        'categories': categories,
+        'description': description,
+        'date': DateTime.now().toIso8601String(),
+        'uId': uId,
+      }).catchError((e) {
+        print(e.toString());
+      });
       final doc = FirebaseFirestore.instance.collection('orders').doc();
       value.docs.forEach(
         (element) {
@@ -189,10 +213,21 @@ class HomeCubit extends Cubit<HomeStates> {
             state: 'جاري البحث',
             cat: element.data()['shop']['categories'],
             sId: sId.id,
+            description: description,
           );
 
           doc.set(orderModel.toMap()).then(
             (v) {
+              var f = FirebaseFirestore.instance
+                  .collection('store_notifications')
+                  .doc(docID)
+                  .collection('stores');
+              f.add({
+                'sId': element.data()['uId'],
+                'seen': false,
+                'DID': f.id,
+              });
+
               sId.set(statesModel.toMap()).then((value) {}).catchError((e) {
                 print(e.toString());
               });
@@ -387,6 +422,13 @@ class HomeCubit extends Cubit<HomeStates> {
       (value) {
         value.docs.forEach((element) {
           userById.add(UserModel.fromJson(element.data()));
+
+          SharedHelper.cacheData(
+              key: STORECATEGORIES,
+              value: element.data()['shop']['categories']);
+          SharedHelper.cacheData(
+              key: STOREGOVERNMENT,
+              value: element.data()['shop']['address']['governorate']);
         });
         emit(GetUserByIdSuccess());
       },
@@ -452,6 +494,8 @@ class HomeCubit extends Cubit<HomeStates> {
     required newS,
     required cat,
     required gov,
+    required uId,
+    required decription,
   }) {
     emit(EditStateLoaing());
     FirebaseFirestore.instance
@@ -476,7 +520,26 @@ class HomeCubit extends Cubit<HomeStates> {
               'date': DateTime.now().subtract(Duration(days: 10)),
             if (newS == 'متوفر') 'date': DateTime.now(),
           }).then((value) {
+            var cId = '';
             getAllOrdersWhereGovernAndCategorie(cat: cat, gov: gov);
+            FirebaseFirestore.instance
+                .collection('orders')
+                .doc(oId)
+                .get()
+                .then((value) {
+              cId = value.data()!['uId'];
+              FirebaseFirestore.instance
+                  .collection('user_notifications')
+                  .doc()
+                  .set({
+                'uId': cId,
+                'date': DateTime.now().toIso8601String(),
+                'state': newS,
+                'decription': decription,
+                'seen': false,
+                'storeName': userById[0].storeName,
+              }).catchError((e) => print(e.toString()));
+            });
           }).catchError((e) {
             print(e.toString());
           });
@@ -875,5 +938,114 @@ class HomeCubit extends Cubit<HomeStates> {
         emit(StoreAdsImageError());
       },
     );
+  }
+
+  // GET STORE NOTIFICATION
+  List storeNotification = [];
+  List storeNotificationState = [];
+
+  void getStoreNotification({
+    required government,
+    required categories,
+    required storeId,
+  }) {
+    storeNotification = [];
+    storeNotificationState = [];
+
+    // emit(StoreNotificationLoading());
+    FirebaseFirestore.instance
+        .collection('store_notifications')
+        .where("government", isEqualTo: government)
+        .where("categories", isEqualTo: categories)
+        .snapshots()
+        .listen((event) {
+      event.docs.forEach(
+        (elementt) {
+          FirebaseFirestore.instance
+              .collection('store_notifications')
+              .doc(elementt.id)
+              .collection('stores')
+              .where('sId', isEqualTo: storeId)
+              .where('seen', isEqualTo: false)
+              .snapshots()
+              .listen((event) {
+            event.docs.forEach((element) {
+              // print(element.data());
+              storeNotificationState.add({
+                'id': element.id,
+                'seen': element.data()['seen'],
+                'oId': elementt.id,
+              });
+              storeNotification
+                  .add(StoreNotificationModel.fromJson(elementt.data()));
+            });
+          });
+        },
+      );
+    });
+    // FirebaseFirestore.instance
+    //     .collection('store_notifications')
+    //     .where("government", isEqualTo: government)
+    //     .where("categories", isEqualTo: categories)
+    //     .get()
+    //     .then(
+    //   (value) {
+    //     value.docs.forEach((element) {
+    //       FirebaseFirestore.instance
+    //           .collection('store_notifications')
+    //           .doc(element.id)
+    //           .collection('stores')
+    //           .where('sId', isEqualTo: storeId)
+    //           .where('seen', isEqualTo: false)
+    //           .get()
+    //           .then((value) {
+    //         value.docs.forEach((element) {
+    //           storeNotification
+    //               .add(StoreNotificationModel.fromJson(element.data()));
+    //         });
+    //       });
+    //     });
+    //   },
+  }
+
+  void markAsReading({required oId, required id}) {
+    emit(MarkStoreNotifcationReadLoading());
+    FirebaseFirestore.instance
+        .collection('store_notifications')
+        .doc(oId)
+        .collection('stores')
+        .doc(id)
+        .update({'seen': true}).then(
+      (value) {
+        // storeNotificationState = [];
+        // storeNotification = [];
+        getStoreNotification(
+            government: SharedHelper.getCacheData(key: STOREGOVERNMENT),
+            categories: SharedHelper.getCacheData(key: STORECATEGORIES),
+            storeId: SharedHelper.getCacheData(key: TOKEN));
+        emit(MarkStoreNotifcationReadSuccess());
+      },
+    ).catchError(
+      (e) {
+        print(e.toString());
+        emit(MarkStoreNotifcationReadError());
+      },
+    );
+  }
+
+  List<UserNotificationModel> userNotificationModel = [];
+
+  void getNotificationUser() {
+    userNotificationModel = [];
+    FirebaseFirestore.instance
+        .collection('user_notifications')
+        .where('uId', isEqualTo: SharedHelper.getCacheData(key: TOKEN))
+        .snapshots()
+        .listen((event) {
+      event.docs.forEach((element) {
+        userNotificationModel
+            .add(UserNotificationModel.fromJson(element.data()));
+      });
+    });
   }
 }

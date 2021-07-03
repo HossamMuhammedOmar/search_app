@@ -7,6 +7,7 @@ class StatesModel {
   String? state;
   String? cat;
   String? sId;
+  String? description;
 
   StatesModel({
     this.storeId,
@@ -17,6 +18,7 @@ class StatesModel {
     this.state,
     this.cat,
     this.sId,
+    this.description,
   });
   StatesModel.fromJson(Map<String, dynamic>? json) {
     storeId = json?['storeId'];
@@ -27,6 +29,7 @@ class StatesModel {
     state = json?['state'];
     cat = json?['cat'];
     sId = json?['sId'];
+    description = json?['description'];
   }
 
   Map<String, dynamic> toMap() {
@@ -40,6 +43,7 @@ class StatesModel {
       'cat': cat,
       'sId': sId,
       'date': DateTime.now(),
+      'description': description,
     };
   }
 }

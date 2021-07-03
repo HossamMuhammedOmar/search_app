@@ -169,6 +169,7 @@ class NavigationStoreWidget extends StatelessWidget {
     switch (index) {
       case 0:
         HomeCubit.get(context).getAllAds();
+
         Transitioner(
           context: context,
           child: HomeStoreScreen(),
@@ -214,6 +215,8 @@ class NavigationStoreWidget extends StatelessWidget {
       case 4:
         SharedHelper.removeCacheData(key: TOKEN);
         SharedHelper.removeCacheData(key: USERTYPE);
+        SharedHelper.removeCacheData(key: STORECATEGORIES);
+        SharedHelper.removeCacheData(key: STOREGOVERNMENT);
         Transitioner(
           context: context,
           child: LoginScreen(),

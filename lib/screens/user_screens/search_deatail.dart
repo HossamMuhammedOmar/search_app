@@ -146,6 +146,7 @@ class SeachDetails extends StatelessWidget {
                               SizedBox(height: 5),
                               AutoSizeText(
                                 item['street'],
+                                textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontFamily: 'NotoKufiArabic',

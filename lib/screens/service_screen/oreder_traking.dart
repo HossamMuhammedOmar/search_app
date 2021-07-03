@@ -150,6 +150,8 @@ class OrderTracking extends StatelessWidget {
                     newS: 'متوفر',
                     gov: cubit.userById[0].governorate,
                     cat: cubit.userById[0].categories,
+                    uId: cubit.userById[0].uId,
+                    decription: oItem.description,
                   );
                 },
                 btnCancelOnPress: () {
@@ -158,6 +160,8 @@ class OrderTracking extends StatelessWidget {
                     newS: 'غير متوفر',
                     gov: cubit.userById[0].governorate,
                     cat: cubit.userById[0].categories,
+                    uId: cubit.userById[0].uId,
+                    decription: oItem.description,
                   );
                 },
               )..show();
