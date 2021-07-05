@@ -25,7 +25,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Home Screen';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'لا په‌ڕه‌ی سه‌ره‌كی';
     }
     return '';
   }
@@ -34,9 +34,9 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
       return 'يوفر تطبيق ( وين موجود ) إمكانيه البحث عن أي شئ تريده والوصول لأقرب بائع مع تفاصيل التواصل معه';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
-      return 'The app provides your with the ability to search for anything and find the nearest seller with all contact details';
+      return 'The (Where is it) application provides the ability to search for anything you want and reach the nearest seller with contact details with him';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'له‌ڕێگای ئه‌م به‌رنامه‌یه‌وه‌ ده‌توانی به‌دوای هه‌موو شتێك دا بگه‌ڕێی به‌ ئاره‌زووی خۆت,وه‌هه‌روه‌ها بگه‌یت به‌ نزیكرتین فرۆشیار له‌گه‌ڵ زانیاری فرۆشیار';
     }
     return '';
   }
@@ -45,9 +45,9 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
       return 'تطبيق ( وين موجود ) يوفر عليك الوقت والجهد للعثور على الشي الذي تبحث عنه من خلال ادراج صوره او وصف للشي الذي تطلبه';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
-      return 'An app that saves your time & effort as it helps you to find any thing through uploading a photo or write a description';
+      return 'The (Where is it) application saves you time and effort to find the thing you are looking for by inserting a picture or description of the thing you require';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'ئه‌م به‌رنامه‌یه‌ كات و ماندووبوونت بۆ ده‌گه‌ڕێنێته‌وه‌ له‌ هه‌ر كااڵیه‌ك به‌دوای بگه‌ڕێیت به‌هۆی دانانی وێنه‌ یان وه‌سفكردنی ئه‌و شته‌ی داوای ده‌كه‌ی';
     }
     return '';
   }
@@ -56,9 +56,9 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
       return 'تطبيق ( وين موجود ) يساهم في زياده مبيعاتك من خلال التسجيل كمقدم خدمه وانتظار الطلبات من الزبائن، كلما كانت استجابتك للطلب اسرع زادت فرصة تواصل الزبون معك قبل غيرك';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
-      return 'An app that contributes to increasing your sales. You can register as a service provider and wait for the customers\' requests. The faster you reply, the more chance the customer will contact you';
+      return 'The application contributes to increasing your sales by registering as a service provider and waiting for requests from customers, The faster you respond to the request, the more chance the customer will contact you before anyone else';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'ئه‌م به‌رنامه‌یه‌ یارمه‌تی زیادكردنی فرۆشتنت ده‌دات به‌ڕێگای به‌ژداریكردن وه‌ك پێشكه‌شكاری خزمه‌تگوزاری وه‌ چاوه‌ڕێكردنی داواكاری له‌ كڕیار';
     }
     return '';
   }
@@ -69,7 +69,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Find anything!';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'گه‌ڕان';
     }
     return '';
   }
@@ -80,7 +80,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Save your time & effort!';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'گه‌ڕاندنه‌وه‌ی كات و ماندووبوون';
     }
     return '';
   }
@@ -91,7 +91,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Increase your sales!';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'فرۆشتنت زیاد بكه‌';
     }
     return '';
   }
@@ -102,7 +102,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'SKIP';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'لابردن';
     }
     return '';
   }
@@ -113,7 +113,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Login to your account';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'چوونه‌ژووره‌وه‌ی هه‌ژماره‌كه‌ت';
     }
     return '';
   }
@@ -124,7 +124,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Email Address';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'ئیمه‌یڵ';
     }
     return '';
   }
@@ -135,7 +135,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Password';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return ' ژماره‌ی نهێی';
     }
     return '';
   }
@@ -146,7 +146,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Login';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'چوونه‌ ژووره‌وه‌';
     }
     return '';
   }
@@ -157,7 +157,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Don\'nt have an account?';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'هه‌ژمارت نییه‌؟';
     }
     return '';
   }
@@ -168,7 +168,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Create new';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'هه‌ژمار دروست بكه‌';
     }
     return '';
   }
@@ -179,7 +179,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'With email';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'له‌ڕێگای ئیمه‌یڵ';
     }
     return '';
   }
@@ -190,7 +190,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'With phone';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'له‌ڕێگای ته‌له‌فۆن';
     }
     return '';
   }
@@ -201,7 +201,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Phone number';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'ژماره‌ی ته‌له‌فۆن';
     }
     return '';
   }
@@ -212,7 +212,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Who are you?';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'تۆ كێیت؟';
     }
     return '';
   }
@@ -223,7 +223,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Do you want to create a new account to search for a product, Or do you want to create an account as a service provider?';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'ده‌ته‌وێت هه‌ژمارێكی نوێ دروستبكه‌یت بۆ گه‌ڕان یاخود وه‌ك پێشكه‌شكاری خزمه‌تگوزاری؟';
     }
     return '';
   }
@@ -234,7 +234,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Search for a product';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'به‌دوای كااڵیه‌ك دا بگه‌ڕێ';
     }
     return '';
   }
@@ -245,7 +245,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Service provider';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'پێشكه‌ش كاری خزمه‌تگوزاری';
     }
     return '';
   }
@@ -256,7 +256,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'REGISTER';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'به‌ژداریكردن';
     }
     return '';
   }
@@ -267,7 +267,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Create your new account...';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'دروستكردنی هه‌ژماری نوێ';
     }
     return '';
   }
@@ -278,7 +278,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Shop name Or career name';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'ناوی شوێن-یان پیشه‌';
     }
     return '';
   }
@@ -289,7 +289,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Governorate';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'پارێزگا';
     }
     return '';
   }
@@ -300,7 +300,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Street name or nearest point';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'ناوی شه‌قام - یان نزیكرتین شوێن لێی';
     }
     return '';
   }
@@ -311,7 +311,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'User name';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'ناوی به‌كارهێنه‌ر';
     }
     return '';
   }
@@ -322,7 +322,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Have an account?';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'هه‌ژمارت هه‌یه‌؟';
     }
     return '';
   }
@@ -333,7 +333,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Choose Categories';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'به‌شێك هه‌ڵبژێره‌';
     }
     return '';
   }
@@ -344,7 +344,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Home';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'سه‌ره‌كی';
     }
     return '';
   }
@@ -355,7 +355,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Change Language';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'گۆڕیین زمان';
     }
     return '';
   }
@@ -366,7 +366,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Search Tracking';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'به‌رده‌وام بوون له‌ گه‌ڕان';
     }
     return '';
   }
@@ -377,7 +377,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Complaints and suggestions';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'سه‌رنج و پێشنیار';
     }
     return '';
   }
@@ -388,7 +388,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Logout';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'چوونه‌ ده‌ره‌وه‌';
     }
     return '';
   }
@@ -399,7 +399,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Search for some thing?';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'به‌دوای شتێك داده‌گه‌ڕێی؟';
     }
     return '';
   }
@@ -410,7 +410,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Choose the governorate';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'پارێزگاهه‌ڵبژێره‌';
     }
     return '';
   }
@@ -421,7 +421,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Choose the specialty you want';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'پسپۆڕی هه‌ڵبژێره‌';
     }
     return '';
   }
@@ -432,7 +432,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Continue';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'به‌رده‌وام بوون';
     }
     return '';
   }
@@ -443,7 +443,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Please try again later!';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'تكایه‌ كاتێكی تر هه‌وڵبده‌وه‌';
     }
     return '';
   }
@@ -454,7 +454,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'No Stores in this governorate in this time';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'هیچ فرۆشیارێك له‌م پارێزگایه‌ به‌رده‌ست نییه‌ له‌كاتی ئێستادا';
     }
     return '';
   }
@@ -465,7 +465,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Enter a name or a short description for the item you are looking for';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'ناوێك یان وه‌سفێكی كورت بنوسه‌ بۆ ئه‌و كااڵیه‌ی به‌دوای ده‌گه‌ڕێی';
     }
     return '';
   }
@@ -476,7 +476,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'this feild is required';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'ئه‌م به‌شه‌ داواكراوه‌';
     }
     return '';
   }
@@ -487,7 +487,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'If you want to add a picture of the item you are looking for';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'وێنه‌ی ئه‌و كااڵیه‌ی به‌دوای دا ده‌گه‌رێیت';
     }
     return '';
   }
@@ -498,7 +498,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Enter image URL';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'دانانی لینكی وێنه‌كه‌';
     }
     return '';
   }
@@ -509,7 +509,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'OR';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'یان';
     }
     return '';
   }
@@ -520,7 +520,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Upload image from your device';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'دانانی وێنه‌كه‌ له‌ رێگای مۆبایله‌كه‌ته‌وه‌';
     }
     return '';
   }
@@ -531,7 +531,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Start Search';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'ده‌ست به‌ گه‌ڕان بكه‌';
     }
     return '';
   }
@@ -542,7 +542,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Home Screen';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'لا په‌ڕه‌ی سه‌ره‌كی';
     }
     return '';
   }
@@ -553,7 +553,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Language Setting';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'هه‌ڵبژاردنی زمان';
     }
     return '';
   }
@@ -564,7 +564,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Delete';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'سڕینه‌وه‌';
     }
     return '';
   }
@@ -575,7 +575,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Show';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'پیشان دان';
     }
     return '';
   }
@@ -586,7 +586,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Your Search Proccess';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'گه‌ڕانه‌كانی تایبه‌ت به‌خۆت';
     }
     return '';
   }
@@ -597,7 +597,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Order Tracking';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'به‌دواداچوونی داواكاری';
     }
     return '';
   }
@@ -608,7 +608,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Welcome';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'به‌خێربێیت';
     }
     return '';
   }
@@ -619,7 +619,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Following New Orders Now';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'ده‌ست بكه‌ به‌ به‌دواداچوونی داواكاری';
     }
     return '';
   }
@@ -705,9 +705,9 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
       return 'لديك ١٠ عمليات بحث نشطه فقط، الرجاء حذف البحث بعد الوصول إلي المنتج المطلوب حتي تسطيع البحث مجدداً';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
-      return 'You only have 10 active searches, please delete the search after you have found the product, To search again';
+      return 'You only have 10 active searches..Please delete the search after you have founded the product so you can search again';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'ته‌نیا 0ـتر گه‌ڕانی كارات هه‌یه‌,تكایه‌ له‌كاتی دۆزینه‌وه‌ی داواكارییه‌كه‌ت گه‌ڕانه‌كه‌ت بسڕه‌وه‌ تاوه‌كو دووباره‌ بتوانی گه‌ڕان بكه‌ی';
     }
     return '';
   }
@@ -718,7 +718,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Searching... If the product is available at a store, a button will appear for you to contact the store!';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'گه‌ڕانه‌كه‌ ئێستا ته‌واو ده‌بێت له‌كاتی دۆزینه‌وه‌ی كااڵكه‌ له‌ یه‌كێك له‌ فرۆشگاكان,به‌شێك به‌ناوی په‌یوه‌ندی بكه‌ به‌رده‌ست ده‌بێت';
     }
     return '';
   }

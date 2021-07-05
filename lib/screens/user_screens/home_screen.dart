@@ -17,12 +17,22 @@ import 'package:search_app/widgets/navigation_widget.dart';
 import 'package:transitioner/transitioner.dart';
 import 'block_screen.dart';
 
-class HomeUserScreen extends StatelessWidget {
+class HomeUserScreen extends StatefulWidget {
+  @override
+  _HomeUserScreenState createState() => _HomeUserScreenState();
+}
+
+class _HomeUserScreenState extends State<HomeUserScreen> {
+  @override
+  void initState() {
+    HomeCubit.get(context).getNotificationUser();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
-        HomeCubit.get(context).getNotificationUser();
         return BlocConsumer<HomeCubit, HomeStates>(
           listener: (context, state) {
             if (state is HomeGetStoresSuccessWhereGoverState) {
@@ -69,6 +79,7 @@ class HomeUserScreen extends StatelessWidget {
                           children: [
                             IconButton(
                               onPressed: () {
+                                HomeCubit.get(context).getNotificationUser();
                                 Transitioner(
                                   context: context,
                                   child: NotificationUserScreen(),
@@ -83,24 +94,29 @@ class HomeUserScreen extends StatelessWidget {
                                 size: 28,
                               ),
                             ),
-                            Container(
-                              width: 25,
-                              height: 25,
-                              decoration: BoxDecoration(
-                                border: Border.all(color: mPrimaryBlue),
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: CircleAvatar(
-                                backgroundColor: Colors.white,
-                                child: Text(
-                                  '${_cubit.userNotificationModel.length}',
-                                  style: TextStyle(
-                                    fontSize: 12,
+                            if (_cubit.userNotificationModel.length != 0)
+                              Positioned(
+                                right: 8,
+                                top: 8,
+                                child: Container(
+                                  width: 15,
+                                  height: 15,
+                                  decoration: BoxDecoration(
                                     color: Colors.red,
+                                    borderRadius: BorderRadius.circular(20),
                                   ),
+                                  // child: CircleAvatar(
+                                  //   backgroundColor: Colors.white,
+                                  //   child: Text(
+                                  //     '${_cubit.storeNotification.length}',
+                                  //     style: TextStyle(
+                                  //       fontSize: 12,
+                                  //       color: Colors.red,
+                                  //     ),
+                                  //   ),
+                                  // ),
                                 ),
                               ),
-                            ),
                           ],
                         ),
                       )
@@ -110,30 +126,45 @@ class HomeUserScreen extends StatelessWidget {
                           alignment: Alignment.topRight,
                           children: [
                             IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                HomeCubit.get(context).getNotificationUser();
+                                Transitioner(
+                                  context: context,
+                                  child: NotificationUserScreen(),
+                                  animation: AnimationType.slideBottom,
+                                  duration: Duration(milliseconds: 300),
+                                  replacement: false,
+                                  curveType: CurveType.linear,
+                                );
+                              },
                               icon: Icon(
                                 Icons.notifications_none,
                                 size: 28,
                               ),
                             ),
-                            Container(
-                              width: 25,
-                              height: 25,
-                              decoration: BoxDecoration(
-                                border: Border.all(color: mPrimaryBlue),
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: CircleAvatar(
-                                backgroundColor: Colors.white,
-                                child: Text(
-                                  '${_cubit.storeNotification.length}',
-                                  style: TextStyle(
-                                    fontSize: 12,
+                            if (_cubit.userNotificationModel.length != 0)
+                              Positioned(
+                                right: 8,
+                                top: 8,
+                                child: Container(
+                                  width: 15,
+                                  height: 15,
+                                  decoration: BoxDecoration(
                                     color: Colors.red,
+                                    borderRadius: BorderRadius.circular(20),
                                   ),
+                                  // child: CircleAvatar(
+                                  //   backgroundColor: Colors.white,
+                                  //   child: Text(
+                                  //     '${_cubit.storeNotification.length}',
+                                  //     style: TextStyle(
+                                  //       fontSize: 12,
+                                  //       color: Colors.red,
+                                  //     ),
+                                  //   ),
+                                  // ),
                                 ),
                               ),
-                            ),
                           ],
                         )
                       : null,
@@ -424,22 +455,23 @@ class HomeUserScreen extends StatelessWidget {
                             ),
                           ),
                           Container(
+                            width: 400,
                             child: CarouselSlider(
                               items: _cubit.adsModel
                                   .map(
                                     (e) => FancyShimmerImage(
                                       imageUrl: e.image.toString(),
-                                      width: double.infinity,
+                                      boxFit: BoxFit.fill,
                                     ),
                                   )
                                   .toList(),
                               options: CarouselOptions(
-                                height: MediaQuery.of(context).size.height / 4,
+                                height: 150,
                                 initialPage: 0,
                                 enableInfiniteScroll: true,
                                 reverse: false,
                                 autoPlay: true,
-                                autoPlayInterval: Duration(seconds: 10),
+                                autoPlayInterval: Duration(seconds: 5),
                                 autoPlayAnimationDuration:
                                     Duration(milliseconds: 500),
                                 autoPlayCurve: Curves.easeIn,

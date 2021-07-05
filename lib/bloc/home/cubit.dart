@@ -538,6 +538,7 @@ class HomeCubit extends Cubit<HomeStates> {
                 'decription': decription,
                 'seen': false,
                 'storeName': userById[0].storeName,
+                // 'oId':
               }).catchError((e) => print(e.toString()));
             });
           }).catchError((e) {
@@ -952,60 +953,70 @@ class HomeCubit extends Cubit<HomeStates> {
     storeNotification = [];
     storeNotificationState = [];
 
-    // emit(StoreNotificationLoading());
-    FirebaseFirestore.instance
-        .collection('store_notifications')
-        .where("government", isEqualTo: government)
-        .where("categories", isEqualTo: categories)
-        .snapshots()
-        .listen((event) {
-      event.docs.forEach(
-        (elementt) {
-          FirebaseFirestore.instance
-              .collection('store_notifications')
-              .doc(elementt.id)
-              .collection('stores')
-              .where('sId', isEqualTo: storeId)
-              .where('seen', isEqualTo: false)
-              .snapshots()
-              .listen((event) {
-            event.docs.forEach((element) {
-              // print(element.data());
-              storeNotificationState.add({
-                'id': element.id,
-                'seen': element.data()['seen'],
-                'oId': elementt.id,
-              });
-              storeNotification
-                  .add(StoreNotificationModel.fromJson(elementt.data()));
-            });
-          });
-        },
-      );
-    });
+    emit(StoreNotificationLoading());
     // FirebaseFirestore.instance
     //     .collection('store_notifications')
     //     .where("government", isEqualTo: government)
     //     .where("categories", isEqualTo: categories)
-    //     .get()
-    //     .then(
-    //   (value) {
-    //     value.docs.forEach((element) {
+    //     .snapshots()
+    //     .listen((event) {
+    //   event.docs.forEach(
+    //     (elementt) {
     //       FirebaseFirestore.instance
     //           .collection('store_notifications')
-    //           .doc(element.id)
+    //           .doc(elementt.id)
     //           .collection('stores')
     //           .where('sId', isEqualTo: storeId)
     //           .where('seen', isEqualTo: false)
-    //           .get()
-    //           .then((value) {
-    //         value.docs.forEach((element) {
+    //           .snapshots()
+    //           .listen((event) {
+    //         event.docs.forEach((element) {
+    //           // print(element.data());
+    //           storeNotificationState.add({
+    //             'id': element.id,
+    //             'seen': element.data()['seen'],
+    //             'oId': elementt.id,
+    //           });
     //           storeNotification
-    //               .add(StoreNotificationModel.fromJson(element.data()));
+    //               .add(StoreNotificationModel.fromJson(elementt.data()));
     //         });
     //       });
-    //     });
-    //   },
+    //     },
+    //   );
+    // });
+    FirebaseFirestore.instance
+        .collection('store_notifications')
+        .where("government", isEqualTo: government)
+        .where("categories", isEqualTo: categories)
+        .get()
+        .then((value) {
+      value.docs.forEach((elementt) {
+        FirebaseFirestore.instance
+            .collection('store_notifications')
+            .doc(elementt.id)
+            .collection('stores')
+            .where('sId', isEqualTo: storeId)
+            .where('seen', isEqualTo: false)
+            .get()
+            .then((value) {
+          value.docs.forEach((element) {
+            storeNotificationState.add({
+              'id': element.id,
+              'seen': element.data()['seen'],
+              'oId': elementt.id,
+            });
+            storeNotification
+                .add(StoreNotificationModel.fromJson(elementt.data()));
+
+            emit(StoreNotificationSuccess());
+          });
+        });
+        emit(StoreNotificationSuccess());
+      });
+    }).catchError((e) {
+      print(e.toString());
+      emit(StoreNotificationError());
+    });
   }
 
   void markAsReading({required oId, required id}) {
@@ -1037,15 +1048,53 @@ class HomeCubit extends Cubit<HomeStates> {
 
   void getNotificationUser() {
     userNotificationModel = [];
+    emit(GetUserNotificationLoading());
+    // FirebaseFirestore.instance
+    //     .collection('user_notifications')
+    //     .where('uId', isEqualTo: SharedHelper.getCacheData(key: TOKEN))
+    //     .snapshots()
+    //     .listen((event) {
+    //   event.docs.forEach((element) {
+    //     userNotificationModel
+    //         .add(UserNotificationModel.fromJson(element.data()));
+    //   });
+    // });
     FirebaseFirestore.instance
         .collection('user_notifications')
         .where('uId', isEqualTo: SharedHelper.getCacheData(key: TOKEN))
-        .snapshots()
-        .listen((event) {
-      event.docs.forEach((element) {
-        userNotificationModel
-            .add(UserNotificationModel.fromJson(element.data()));
-      });
-    });
+        .where('seen', isEqualTo: false)
+        .get()
+        .then(
+      (value) {
+        value.docs.forEach((element) {
+          userNotificationModel
+              .add(UserNotificationModel.fromJson(element.data(), element.id));
+        });
+        emit(GetUserNotificationSuccess());
+      },
+    ).catchError(
+      (e) {
+        print(e.toString());
+        emit(GetUserNotificationError());
+      },
+    );
+  }
+
+  void markAsReadingUser({required id}) {
+    emit(MarkStoreNotifcationReadUserLoading());
+    FirebaseFirestore.instance
+        .collection('user_notifications')
+        .doc(id)
+        .update({'seen': true}).then(
+      (value) {
+        getNotificationUser();
+        emit(MarkStoreNotifcationReadUserSuccess());
+      },
+    ).catchError(
+      (e) {
+        emit(MarkStoreNotifcationReadUserError());
+        print(e.toString());
+      },
+    );
   }
 }

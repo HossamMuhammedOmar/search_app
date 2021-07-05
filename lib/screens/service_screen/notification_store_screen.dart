@@ -28,16 +28,18 @@ class NotificationStoreScreen extends StatelessWidget {
             ),
             backgroundColor: Colors.white,
           ),
-          body: ListView.separated(
-            itemBuilder: (context, index) => _buildItem(
-              _cubit.storeNotification[index],
-              _cubit.storeNotificationState[index],
-              _cubit,
-            ),
-            separatorBuilder: (context, index) => Container(
-                width: double.infinity, height: 1, color: Colors.grey),
-            itemCount: _cubit.storeNotification.length,
-          ),
+          body: state is! StoreNotificationLoading
+              ? ListView.separated(
+                  itemBuilder: (context, index) => _buildItem(
+                    _cubit.storeNotification[index],
+                    _cubit.storeNotificationState[index],
+                    _cubit,
+                  ),
+                  separatorBuilder: (context, index) => Container(
+                      width: double.infinity, height: 1, color: Colors.grey),
+                  itemCount: _cubit.storeNotification.length,
+                )
+              : Center(child: CircularProgressIndicator()),
         );
       },
     );
@@ -79,6 +81,7 @@ class NotificationStoreScreen extends StatelessWidget {
           Row(
             children: [
               FloatingActionButton(
+                heroTag: stateItem['oId'],
                 mini: true,
                 onPressed: () {
                   cubit.markAsReading(

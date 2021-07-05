@@ -28,15 +28,17 @@ class NotificationUserScreen extends StatelessWidget {
             ),
             backgroundColor: Colors.white,
           ),
-          body: ListView.separated(
-            itemBuilder: (context, index) => _buildItem(
-              _cubit.userNotificationModel[index],
-              _cubit,
-            ),
-            separatorBuilder: (context, index) => Container(
-                width: double.infinity, height: 1, color: Colors.grey),
-            itemCount: _cubit.userNotificationModel.length,
-          ),
+          body: state is! GetUserNotificationLoading
+              ? ListView.separated(
+                  itemBuilder: (context, index) => _buildItem(
+                    _cubit.userNotificationModel[index],
+                    _cubit,
+                  ),
+                  separatorBuilder: (context, index) => Container(
+                      width: double.infinity, height: 1, color: Colors.grey),
+                  itemCount: _cubit.userNotificationModel.length,
+                )
+              : Center(child: CircularProgressIndicator()),
         );
       },
     );
@@ -79,7 +81,10 @@ class NotificationUserScreen extends StatelessWidget {
             children: [
               FloatingActionButton(
                 mini: true,
-                onPressed: () {},
+                heroTag: item.storeName + item.decription,
+                onPressed: () {
+                  cubit.markAsReadingUser(id: item.id);
+                },
                 child: Icon(Icons.done),
               ),
               // MaterialButton(

@@ -2,6 +2,7 @@ import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loading_animations/loading_animations.dart';
 import 'package:search_app/bloc/home/cubit.dart';
 import 'package:search_app/bloc/home/states.dart';
 import 'package:search_app/bloc/languages/cubit.dart';
@@ -30,17 +31,17 @@ class _HomeStoreScreenState extends State<HomeStoreScreen> {
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
-        HomeCubit.get(context).getStoreNotification(
-          government: SharedHelper.getCacheData(key: STOREGOVERNMENT),
-          categories: SharedHelper.getCacheData(key: STORECATEGORIES),
-          storeId: SharedHelper.getCacheData(key: TOKEN),
-        );
         return BlocConsumer<HomeCubit, HomeStates>(
           listener: (context, state) {
             if (state is GetUserByIdSuccess) {
               HomeCubit.get(context).getAllOrdersWhereGovernAndCategorie(
                   gov: HomeCubit.get(context).userById[0].governorate,
                   cat: HomeCubit.get(context).userById[0].categories);
+              HomeCubit.get(context).getStoreNotification(
+                government: SharedHelper.getCacheData(key: STOREGOVERNMENT),
+                categories: SharedHelper.getCacheData(key: STORECATEGORIES),
+                storeId: SharedHelper.getCacheData(key: TOKEN),
+              );
             }
           },
           builder: (context, state) {
@@ -77,30 +78,43 @@ class _HomeStoreScreenState extends State<HomeStoreScreen> {
                                   replacement: false,
                                   curveType: CurveType.linear,
                                 );
+                                HomeCubit.get(context).getStoreNotification(
+                                  government: SharedHelper.getCacheData(
+                                      key: STOREGOVERNMENT),
+                                  categories: SharedHelper.getCacheData(
+                                      key: STORECATEGORIES),
+                                  storeId:
+                                      SharedHelper.getCacheData(key: TOKEN),
+                                );
                               },
                               icon: Icon(
                                 Icons.notifications_none,
                                 size: 28,
                               ),
                             ),
-                            Container(
-                              width: 25,
-                              height: 25,
-                              decoration: BoxDecoration(
-                                border: Border.all(color: mPrimaryBlue),
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: CircleAvatar(
-                                backgroundColor: Colors.white,
-                                child: Text(
-                                  '${_cubit.storeNotification.length}',
-                                  style: TextStyle(
-                                    fontSize: 12,
+                            if (_cubit.storeNotification.length != 0)
+                              Positioned(
+                                right: 8,
+                                top: 8,
+                                child: Container(
+                                  width: 15,
+                                  height: 15,
+                                  decoration: BoxDecoration(
                                     color: Colors.red,
+                                    borderRadius: BorderRadius.circular(20),
                                   ),
+                                  // child: CircleAvatar(
+                                  //   backgroundColor: Colors.white,
+                                  //   child: Text(
+                                  //     '${_cubit.storeNotification.length}',
+                                  //     style: TextStyle(
+                                  //       fontSize: 12,
+                                  //       color: Colors.red,
+                                  //     ),
+                                  //   ),
+                                  // ),
                                 ),
                               ),
-                            ),
                           ],
                         ),
                       )
@@ -110,30 +124,52 @@ class _HomeStoreScreenState extends State<HomeStoreScreen> {
                           alignment: Alignment.topRight,
                           children: [
                             IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Transitioner(
+                                  context: context,
+                                  child: NotificationStoreScreen(),
+                                  animation: AnimationType.slideBottom,
+                                  duration: Duration(milliseconds: 300),
+                                  replacement: false,
+                                  curveType: CurveType.linear,
+                                );
+                                HomeCubit.get(context).getStoreNotification(
+                                  government: SharedHelper.getCacheData(
+                                      key: STOREGOVERNMENT),
+                                  categories: SharedHelper.getCacheData(
+                                      key: STORECATEGORIES),
+                                  storeId:
+                                      SharedHelper.getCacheData(key: TOKEN),
+                                );
+                              },
                               icon: Icon(
                                 Icons.notifications_none,
                                 size: 28,
                               ),
                             ),
-                            Container(
-                              width: 25,
-                              height: 25,
-                              decoration: BoxDecoration(
-                                border: Border.all(color: mPrimaryBlue),
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: CircleAvatar(
-                                backgroundColor: Colors.white,
-                                child: Text(
-                                  '${_cubit.storeNotification.length}',
-                                  style: TextStyle(
-                                    fontSize: 12,
+                            if (_cubit.storeNotification.length != 0)
+                              Positioned(
+                                right: 8,
+                                top: 8,
+                                child: Container(
+                                  width: 15,
+                                  height: 15,
+                                  decoration: BoxDecoration(
                                     color: Colors.red,
+                                    borderRadius: BorderRadius.circular(20),
                                   ),
+                                  // child: CircleAvatar(
+                                  //   backgroundColor: Colors.white,
+                                  //   child: Text(
+                                  //     '${_cubit.storeNotification.length}',
+                                  //     style: TextStyle(
+                                  //       fontSize: 12,
+                                  //       color: Colors.red,
+                                  //     ),
+                                  //   ),
+                                  // ),
                                 ),
                               ),
-                            ),
                           ],
                         )
                       : null,
@@ -204,19 +240,19 @@ class _HomeStoreScreenState extends State<HomeStoreScreen> {
                                           height: 30,
                                         ),
                                         Container(
+                                          width: 400,
                                           child: CarouselSlider(
                                             items: _cubit.adsModel
                                                 .map(
                                                   (e) => FancyShimmerImage(
                                                     imageUrl:
                                                         e.image.toString(),
-                                                    width: double.infinity,
-                                                    boxFit: BoxFit.cover,
+                                                    boxFit: BoxFit.fill,
                                                   ),
                                                 )
                                                 .toList(),
                                             options: CarouselOptions(
-                                              height: localHeight / 2.2,
+                                              height: 150,
                                               initialPage: 0,
                                               enableInfiniteScroll: true,
                                               reverse: false,
