@@ -30,8 +30,10 @@ class OrderTracking extends StatelessWidget {
             drawerScrimColor: Colors.black.withOpacity(0.7),
             endDrawer: SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
                 ? NavigationStoreWidget()
-                : null,
-            drawer: SharedHelper.getCacheData(key: LANGUAGES) != 'AR'
+                : SharedHelper.getCacheData(key: LANGUAGES) == 'KR'
+                    ? NavigationStoreWidget()
+                    : null,
+            drawer: SharedHelper.getCacheData(key: LANGUAGES) == 'EN'
                 ? NavigationStoreWidget()
                 : null,
             appBar: AppBar(
@@ -42,28 +44,39 @@ class OrderTracking extends StatelessWidget {
                   color: mPrimaryDarkGrey,
                   fontFamily: SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
                       ? 'Cairo'
-                      : 'Poppins',
+                      : SharedHelper.getCacheData(key: LANGUAGES) == 'EN'
+                          ? 'Poppins'
+                          : 'AlKshrl',
                 ),
               ),
             ),
             body: state is! GetAllStoreOrderLoading
-                ? Center(
-                    child: ListView.separated(
-                      itemBuilder: (context, index) => _buildItem(
-                        _cubit.myOrder[index],
-                        _cubit,
-                        context,
-                      ),
-                      separatorBuilder: (context, index) {
-                        return Container(
-                          color: mPrimaryGrey.withOpacity(.2),
-                          height: 1,
-                          width: double.infinity,
-                        );
-                      },
-                      itemCount: _cubit.myOrder.length,
-                    ),
-                  )
+                ? _cubit.myOrder.length != 0
+                    ? Center(
+                        child: ListView.separated(
+                          itemBuilder: (context, index) => _buildItem(
+                            _cubit.myOrder[index],
+                            _cubit,
+                            context,
+                          ),
+                          separatorBuilder: (context, index) {
+                            return Container(
+                              color: mPrimaryGrey.withOpacity(.2),
+                              height: 1,
+                              width: double.infinity,
+                            );
+                          },
+                          itemCount: _cubit.myOrder.length,
+                        ),
+                      )
+                    : Center(
+                        child: Text(
+                          '${LanguagesCubit.get(context).noRequests()}',
+                          style: TextStyle(
+                            fontSize: 18,
+                          ),
+                        ),
+                      )
                 : Center(
                     child: LoadingJumpingLine.circle(
                       borderColor: mPrimaryYellow,
@@ -142,8 +155,8 @@ class OrderTracking extends StatelessWidget {
                 ),
                 title: 'This is Ignored',
                 desc: 'This is also Ignored',
-                btnCancelText: 'غير متوفر',
-                btnOkText: 'متوفر',
+                btnCancelText: '${LanguagesCubit.get(context).notAvailable()}',
+                btnOkText: '${LanguagesCubit.get(context).available()}',
                 btnOkOnPress: () {
                   cubit.editOrderState(
                     oId: oItem.oId,
@@ -166,7 +179,7 @@ class OrderTracking extends StatelessWidget {
                 },
               )..show();
             },
-            child: Text('show'),
+            child: Text('${LanguagesCubit.get(context).show()}'),
             textColor: Colors.white,
             color: mPrimaryGreen,
           )

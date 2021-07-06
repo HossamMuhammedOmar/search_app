@@ -267,14 +267,18 @@ class LoginScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           textDirection: SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
               ? TextDirection.rtl
-              : TextDirection.ltr,
+              : SharedHelper.getCacheData(key: LANGUAGES) == 'KR'
+                  ? TextDirection.rtl
+                  : TextDirection.ltr,
           children: [
             AutoSizeText(
               '${LanguagesCubit.get(context).dontHaveAccount()}',
               style: TextStyle(color: mPrimaryDarkGrey),
               textDirection: SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
                   ? TextDirection.rtl
-                  : TextDirection.ltr,
+                  : SharedHelper.getCacheData(key: LANGUAGES) == 'KR'
+                      ? TextDirection.rtl
+                      : TextDirection.ltr,
               maxLines: 1,
             ),
             SizedBox(
@@ -370,7 +374,9 @@ class LoginScreen extends StatelessWidget {
         Row(
           textDirection: SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
               ? TextDirection.rtl
-              : TextDirection.ltr,
+              : SharedHelper.getCacheData(key: LANGUAGES) == 'KR'
+                  ? TextDirection.rtl
+                  : TextDirection.ltr,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             AutoSizeText(
@@ -378,7 +384,9 @@ class LoginScreen extends StatelessWidget {
               style: TextStyle(color: mPrimaryDarkGrey),
               textDirection: SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
                   ? TextDirection.rtl
-                  : TextDirection.ltr,
+                  : SharedHelper.getCacheData(key: LANGUAGES) == 'KR'
+                      ? TextDirection.rtl
+                      : TextDirection.ltr,
               maxLines: 1,
             ),
             SizedBox(
@@ -403,7 +411,9 @@ class LoginScreen extends StatelessWidget {
                 style: TextStyle(color: mPrimaryBlue),
                 textDirection: SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
                     ? TextDirection.rtl
-                    : TextDirection.ltr,
+                    : SharedHelper.getCacheData(key: LANGUAGES) == 'KR'
+                        ? TextDirection.rtl
+                        : TextDirection.ltr,
                 maxLines: 1,
               ),
             ),

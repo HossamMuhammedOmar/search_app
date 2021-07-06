@@ -117,7 +117,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                                     SharedHelper.getCacheData(key: LANGUAGES) ==
                                             'AR'
                                         ? TextDirection.rtl
-                                        : TextDirection.ltr,
+                                        : SharedHelper.getCacheData(
+                                                    key: LANGUAGES) ==
+                                                'KR'
+                                            ? TextDirection.rtl
+                                            : TextDirection.ltr,
                                 maxLines: 1,
                                 style: TextStyle(
                                   fontSize: 22.0,
@@ -132,7 +136,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                                     SharedHelper.getCacheData(key: LANGUAGES) ==
                                             'AR'
                                         ? TextDirection.rtl
-                                        : TextDirection.ltr,
+                                        : SharedHelper.getCacheData(
+                                                    key: LANGUAGES) ==
+                                                'KR'
+                                            ? TextDirection.rtl
+                                            : TextDirection.ltr,
                                 style: TextStyle(
                                   fontSize: 22.0,
                                   fontWeight: FontWeight.w400,

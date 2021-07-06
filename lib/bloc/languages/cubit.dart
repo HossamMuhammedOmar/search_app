@@ -19,6 +19,11 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     emit(LanguageEnglishState());
   }
 
+  void changeToKordy() {
+    SharedHelper.cacheData(key: LANGUAGES, value: 'KR');
+    emit(LanguageKordyState());
+  }
+
   String homeScreenText() {
     if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
       return 'الصفحه الرئيسيه';
@@ -630,7 +635,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Send';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'ناردن';
     }
     return '';
   }
@@ -641,7 +646,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'sent succesfully';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'بەسەرکەوتووی نێردا';
     }
     return '';
   }
@@ -652,7 +657,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Edit profile';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'دەستکارى کردنى زانیارییەکانم';
     }
     return '';
   }
@@ -663,7 +668,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Update';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'نوێکردنەوە';
     }
     return '';
   }
@@ -674,7 +679,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Click to report';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'دابگرە بۆ ڕیپۆرت کردن';
     }
     return '';
   }
@@ -685,7 +690,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'sent succesfully';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'بەسەرکەوتووی نێردا';
     }
     return '';
   }
@@ -696,7 +701,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'You have reached the maximum number of searches, please delete your old searches to be able to search again';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'ناتوانى چیتر گەڕان بکەیت تکایە هەندێك لە گەڕانەکانى پێشووت بسڕەوە تاوەکو بتوانى دووباره گەڕان بکەیت';
     }
     return '';
   }
@@ -729,7 +734,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Back';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'گەڕانەوە';
     }
     return '';
   }
@@ -740,7 +745,128 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
       return 'Notification';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
-      return '';
+      return 'ئاگادارکەرەوەکان';
+    }
+    return '';
+  }
+
+  String available() {
+    if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
+      return 'متوفر';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
+      return 'Available';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return 'بەردەستە';
+    }
+    return '';
+  }
+
+  String notAvailable() {
+    if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
+      return 'غير متوفر';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
+      return 'Not available';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return 'بەردەست نییە';
+    }
+    return '';
+  }
+
+  String searching() {
+    if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
+      return 'جاري البحث';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
+      return 'Searching';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return 'لەگەڕاندایە';
+    }
+    return '';
+  }
+
+  String contactNow() {
+    if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
+      return 'تواصل الآن';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
+      return 'Contact now';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return 'ئێستا پەیوەندی بکە';
+    }
+    return '';
+  }
+
+  String haveBeenFound() {
+    if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
+      return 'تم العثور علي';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
+      return 'Have been found';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return 'دۆزرایهوە';
+    }
+    return '';
+  }
+
+  String inT() {
+    if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
+      return 'في';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
+      return 'In';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return 'له';
+    }
+    return '';
+  }
+
+  String theseStoresThat() {
+    if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
+      return 'هذه المتاجر التي تم العثور عليها في محافظتك، جاري البحث الآن عن المنتج وسيتم إرسال إشعار لك في حال توفر المنتج في إحدى المتاجر، يمكنك الآن متابعه البحث عن طريق قسم (متابعه البحث)';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
+      return 'These stores that were found in your governorate, the product is being searched now and a notification will be sent to you if the product is available in one of the stores, you can now continue the search through the (Search Tracking) section';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return 'ئه‌م فرۆشگایانه‌ به‌رده‌سته‌ له‌ پارێزگاكه‌ت,ئێستا ده‌ست به‌ به‌دواداچوون ده‌كه‌ین بۆ كااڵكه‌ت,ئه‌گه‌ر له‌ فرۆشگایه‌ك به‌رده‌ست بوو ئاگادارت ده‌كه‌ینه‌وه‌, ئێستا ده‌توانی به‌رده‌وام بی له‌ گه‌ڕان له‌ به‌شی (به‌رده‌وام بوون له‌ گه‌ڕان)';
+    }
+    return '';
+  }
+
+  String researchResults() {
+    if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
+      return 'نتائج البحث';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
+      return 'Research results';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return 'ئهنجامی گهڕانهکان';
+    }
+    return '';
+  }
+
+  String thereIsSomeoneLooking() {
+    if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
+      return 'هناك شخص يبحث عن هذا المنتج في محافظتك';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
+      return 'There is someone looking for this product in your province';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return 'کهسچک بهدوای ئهم کاپیه دەگهڕچت له پارچزگاکهت';
+    }
+    return '';
+  }
+
+  String noRequests() {
+    if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
+      return 'لا يوجد طلبات';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
+      return 'No requests';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return 'هیچ داواکاریهک نییه';
+    }
+    return '';
+  }
+
+  String addANewRequest() {
+    if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
+      return 'اضف طلب جديد';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
+      return 'Add a new request';
+    } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
+      return 'داواکاری نوێ زیادبکه';
     }
     return '';
   }

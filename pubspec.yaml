@@ -87,6 +87,9 @@ flutter:
         - asset: assets/fonts/Cairo-Regular.ttf
         - asset: assets/fonts/Cairo-Bold.ttf
           weight: 700
+    - family: AlKshrl
+      fonts:
+        - asset: assets/fonts/AL_KSHRI.TTF
     # - family: Trajan Pro
     #   fonts:
     #     - asset: fonts/TrajanPro.ttf

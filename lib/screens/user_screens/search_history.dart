@@ -11,6 +11,7 @@ import 'package:search_app/model/order_model.dart';
 import 'package:search_app/widgets/navigation_widget.dart';
 import 'package:transitioner/transitioner.dart';
 import '../../constant/constant.dart';
+import 'home_screen.dart';
 import 'search_deatail.dart';
 
 class SearchHistory extends StatelessWidget {
@@ -28,8 +29,10 @@ class SearchHistory extends StatelessWidget {
             drawerScrimColor: Colors.black.withOpacity(0.7),
             endDrawer: SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
                 ? NavigationDrawerWidget()
-                : null,
-            drawer: SharedHelper.getCacheData(key: LANGUAGES) != 'AR'
+                : SharedHelper.getCacheData(key: LANGUAGES) == 'KR'
+                    ? NavigationDrawerWidget()
+                    : null,
+            drawer: SharedHelper.getCacheData(key: LANGUAGES) == 'EN'
                 ? NavigationDrawerWidget()
                 : null,
             appBar: AppBar(
@@ -40,7 +43,9 @@ class SearchHistory extends StatelessWidget {
                   color: mPrimaryDarkGrey,
                   fontFamily: SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
                       ? 'Cairo'
-                      : 'Poppins',
+                      : SharedHelper.getCacheData(key: LANGUAGES) == 'EN'
+                          ? 'Poppins'
+                          : 'AlKshrl',
                 ),
               ),
             ),
@@ -54,20 +59,52 @@ class SearchHistory extends StatelessWidget {
                       height: localHeigh / 1.2,
                       child: states is HomeGetMyOrdersLoadingState
                           ? Center(child: CircularProgressIndicator())
-                          : ListView.separated(
-                              itemBuilder: (context, index) {
-                                return _buildItems(_cubit.orderModel[index],
-                                    _cubit, context, states);
-                              },
-                              separatorBuilder: (context, index) {
-                                return Container(
-                                  width: double.infinity,
-                                  height: 1,
-                                  color: Colors.grey.withOpacity(0.5),
-                                );
-                              },
-                              itemCount: _cubit.orderModel.length,
-                            ),
+                          : _cubit.orderModel.length != 0
+                              ? ListView.separated(
+                                  itemBuilder: (context, index) {
+                                    return _buildItems(_cubit.orderModel[index],
+                                        _cubit, context, states);
+                                  },
+                                  separatorBuilder: (context, index) {
+                                    return Container(
+                                      width: double.infinity,
+                                      height: 1,
+                                      color: Colors.grey.withOpacity(0.5),
+                                    );
+                                  },
+                                  itemCount: _cubit.orderModel.length,
+                                )
+                              : Center(
+                                  child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      '${LanguagesCubit.get(context).noRequests()}',
+                                      style: TextStyle(fontSize: 18),
+                                    ),
+                                    SizedBox(height: 10),
+                                    TextButton(
+                                      onPressed: () {
+                                        Transitioner(
+                                          context: context,
+                                          child: HomeUserScreen(),
+                                          animation: AnimationType
+                                              .scale, // Optional value
+                                          duration: Duration(
+                                              milliseconds:
+                                                  200), // Optional value
+                                          replacement: true, // Optional value
+                                          curveType: CurveType
+                                              .decelerate, // Optional value
+                                        );
+                                      },
+                                      child: Text(
+                                        '${LanguagesCubit.get(context).addANewRequest()}',
+                                        style: TextStyle(fontSize: 18),
+                                      ),
+                                    ),
+                                  ],
+                                )),
                     ),
                     Container(
                       width: double.infinity,
@@ -89,7 +126,11 @@ class SearchHistory extends StatelessWidget {
                                     SharedHelper.getCacheData(key: LANGUAGES) ==
                                             'AR'
                                         ? 'Cairo'
-                                        : 'Poppins',
+                                        : SharedHelper.getCacheData(
+                                                    key: LANGUAGES) ==
+                                                'EN'
+                                            ? 'Poppins'
+                                            : 'AlKshrl',
                                 fontSize: 20,
                               ),
                             ),

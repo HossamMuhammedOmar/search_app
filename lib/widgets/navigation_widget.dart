@@ -132,12 +132,16 @@ class NavigationDrawerWidget extends StatelessWidget {
         '$text',
         textDirection: SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
             ? TextDirection.rtl
-            : TextDirection.ltr,
+            : SharedHelper.getCacheData(key: LANGUAGES) == 'KR'
+                ? TextDirection.rtl
+                : TextDirection.ltr,
         maxLines: 3,
         style: TextStyle(
           fontFamily: SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
               ? 'Cairo'
-              : 'Poppins',
+              : SharedHelper.getCacheData(key: LANGUAGES) == 'EN'
+                  ? 'Poppins'
+                  : 'AlKshrl',
         ),
       ),
       trailing: SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
@@ -145,8 +149,13 @@ class NavigationDrawerWidget extends StatelessWidget {
               icon,
               color: mPrimaryBlue,
             )
-          : Icon(null),
-      leading: SharedHelper.getCacheData(key: LANGUAGES) != 'AR'
+          : SharedHelper.getCacheData(key: LANGUAGES) == 'KR'
+              ? Icon(
+                  icon,
+                  color: mPrimaryBlue,
+                )
+              : Icon(null),
+      leading: SharedHelper.getCacheData(key: LANGUAGES) == 'EN'
           ? Icon(
               icon,
               color: mPrimaryBlue,

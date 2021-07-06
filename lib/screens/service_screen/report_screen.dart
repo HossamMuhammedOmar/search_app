@@ -50,7 +50,9 @@ class ReportScreen extends StatelessWidget {
                 color: mPrimaryDarkGrey,
                 fontFamily: SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
                     ? 'Cairo'
-                    : 'Poppins',
+                    : SharedHelper.getCacheData(key: LANGUAGES) == 'EN'
+                        ? 'Poppins'
+                        : 'AlKshrl',
               ),
             ),
           ),

@@ -39,8 +39,10 @@ class SuggUserScreen extends StatelessWidget {
             drawerScrimColor: Colors.black.withOpacity(0.7),
             endDrawer: SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
                 ? NavigationDrawerWidget()
-                : null,
-            drawer: SharedHelper.getCacheData(key: LANGUAGES) != 'AR'
+                : SharedHelper.getCacheData(key: LANGUAGES) == 'KR'
+                    ? NavigationDrawerWidget()
+                    : null,
+            drawer: SharedHelper.getCacheData(key: LANGUAGES) == 'EN'
                 ? NavigationDrawerWidget()
                 : null,
             appBar: AppBar(
@@ -52,7 +54,9 @@ class SuggUserScreen extends StatelessWidget {
                   color: mPrimaryDarkGrey,
                   fontFamily: SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
                       ? 'Cairo'
-                      : 'Poppins',
+                      : SharedHelper.getCacheData(key: LANGUAGES) == 'EN'
+                          ? 'Poppins'
+                          : 'AlKshrl',
                 ),
               ),
             ),

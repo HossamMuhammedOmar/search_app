@@ -68,24 +68,31 @@ class ResultScreen extends StatelessWidget {
                 color: Colors.grey.withOpacity(.2),
               ),
               Expanded(
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 10),
-                    child: Column(
-                      children: [
-                        Center(
-                          child: AutoSizeText(
-                            'هذه المتاجر التي تم العثور عليها في محافظتك، جاري البحث الآن عن المنتج وسيتم إرسال إشعار لك في حال توفر المنتج في إحدي المتاجر، يمكنك الآن متابعه البحث عن طريق قسم (متابعه البحث)',
-                            maxLines: 4,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontFamily: 'NotoKufiArabic',
-                              fontSize: 18,
-                            ),
+                child: Container(
+                  // color: mPrimaryLightBlue,
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 10),
+                      child: Center(
+                        child: AutoSizeText(
+                          '${LanguagesCubit.get(context).theseStoresThat()}',
+                          maxLines: 5,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            // color: Colors.white,
+                            fontFamily: SharedHelper.getCacheData(
+                                        key: LANGUAGES) ==
+                                    'AR'
+                                ? 'Cairo'
+                                : SharedHelper.getCacheData(key: LANGUAGES) ==
+                                        'EN'
+                                    ? 'Poppins'
+                                    : 'AlKshrl',
+                            fontSize: 16,
                           ),
                         ),
-                      ],
+                      ),
                     ),
                   ),
                 ),
@@ -109,7 +116,7 @@ class ResultScreen extends StatelessWidget {
           ),
           child: Center(
             child: AutoSizeText(
-              'جاري البحث',
+              '${LanguagesCubit.get(context).searching()}',
               style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.w400,

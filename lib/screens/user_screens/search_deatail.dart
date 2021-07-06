@@ -19,8 +19,11 @@ class SeachDetails extends StatelessWidget {
       builder: (context, states) {
         return Scaffold(
           appBar: AppBar(
-            backgroundColor: Colors.white,
-            title: TextButton(
+            leading: IconButton(
+              icon: Icon(
+                Icons.arrow_back_ios_sharp,
+                color: Colors.black,
+              ),
               onPressed: () {
                 Transitioner(
                   context: context,
@@ -31,8 +34,12 @@ class SeachDetails extends StatelessWidget {
                   curveType: CurveType.decelerate, // Optional value
                 );
               },
+            ),
+            backgroundColor: Colors.white,
+            title: TextButton(
+              onPressed: () {},
               child: Text(
-                '${LanguagesCubit.get(context).back()}',
+                '${LanguagesCubit.get(context).researchResults()}',
                 style: TextStyle(
                   fontFamily: SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
                       ? 'Cairo'
@@ -77,21 +84,28 @@ class SeachDetails extends StatelessWidget {
                 color: Colors.grey.withOpacity(.2),
               ),
               Expanded(
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 20),
-                    child: Center(
-                      child: AutoSizeText(
-                        '${LanguagesCubit.get(context).searchingNow()}',
-                        maxLines: 4,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontFamily:
-                              SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
-                                  ? 'NotoKufiArabic'
-                                  : 'Poppins',
-                          fontSize: 14,
+                child: Container(
+                  // color: mPrimaryGreen.withOpacity(0.7),
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 20),
+                      child: Center(
+                        child: AutoSizeText(
+                          '${LanguagesCubit.get(context).searchingNow()}',
+                          maxLines: 4,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontFamily: SharedHelper.getCacheData(
+                                        key: LANGUAGES) ==
+                                    'AR'
+                                ? 'Cairo'
+                                : SharedHelper.getCacheData(key: LANGUAGES) ==
+                                        'EN'
+                                    ? 'Poppins'
+                                    : 'AlKshrl',
+                            fontSize: 14,
+                          ),
                         ),
                       ),
                     ),
@@ -178,8 +192,9 @@ class SeachDetails extends StatelessWidget {
                       ),
                       child: Center(
                         child: AutoSizeText(
-                          'تواصل الآن',
+                          '${LanguagesCubit.get(context).contactNow()}',
                           style: TextStyle(
+                            fontSize: 12,
                             color: Colors.white,
                             fontWeight: FontWeight.w400,
                           ),
@@ -198,7 +213,11 @@ class SeachDetails extends StatelessWidget {
                     ),
                     child: Center(
                       child: AutoSizeText(
-                        '${item['state']}',
+                        item['state'] == 'متوفر'
+                            ? '${LanguagesCubit.get(context).available()}'
+                            : item['state'] == 'غير متوفر'
+                                ? '${LanguagesCubit.get(context).notAvailable()}'
+                                : '${LanguagesCubit.get(context).searching()}',
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.w400,
@@ -220,7 +239,11 @@ class SeachDetails extends StatelessWidget {
                 ),
                 child: Center(
                   child: AutoSizeText(
-                    '${item['state']}',
+                    item['state'] == 'متوفر'
+                        ? '${LanguagesCubit.get(context).available()}'
+                        : item['state'] == 'غير متوفر'
+                            ? '${LanguagesCubit.get(context).notAvailable()}'
+                            : '${LanguagesCubit.get(context).searching()}',
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.w400,

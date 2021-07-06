@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:loading_animations/loading_animations.dart';
-import 'package:search_app/bloc/home/cubit.dart';
 import 'package:search_app/bloc/languages/cubit.dart';
 import 'package:search_app/bloc/register/cubit.dart';
 import 'package:search_app/bloc/register/states.dart';
@@ -94,7 +93,10 @@ class RegisterScreen extends StatelessWidget {
                       textDirection:
                           SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
                               ? TextDirection.rtl
-                              : TextDirection.ltr,
+                              : SharedHelper.getCacheData(key: LANGUAGES) ==
+                                      'KR'
+                                  ? TextDirection.rtl
+                                  : TextDirection.ltr,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
@@ -102,7 +104,10 @@ class RegisterScreen extends StatelessWidget {
                           textDirection:
                               SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
                                   ? TextDirection.rtl
-                                  : TextDirection.ltr,
+                                  : SharedHelper.getCacheData(key: LANGUAGES) ==
+                                          'KR'
+                                      ? TextDirection.rtl
+                                      : TextDirection.ltr,
                           style: TextStyle(
                             fontSize: 26.0,
                             fontWeight: FontWeight.bold,
@@ -114,7 +119,10 @@ class RegisterScreen extends StatelessWidget {
                           textDirection:
                               SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
                                   ? TextDirection.rtl
-                                  : TextDirection.ltr,
+                                  : SharedHelper.getCacheData(key: LANGUAGES) ==
+                                          'KR'
+                                      ? TextDirection.rtl
+                                      : TextDirection.ltr,
                           style: TextStyle(
                             fontSize: 15.0,
                             fontWeight: FontWeight.w400,
@@ -279,7 +287,11 @@ class RegisterScreen extends StatelessWidget {
                                     SharedHelper.getCacheData(key: LANGUAGES) ==
                                             'AR'
                                         ? TextDirection.rtl
-                                        : TextDirection.ltr,
+                                        : SharedHelper.getCacheData(
+                                                    key: LANGUAGES) ==
+                                                'KR'
+                                            ? TextDirection.rtl
+                                            : TextDirection.ltr,
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
@@ -289,7 +301,11 @@ class RegisterScreen extends StatelessWidget {
                                                 key: LANGUAGES) ==
                                             'AR'
                                         ? TextDirection.rtl
-                                        : TextDirection.ltr,
+                                        : SharedHelper.getCacheData(
+                                                    key: LANGUAGES) ==
+                                                'KR'
+                                            ? TextDirection.rtl
+                                            : TextDirection.ltr,
                                     maxLines: 1,
                                   ),
                                   DropdownButton(

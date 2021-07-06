@@ -13,6 +13,8 @@ class ChangeLanguage extends StatelessWidget {
       RoundedLoadingButtonController();
   final RoundedLoadingButtonController _btnEnglishController =
       RoundedLoadingButtonController();
+  final RoundedLoadingButtonController _btnKordyController =
+      RoundedLoadingButtonController();
   @override
   Widget build(BuildContext context) {
     return Theme(
@@ -24,8 +26,10 @@ class ChangeLanguage extends StatelessWidget {
         drawerScrimColor: Colors.black.withOpacity(0.7),
         endDrawer: SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
             ? NavigationDrawerWidget()
-            : null,
-        drawer: SharedHelper.getCacheData(key: LANGUAGES) != 'AR'
+            : SharedHelper.getCacheData(key: LANGUAGES) == 'KR'
+                ? NavigationDrawerWidget()
+                : null,
+        drawer: SharedHelper.getCacheData(key: LANGUAGES) == 'EN'
             ? NavigationDrawerWidget()
             : null,
         appBar: AppBar(
@@ -36,7 +40,9 @@ class ChangeLanguage extends StatelessWidget {
               color: mPrimaryDarkGrey,
               fontFamily: SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
                   ? 'Cairo'
-                  : 'Poppins',
+                  : SharedHelper.getCacheData(key: LANGUAGES) == 'EN'
+                      ? 'Poppins'
+                      : 'AlKshrl',
             ),
           ),
         ),
@@ -87,6 +93,20 @@ class ChangeLanguage extends StatelessWidget {
                     controller: _btnArabicController,
                     onPressed: () => _changeToArabic(context),
                   ),
+                  SizedBox(height: 10),
+                  RoundedLoadingButton(
+                    color: mPrimaryGreen,
+                    child: Text(
+                      'كوردي',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'AlKshrl',
+                        fontSize: 16,
+                      ),
+                    ),
+                    controller: _btnKordyController,
+                    onPressed: () => _changeToKordy(context),
+                  ),
                 ],
               ),
             );
@@ -126,6 +146,32 @@ class ChangeLanguage extends StatelessWidget {
     Timer(Duration(seconds: 1), () {
       SharedHelper.cacheData(key: LANGUAGES, value: 'EN');
       _btnEnglishController.success();
+      if (SharedHelper.getCacheData(key: USERTYPE) == 'user') {
+        Transitioner(
+          context: context,
+          child: ChangeLanguage(),
+          animation: AnimationType.scale,
+          duration: Duration(milliseconds: 500),
+          replacement: true,
+          curveType: CurveType.elastic,
+        );
+      } else if (SharedHelper.getCacheData(key: USERTYPE) == 'store') {
+        Transitioner(
+          context: context,
+          child: ChangeLanguage(),
+          animation: AnimationType.scale,
+          duration: Duration(milliseconds: 500),
+          replacement: true,
+          curveType: CurveType.elastic,
+        );
+      }
+    });
+  }
+
+  void _changeToKordy(context) async {
+    Timer(Duration(seconds: 1), () {
+      SharedHelper.cacheData(key: LANGUAGES, value: 'KR');
+      _btnKordyController.success();
       if (SharedHelper.getCacheData(key: USERTYPE) == 'user') {
         Transitioner(
           context: context,

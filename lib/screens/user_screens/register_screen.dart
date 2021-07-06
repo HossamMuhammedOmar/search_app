@@ -92,7 +92,9 @@ class RegisterUserScreen extends StatelessWidget {
                     textDirection:
                         SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
                             ? TextDirection.rtl
-                            : TextDirection.ltr,
+                            : SharedHelper.getCacheData(key: LANGUAGES) == 'KR'
+                                ? TextDirection.rtl
+                                : TextDirection.ltr,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
@@ -100,7 +102,10 @@ class RegisterUserScreen extends StatelessWidget {
                         textDirection:
                             SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
                                 ? TextDirection.rtl
-                                : TextDirection.ltr,
+                                : SharedHelper.getCacheData(key: LANGUAGES) ==
+                                        'KR'
+                                    ? TextDirection.rtl
+                                    : TextDirection.ltr,
                         style: TextStyle(
                           fontSize: 26.0,
                           fontWeight: FontWeight.bold,
@@ -112,7 +117,10 @@ class RegisterUserScreen extends StatelessWidget {
                         textDirection:
                             SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
                                 ? TextDirection.rtl
-                                : TextDirection.ltr,
+                                : SharedHelper.getCacheData(key: LANGUAGES) ==
+                                        'KR'
+                                    ? TextDirection.rtl
+                                    : TextDirection.ltr,
                         style: TextStyle(
                           fontSize: 15.0,
                           fontWeight: FontWeight.w400,
@@ -289,14 +297,18 @@ class RegisterUserScreen extends StatelessWidget {
         Row(
           textDirection: SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
               ? TextDirection.rtl
-              : TextDirection.ltr,
+              : SharedHelper.getCacheData(key: LANGUAGES) == 'KR'
+                  ? TextDirection.rtl
+                  : TextDirection.ltr,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             AutoSizeText(
               '${LanguagesCubit.get(context).haveAnAccount()}',
               textDirection: SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
                   ? TextDirection.rtl
-                  : TextDirection.ltr,
+                  : SharedHelper.getCacheData(key: LANGUAGES) == 'KR'
+                      ? TextDirection.rtl
+                      : TextDirection.ltr,
             ),
             TextButton(
               onPressed: () {
@@ -313,7 +325,9 @@ class RegisterUserScreen extends StatelessWidget {
                 '${LanguagesCubit.get(context).login()}',
                 textDirection: SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
                     ? TextDirection.rtl
-                    : TextDirection.ltr,
+                    : SharedHelper.getCacheData(key: LANGUAGES) == 'KR'
+                        ? TextDirection.rtl
+                        : TextDirection.ltr,
               ),
               style: TextButton.styleFrom(
                 padding: EdgeInsets.zero,
@@ -402,14 +416,18 @@ class RegisterUserScreen extends StatelessWidget {
         Row(
           textDirection: SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
               ? TextDirection.rtl
-              : TextDirection.ltr,
+              : SharedHelper.getCacheData(key: LANGUAGES) == 'KR'
+                  ? TextDirection.rtl
+                  : TextDirection.ltr,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             AutoSizeText(
               '${LanguagesCubit.get(context).haveAnAccount()}',
               textDirection: SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
                   ? TextDirection.rtl
-                  : TextDirection.ltr,
+                  : SharedHelper.getCacheData(key: LANGUAGES) == 'KR'
+                      ? TextDirection.rtl
+                      : TextDirection.ltr,
             ),
             TextButton(
               onPressed: () {
@@ -426,7 +444,9 @@ class RegisterUserScreen extends StatelessWidget {
                 '${LanguagesCubit.get(context).login()}',
                 textDirection: SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
                     ? TextDirection.rtl
-                    : TextDirection.ltr,
+                    : SharedHelper.getCacheData(key: LANGUAGES) == 'KR'
+                        ? TextDirection.rtl
+                        : TextDirection.ltr,
               ),
               style: TextButton.styleFrom(
                 padding: EdgeInsets.zero,

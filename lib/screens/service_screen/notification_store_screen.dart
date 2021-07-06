@@ -14,7 +14,9 @@ class NotificationStoreScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         HomeCubit _cubit = HomeCubit.get(context);
+
         return Scaffold(
+          backgroundColor: Color(0xffF5F5F5),
           appBar: AppBar(
             iconTheme: IconThemeData(color: mPrimaryDarkGrey),
             title: Text(
@@ -29,23 +31,32 @@ class NotificationStoreScreen extends StatelessWidget {
             backgroundColor: Colors.white,
           ),
           body: state is! StoreNotificationLoading
-              ? ListView.separated(
-                  itemBuilder: (context, index) => _buildItem(
-                    _cubit.storeNotification[index],
-                    _cubit.storeNotificationState[index],
-                    _cubit,
-                  ),
-                  separatorBuilder: (context, index) => Container(
-                      width: double.infinity, height: 1, color: Colors.grey),
-                  itemCount: _cubit.storeNotification.length,
-                )
+              ? _cubit.storeNotification.length != 0
+                  ? ListView.separated(
+                      itemBuilder: (context, index) => _buildItem(
+                        _cubit.storeNotification[index],
+                        _cubit.storeNotificationState[index],
+                        _cubit,
+                        context,
+                      ),
+                      separatorBuilder: (context, index) => Container(
+                          width: double.infinity,
+                          height: 1,
+                          color: Colors.grey),
+                      itemCount: _cubit.storeNotification.length,
+                    )
+                  : Center(
+                      child: Image.asset(
+                      'assets/images/empty_notiif.png',
+                      width: 150,
+                    ))
               : Center(child: CircularProgressIndicator()),
         );
       },
     );
   }
 
-  Widget _buildItem(item, stateItem, HomeCubit cubit) {
+  Widget _buildItem(item, stateItem, HomeCubit cubit, context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       height: 150,
@@ -56,7 +67,7 @@ class NotificationStoreScreen extends StatelessWidget {
         children: [
           Center(
             child: AutoSizeText(
-              'هناك شخص يبحث عن هذا المنتج في محافظتك',
+              '${LanguagesCubit.get(context).thereIsSomeoneLooking()}',
               maxLines: 1,
               style: TextStyle(
                 fontFamily: 'Cairo',

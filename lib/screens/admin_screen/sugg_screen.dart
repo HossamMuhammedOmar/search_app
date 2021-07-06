@@ -50,7 +50,7 @@ class SuggAdimnScreen extends StatelessWidget {
             Text(
               '${item.message}',
               style: TextStyle(
-                fontSize: 22,
+                fontSize: 21,
                 color: Colors.white,
               ),
             ),

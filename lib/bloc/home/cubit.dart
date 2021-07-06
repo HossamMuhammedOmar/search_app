@@ -450,6 +450,7 @@ class HomeCubit extends Cubit<HomeStates> {
         .collection('orders')
         .where('government', isEqualTo: gov)
         .where('categories', isEqualTo: cat)
+        .orderBy('date', descending: false)
         .get()
         .then(
       (value) {
@@ -617,7 +618,7 @@ class HomeCubit extends Cubit<HomeStates> {
     userAdminModle = [];
     userAdminIDS = [];
     emit(AdminUserCountLoaingState());
-    FirebaseFirestore.instance.collection('user').get().then(
+    FirebaseFirestore.instance.collection('user').orderBy('type').get().then(
       (value) {
         userCount = value.docs.length;
         value.docs.forEach((element) {

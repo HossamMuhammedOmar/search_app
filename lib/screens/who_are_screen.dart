@@ -33,7 +33,10 @@ class WhoAreScreen extends StatelessWidget {
                       textDirection:
                           SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
                               ? TextDirection.rtl
-                              : TextDirection.ltr,
+                              : SharedHelper.getCacheData(key: LANGUAGES) ==
+                                      'KR'
+                                  ? TextDirection.rtl
+                                  : TextDirection.ltr,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         AutoSizeText(
@@ -41,7 +44,10 @@ class WhoAreScreen extends StatelessWidget {
                           textDirection:
                               SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
                                   ? TextDirection.rtl
-                                  : TextDirection.ltr,
+                                  : SharedHelper.getCacheData(key: LANGUAGES) ==
+                                          'KR'
+                                      ? TextDirection.rtl
+                                      : TextDirection.ltr,
                           style: TextStyle(
                             fontSize: 28,
                             fontWeight: FontWeight.bold,
@@ -55,16 +61,22 @@ class WhoAreScreen extends StatelessWidget {
                           '${LanguagesCubit.get(context).whoAreYouDescription()}',
                           style: TextStyle(
                             color: mPrimaryDarkGrey,
-                            fontFamily:
-                                SharedHelper.getCacheData(key: LANGUAGES) ==
-                                        'AR'
-                                    ? 'Almarai'
-                                    : 'Poppins',
+                            fontFamily: SharedHelper.getCacheData(
+                                        key: LANGUAGES) ==
+                                    'AR'
+                                ? 'Cairo'
+                                : SharedHelper.getCacheData(key: LANGUAGES) ==
+                                        'EN'
+                                    ? 'Poppins'
+                                    : 'AlKshrl',
                           ),
                           textDirection:
                               SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
                                   ? TextDirection.rtl
-                                  : TextDirection.ltr,
+                                  : SharedHelper.getCacheData(key: LANGUAGES) ==
+                                          'KR'
+                                      ? TextDirection.rtl
+                                      : TextDirection.ltr,
                           maxLines: 4,
                         ),
                       ],

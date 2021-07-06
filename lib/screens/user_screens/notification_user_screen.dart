@@ -15,6 +15,7 @@ class NotificationUserScreen extends StatelessWidget {
       builder: (context, state) {
         HomeCubit _cubit = HomeCubit.get(context);
         return Scaffold(
+          backgroundColor: Color(0xffF5F5F5),
           appBar: AppBar(
             iconTheme: IconThemeData(color: mPrimaryDarkGrey),
             title: Text(
@@ -23,28 +24,39 @@ class NotificationUserScreen extends StatelessWidget {
                 color: mPrimaryDarkGrey,
                 fontFamily: SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
                     ? 'Cairo'
-                    : 'Poppins',
+                    : SharedHelper.getCacheData(key: LANGUAGES) == 'EN'
+                        ? 'Poppins'
+                        : 'AlKshrl',
               ),
             ),
             backgroundColor: Colors.white,
           ),
           body: state is! GetUserNotificationLoading
-              ? ListView.separated(
-                  itemBuilder: (context, index) => _buildItem(
-                    _cubit.userNotificationModel[index],
-                    _cubit,
-                  ),
-                  separatorBuilder: (context, index) => Container(
-                      width: double.infinity, height: 1, color: Colors.grey),
-                  itemCount: _cubit.userNotificationModel.length,
-                )
+              ? _cubit.userNotificationModel.length != 0
+                  ? ListView.separated(
+                      itemBuilder: (context, index) => _buildItem(
+                        _cubit.userNotificationModel[index],
+                        _cubit,
+                        context,
+                      ),
+                      separatorBuilder: (context, index) => Container(
+                          width: double.infinity,
+                          height: 1,
+                          color: Colors.grey),
+                      itemCount: _cubit.userNotificationModel.length,
+                    )
+                  : Center(
+                      child: Image.asset(
+                      'assets/images/empty_notiif.png',
+                      width: 150,
+                    ))
               : Center(child: CircularProgressIndicator()),
         );
       },
     );
   }
 
-  Widget _buildItem(item, HomeCubit cubit) {
+  Widget _buildItem(item, HomeCubit cubit, context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       height: 150,
@@ -54,13 +66,51 @@ class NotificationUserScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Center(
-            child: AutoSizeText(
-              ' تم العثور علي ${item.decription}  في ',
-              maxLines: 1,
-              style: TextStyle(
-                fontFamily: 'Cairo',
-                fontSize: 15,
-              ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              textDirection: SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
+                  ? TextDirection.rtl
+                  : SharedHelper.getCacheData(key: LANGUAGES) == 'EN'
+                      ? TextDirection.ltr
+                      : TextDirection.rtl,
+              children: [
+                Text(
+                  '${LanguagesCubit.get(context).haveBeenFound()}',
+                  textDirection:
+                      SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
+                          ? TextDirection.rtl
+                          : SharedHelper.getCacheData(key: LANGUAGES) == 'EN'
+                              ? TextDirection.ltr
+                              : TextDirection.rtl,
+                  style: TextStyle(
+                    fontFamily: 'Cairo',
+                    fontSize: 15,
+                  ),
+                ),
+                SizedBox(width: 10),
+                Text(
+                  '${item.decription}',
+                  style: TextStyle(
+                    fontFamily: 'Cairo',
+                    color: Color(0xffc0392b),
+                    fontSize: 15,
+                  ),
+                ),
+                SizedBox(width: 10),
+                Text(
+                  '${LanguagesCubit.get(context).inT()}',
+                  textDirection:
+                      SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
+                          ? TextDirection.rtl
+                          : SharedHelper.getCacheData(key: LANGUAGES) == 'EN'
+                              ? TextDirection.ltr
+                              : TextDirection.rtl,
+                  style: TextStyle(
+                    fontFamily: 'Cairo',
+                    fontSize: 15,
+                  ),
+                ),
+              ],
             ),
           ),
           SizedBox(height: 10),
@@ -87,17 +137,6 @@ class NotificationUserScreen extends StatelessWidget {
                 },
                 child: Icon(Icons.done),
               ),
-              // MaterialButton(
-              //   onPressed: () {},
-              //   color: Colors.redAccent,
-              //   child: Text(
-              //     'تعليم كمقروء',
-              //     style: TextStyle(
-              //       color: Colors.white,
-              //       fontFamily: 'Cairo',
-              //     ),
-              //   ),
-              // ),
             ],
           ),
         ],

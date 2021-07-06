@@ -81,6 +81,15 @@ class UserAdminScreen extends StatelessWidget {
                 ),
               ),
             SizedBox(height: 5),
+            if (item['type'] == 'store')
+              Text(
+                '${item['shop']['address']['storePhone']}',
+                style: TextStyle(
+                  fontSize: 22,
+                  color: Colors.white,
+                ),
+              ),
+            SizedBox(height: 5),
             if (item['type'] == 'user')
               Text(
                 '${item['type']}',
@@ -108,6 +117,7 @@ class UserAdminScreen extends StatelessWidget {
             SizedBox(height: 5),
             Text(
               '${item['uId']}',
+              maxLines: 1,
               style: TextStyle(
                 fontSize: 20,
                 color: Colors.white,

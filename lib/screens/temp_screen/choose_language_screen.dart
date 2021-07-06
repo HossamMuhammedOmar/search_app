@@ -130,6 +130,36 @@ class ChooseLanguageScreen extends StatelessWidget {
                             ],
                           ),
                         ),
+                        MaterialButton(
+                          textColor: Colors.white,
+                          color: mPrimaryYellow,
+                          onPressed: () {
+                            LanguagesCubit.get(context).changeToKordy();
+
+                            Transitioner(
+                              context: context,
+                              child: OnBoardingScreen(),
+                              animation: AnimationType.scale, // Optional value
+                              duration: Duration(
+                                milliseconds: 1500,
+                              ), // Optional value
+                              replacement: true, // Optional value
+                              curveType: CurveType.bounceOut, // Optional value
+                            );
+                          },
+                          minWidth: 120,
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                'كوردي',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                         SizedBox(
                           height: localHeight / 10,
                         ),

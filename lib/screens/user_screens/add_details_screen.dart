@@ -57,20 +57,28 @@ class AddDetaileScreen extends StatelessWidget {
                     textDirection:
                         SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
                             ? TextDirection.rtl
-                            : TextDirection.ltr,
+                            : SharedHelper.getCacheData(key: LANGUAGES) == 'KR'
+                                ? TextDirection.rtl
+                                : TextDirection.ltr,
                     children: [
                       AutoSizeText(
                         '${LanguagesCubit.get(context).enterNameOrShortDescriptionForTheItemYouAreLookingFor()}',
                         textDirection:
                             SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
                                 ? TextDirection.rtl
-                                : TextDirection.ltr,
+                                : SharedHelper.getCacheData(key: LANGUAGES) ==
+                                        'KR'
+                                    ? TextDirection.rtl
+                                    : TextDirection.ltr,
                         style: TextStyle(
                           fontSize: 18,
                           fontFamily:
                               SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
                                   ? 'Cairo'
-                                  : 'Poppins',
+                                  : SharedHelper.getCacheData(key: LANGUAGES) ==
+                                          'EN'
+                                      ? 'Poppins'
+                                      : 'AlKshrl',
                           fontWeight: FontWeight.bold,
                         ),
                         maxLines: 2,
@@ -86,7 +94,10 @@ class AddDetaileScreen extends StatelessWidget {
                           textDirection:
                               SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
                                   ? TextDirection.rtl
-                                  : TextDirection.ltr,
+                                  : SharedHelper.getCacheData(key: LANGUAGES) ==
+                                          'KR'
+                                      ? TextDirection.rtl
+                                      : TextDirection.ltr,
                           children: [
                             TextFormField(
                               controller: _nameController,
@@ -108,9 +119,12 @@ class AddDetaileScreen extends StatelessWidget {
                             AutoSizeText(
                               '${LanguagesCubit.get(context).ifYouWantToAddPictureOfTheItemYouAreLookingFor()}',
                               maxLines: 2,
-                              textDirection:
-                                  SharedHelper.getCacheData(key: LANGUAGES) ==
-                                          'AR'
+                              textDirection: SharedHelper.getCacheData(
+                                          key: LANGUAGES) ==
+                                      'AR'
+                                  ? TextDirection.rtl
+                                  : SharedHelper.getCacheData(key: LANGUAGES) ==
+                                          'KR'
                                       ? TextDirection.rtl
                                       : TextDirection.ltr,
                               style: TextStyle(
@@ -130,7 +144,11 @@ class AddDetaileScreen extends StatelessWidget {
                                     SharedHelper.getCacheData(key: LANGUAGES) ==
                                             'AR'
                                         ? TextDirection.rtl
-                                        : TextDirection.ltr,
+                                        : SharedHelper.getCacheData(
+                                                    key: LANGUAGES) ==
+                                                'KR'
+                                            ? TextDirection.rtl
+                                            : TextDirection.ltr,
                                 hintText:
                                     '${LanguagesCubit.get(context).enterImageUrl()}',
                               ),
@@ -170,7 +188,11 @@ class AddDetaileScreen extends StatelessWidget {
                                                           key: LANGUAGES) ==
                                                       'AR'
                                                   ? TextDirection.rtl
-                                                  : TextDirection.ltr,
+                                                  : SharedHelper.getCacheData(
+                                                              key: LANGUAGES) ==
+                                                          'KR'
+                                                      ? TextDirection.rtl
+                                                      : TextDirection.ltr,
                                           style: TextStyle(
                                             color: mPrimaryGrey,
                                             fontWeight: FontWeight.bold,

@@ -65,13 +65,15 @@ class _HomeUserScreenState extends State<HomeUserScreen> {
                 drawerScrimColor: Colors.black.withOpacity(0.7),
                 endDrawer: SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
                     ? NavigationDrawerWidget()
-                    : null,
-                drawer: SharedHelper.getCacheData(key: LANGUAGES) != 'AR'
+                    : SharedHelper.getCacheData(key: LANGUAGES) == 'KR'
+                        ? NavigationDrawerWidget()
+                        : null,
+                drawer: SharedHelper.getCacheData(key: LANGUAGES) == 'EN'
                     ? NavigationDrawerWidget()
                     : null,
                 appBar: AppBar(
                   actions: [
-                    if (SharedHelper.getCacheData(key: LANGUAGES) != 'AR')
+                    if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN')
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Stack(
@@ -167,15 +169,64 @@ class _HomeUserScreenState extends State<HomeUserScreen> {
                               ),
                           ],
                         )
-                      : null,
+                      : SharedHelper.getCacheData(key: LANGUAGES) == 'KR'
+                          ? Stack(
+                              alignment: Alignment.topRight,
+                              children: [
+                                IconButton(
+                                  onPressed: () {
+                                    HomeCubit.get(context)
+                                        .getNotificationUser();
+                                    Transitioner(
+                                      context: context,
+                                      child: NotificationUserScreen(),
+                                      animation: AnimationType.slideBottom,
+                                      duration: Duration(milliseconds: 300),
+                                      replacement: false,
+                                      curveType: CurveType.linear,
+                                    );
+                                  },
+                                  icon: Icon(
+                                    Icons.notifications_none,
+                                    size: 28,
+                                  ),
+                                ),
+                                if (_cubit.userNotificationModel.length != 0)
+                                  Positioned(
+                                    right: 8,
+                                    top: 8,
+                                    child: Container(
+                                      width: 15,
+                                      height: 15,
+                                      decoration: BoxDecoration(
+                                        color: Colors.red,
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      // child: CircleAvatar(
+                                      //   backgroundColor: Colors.white,
+                                      //   child: Text(
+                                      //     '${_cubit.storeNotification.length}',
+                                      //     style: TextStyle(
+                                      //       fontSize: 12,
+                                      //       color: Colors.red,
+                                      //     ),
+                                      //   ),
+                                      // ),
+                                    ),
+                                  ),
+                              ],
+                            )
+                          : null,
                   title: Text(
                     '${LanguagesCubit.get(context).homeScreen()}',
                     style: TextStyle(
                       color: mPrimaryDarkGrey,
-                      fontFamily:
-                          SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
-                              ? 'Cairo'
-                              : 'Poppins',
+                      fontFamily: SharedHelper.getCacheData(key: LANGUAGES) ==
+                              'AR'
+                          ? 'Cairo'
+                          : SharedHelper.getCacheData(key: LANGUAGES) == 'EN'
+                              ? 'Poppins'
+                              : 'AlKshrl',
                     ),
                   ),
                   backgroundColor: Colors.white,
@@ -203,8 +254,12 @@ class _HomeUserScreenState extends State<HomeUserScreen> {
                                           fontFamily: SharedHelper.getCacheData(
                                                       key: LANGUAGES) ==
                                                   'AR'
-                                              ? 'NotoKufiArabic'
-                                              : 'Poppins',
+                                              ? 'Cairo'
+                                              : SharedHelper.getCacheData(
+                                                          key: LANGUAGES) ==
+                                                      'EN'
+                                                  ? 'Poppins'
+                                                  : 'AlKshrl',
                                           color: mPrimaryBlue,
                                           fontWeight: FontWeight.bold,
                                         ),
@@ -221,7 +276,11 @@ class _HomeUserScreenState extends State<HomeUserScreen> {
                                                       key: LANGUAGES) ==
                                                   'AR'
                                               ? 'Cairo'
-                                              : 'Poppins',
+                                              : SharedHelper.getCacheData(
+                                                          key: LANGUAGES) ==
+                                                      'EN'
+                                                  ? 'Poppins'
+                                                  : 'AlKshrl',
                                           color: mPrimaryDarkGrey,
                                           fontWeight: FontWeight.bold,
                                         ),
@@ -281,12 +340,16 @@ class _HomeUserScreenState extends State<HomeUserScreen> {
                                             '${LanguagesCubit.get(context).chooseTheSpecialtyYouWant()}',
                                             maxLines: 1,
                                             style: TextStyle(
-                                              fontFamily:
-                                                  SharedHelper.getCacheData(
+                                              fontFamily: SharedHelper
+                                                          .getCacheData(
                                                               key: LANGUAGES) ==
-                                                          'AR'
-                                                      ? 'Cairo'
-                                                      : 'Poppins',
+                                                      'AR'
+                                                  ? 'Cairo'
+                                                  : SharedHelper.getCacheData(
+                                                              key: LANGUAGES) ==
+                                                          'EN'
+                                                      ? 'Poppins'
+                                                      : 'AlKshrl',
                                               fontSize: 15,
                                               color: mPrimaryDarkGrey,
                                               fontWeight: FontWeight.bold,
@@ -390,12 +453,16 @@ class _HomeUserScreenState extends State<HomeUserScreen> {
                                                                 .center,
                                                             style: TextStyle(
                                                               fontSize: 14,
-                                                              fontFamily: SharedHelper
-                                                                          .getCacheData(
-                                                                              key: LANGUAGES) ==
+                                                              fontFamily: SharedHelper.getCacheData(
+                                                                          key:
+                                                                              LANGUAGES) ==
                                                                       'AR'
-                                                                  ? 'NotoKufiArabic'
-                                                                  : 'Poppins',
+                                                                  ? 'Cairo'
+                                                                  : SharedHelper.getCacheData(
+                                                                              key: LANGUAGES) ==
+                                                                          'EN'
+                                                                      ? 'Poppins'
+                                                                      : 'AlKshrl',
                                                             ),
                                                           ),
                                                         ],
@@ -427,7 +494,12 @@ class _HomeUserScreenState extends State<HomeUserScreen> {
                                                                         LANGUAGES) ==
                                                             'AR'
                                                         ? 'Cairo'
-                                                        : 'Poppins',
+                                                        : SharedHelper.getCacheData(
+                                                                    key:
+                                                                        LANGUAGES) ==
+                                                                'EN'
+                                                            ? 'Poppins'
+                                                            : 'AlKshrl',
                                                   ),
                                                 )
                                               : Padding(
