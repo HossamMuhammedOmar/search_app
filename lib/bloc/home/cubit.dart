@@ -954,6 +954,8 @@ class HomeCubit extends Cubit<HomeStates> {
     storeNotification = [];
     storeNotificationState = [];
 
+    print('ASAS');
+
     emit(StoreNotificationLoading());
     // FirebaseFirestore.instance
     //     .collection('store_notifications')
@@ -1011,6 +1013,10 @@ class HomeCubit extends Cubit<HomeStates> {
 
             emit(StoreNotificationSuccess());
           });
+          emit(StoreNotificationSuccess());
+        }).catchError((e) {
+          print(e.toString());
+          emit(StoreNotificationError());
         });
         emit(StoreNotificationSuccess());
       });

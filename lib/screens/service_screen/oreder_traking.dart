@@ -51,32 +51,32 @@ class OrderTracking extends StatelessWidget {
               ),
             ),
             body: state is! GetAllStoreOrderLoading
-                ? _cubit.myOrder.length != 0
-                    ? Center(
-                        child: ListView.separated(
-                          itemBuilder: (context, index) => _buildItem(
-                            _cubit.myOrder[index],
-                            _cubit,
-                            context,
+                ? Center(
+                    child: _cubit.myOrder.isNotEmpty
+                        ? ListView.separated(
+                            itemBuilder: (context, index) => _buildItem(
+                              _cubit.myOrder[index],
+                              _cubit,
+                              context,
+                            ),
+                            separatorBuilder: (context, index) {
+                              return Container(
+                                color: mPrimaryGrey.withOpacity(.2),
+                                height: 1,
+                                width: double.infinity,
+                              );
+                            },
+                            itemCount: _cubit.myOrder.length,
+                          )
+                        : Center(
+                            child: Text(
+                              '${LanguagesCubit.get(context).noRequests()}',
+                              style: TextStyle(
+                                fontSize: 18,
+                              ),
+                            ),
                           ),
-                          separatorBuilder: (context, index) {
-                            return Container(
-                              color: mPrimaryGrey.withOpacity(.2),
-                              height: 1,
-                              width: double.infinity,
-                            );
-                          },
-                          itemCount: _cubit.myOrder.length,
-                        ),
-                      )
-                    : Center(
-                        child: Text(
-                          '${LanguagesCubit.get(context).noRequests()}',
-                          style: TextStyle(
-                            fontSize: 18,
-                          ),
-                        ),
-                      )
+                  )
                 : Center(
                     child: LoadingJumpingLine.circle(
                       borderColor: mPrimaryYellow,

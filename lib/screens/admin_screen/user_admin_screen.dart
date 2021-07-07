@@ -90,6 +90,24 @@ class UserAdminScreen extends StatelessWidget {
                 ),
               ),
             SizedBox(height: 5),
+            if (item['type'] == 'store')
+              Text(
+                '${item['shop']['address']['governorate']}',
+                style: TextStyle(
+                  fontSize: 22,
+                  color: Colors.white,
+                ),
+              ),
+            SizedBox(height: 5),
+            if (item['type'] == 'store')
+              Text(
+                '${item['shop']['categories']}',
+                style: TextStyle(
+                  fontSize: 22,
+                  color: Colors.white,
+                ),
+              ),
+            SizedBox(height: 5),
             if (item['type'] == 'user')
               Text(
                 '${item['type']}',

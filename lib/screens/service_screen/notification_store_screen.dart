@@ -6,6 +6,8 @@ import 'package:search_app/bloc/home/states.dart';
 import 'package:search_app/bloc/languages/cubit.dart';
 import 'package:search_app/constant/constant.dart';
 import 'package:search_app/helpers/shared_helper.dart';
+import 'package:search_app/screens/service_screen/oreder_traking.dart';
+import 'package:transitioner/transitioner.dart';
 
 class NotificationStoreScreen extends StatelessWidget {
   @override
@@ -31,7 +33,7 @@ class NotificationStoreScreen extends StatelessWidget {
             backgroundColor: Colors.white,
           ),
           body: state is! StoreNotificationLoading
-              ? _cubit.storeNotification.length != 0
+              ? _cubit.storeNotification.isNotEmpty
                   ? ListView.separated(
                       itemBuilder: (context, index) => _buildItem(
                         _cubit.storeNotification[index],
@@ -47,9 +49,10 @@ class NotificationStoreScreen extends StatelessWidget {
                     )
                   : Center(
                       child: Image.asset(
-                      'assets/images/empty_notiif.png',
-                      width: 150,
-                    ))
+                        'assets/images/empty_notiif.png',
+                        width: 150,
+                      ),
+                    )
               : Center(child: CircularProgressIndicator()),
         );
       },
@@ -90,6 +93,7 @@ class NotificationStoreScreen extends StatelessWidget {
           ),
           SizedBox(height: 10),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               FloatingActionButton(
                 heroTag: stateItem['oId'],
@@ -102,17 +106,25 @@ class NotificationStoreScreen extends StatelessWidget {
                 },
                 child: Icon(Icons.done),
               ),
-              // MaterialButton(
-              //   onPressed: () {},
-              //   color: Colors.redAccent,
-              //   child: Text(
-              //     'تعليم كمقروء',
-              //     style: TextStyle(
-              //       color: Colors.white,
-              //       fontFamily: 'Cairo',
-              //     ),
-              //   ),
-              // ),
+              FloatingActionButton(
+                heroTag: stateItem['oId'] + stateItem['oId'],
+                mini: true,
+                backgroundColor: mPrimaryGreen,
+                onPressed: () {
+                  HomeCubit.get(context).getAllOrdersWhereGovernAndCategorie(
+                      gov: HomeCubit.get(context).userById[0].governorate,
+                      cat: HomeCubit.get(context).userById[0].categories);
+                  Transitioner(
+                    context: context,
+                    child: OrderTracking(),
+                    animation: AnimationType.fadeIn, // Optional value
+                    duration: Duration(milliseconds: 200), // Optional value
+                    replacement: true, // Optional value
+                    curveType: CurveType.decelerate, // Optional value
+                  );
+                },
+                child: Icon(Icons.arrow_circle_up),
+              ),
             ],
           ),
         ],

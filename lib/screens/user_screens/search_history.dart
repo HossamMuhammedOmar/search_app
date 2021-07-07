@@ -76,35 +76,36 @@ class SearchHistory extends StatelessWidget {
                                 )
                               : Center(
                                   child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      '${LanguagesCubit.get(context).noRequests()}',
-                                      style: TextStyle(fontSize: 18),
-                                    ),
-                                    SizedBox(height: 10),
-                                    TextButton(
-                                      onPressed: () {
-                                        Transitioner(
-                                          context: context,
-                                          child: HomeUserScreen(),
-                                          animation: AnimationType
-                                              .scale, // Optional value
-                                          duration: Duration(
-                                              milliseconds:
-                                                  200), // Optional value
-                                          replacement: true, // Optional value
-                                          curveType: CurveType
-                                              .decelerate, // Optional value
-                                        );
-                                      },
-                                      child: Text(
-                                        '${LanguagesCubit.get(context).addANewRequest()}',
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        '${LanguagesCubit.get(context).noRequests()}',
                                         style: TextStyle(fontSize: 18),
                                       ),
-                                    ),
-                                  ],
-                                )),
+                                      SizedBox(height: 10),
+                                      TextButton(
+                                        onPressed: () {
+                                          Transitioner(
+                                            context: context,
+                                            child: HomeUserScreen(),
+                                            animation: AnimationType
+                                                .scale, // Optional value
+                                            duration: Duration(
+                                                milliseconds:
+                                                    200), // Optional value
+                                            replacement: true, // Optional value
+                                            curveType: CurveType
+                                                .decelerate, // Optional value
+                                          );
+                                        },
+                                        child: Text(
+                                          '${LanguagesCubit.get(context).addANewRequest()}',
+                                          style: TextStyle(fontSize: 18),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
                     ),
                     Container(
                       width: double.infinity,
@@ -118,7 +119,7 @@ class SearchHistory extends StatelessWidget {
                           child: Center(
                             child: AutoSizeText(
                               '${LanguagesCubit.get(context).onlyFiveSearch()}',
-                              maxLines: 2,
+                              maxLines: 3,
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 color: mPrimaryDarkGrey,

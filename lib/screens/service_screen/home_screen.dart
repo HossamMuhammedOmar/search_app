@@ -180,14 +180,6 @@ class _HomeStoreScreenState extends State<HomeStoreScreen> {
                               children: [
                                 IconButton(
                                   onPressed: () {
-                                    Transitioner(
-                                      context: context,
-                                      child: NotificationStoreScreen(),
-                                      animation: AnimationType.slideBottom,
-                                      duration: Duration(milliseconds: 300),
-                                      replacement: false,
-                                      curveType: CurveType.linear,
-                                    );
                                     HomeCubit.get(context).getStoreNotification(
                                       government: SharedHelper.getCacheData(
                                           key: STOREGOVERNMENT),
@@ -195,6 +187,14 @@ class _HomeStoreScreenState extends State<HomeStoreScreen> {
                                           key: STORECATEGORIES),
                                       storeId:
                                           SharedHelper.getCacheData(key: TOKEN),
+                                    );
+                                    Transitioner(
+                                      context: context,
+                                      child: NotificationStoreScreen(),
+                                      animation: AnimationType.slideBottom,
+                                      duration: Duration(milliseconds: 300),
+                                      replacement: false,
+                                      curveType: CurveType.linear,
                                     );
                                   },
                                   icon: Icon(

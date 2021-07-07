@@ -6,6 +6,10 @@ import 'package:search_app/bloc/home/states.dart';
 import 'package:search_app/bloc/languages/cubit.dart';
 import 'package:search_app/constant/constant.dart';
 import 'package:search_app/helpers/shared_helper.dart';
+import 'package:search_app/screens/user_screens/search_history.dart';
+import 'package:transitioner/transitioner.dart';
+
+import 'search_deatail.dart';
 
 class NotificationUserScreen extends StatelessWidget {
   @override
@@ -47,9 +51,10 @@ class NotificationUserScreen extends StatelessWidget {
                     )
                   : Center(
                       child: Image.asset(
-                      'assets/images/empty_notiif.png',
-                      width: 150,
-                    ))
+                        'assets/images/empty_notiif.png',
+                        width: 150,
+                      ),
+                    )
               : Center(child: CircularProgressIndicator()),
         );
       },
@@ -128,6 +133,7 @@ class NotificationUserScreen extends StatelessWidget {
           ),
           SizedBox(height: 10),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               FloatingActionButton(
                 mini: true,
@@ -136,6 +142,23 @@ class NotificationUserScreen extends StatelessWidget {
                   cubit.markAsReadingUser(id: item.id);
                 },
                 child: Icon(Icons.done),
+              ),
+              FloatingActionButton(
+                heroTag: item.storeName + item.decription + 'hero',
+                mini: true,
+                backgroundColor: mPrimaryGreen,
+                onPressed: () {
+                  HomeCubit.get(context).getMyOrder();
+                  Transitioner(
+                    context: context,
+                    child: SearchHistory(),
+                    animation: AnimationType.fadeIn, // Optional value
+                    duration: Duration(milliseconds: 200), // Optional value
+                    replacement: true, // Optional value
+                    curveType: CurveType.decelerate, // Optional value
+                  );
+                },
+                child: Icon(Icons.arrow_circle_up),
               ),
             ],
           ),
