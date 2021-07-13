@@ -72,6 +72,7 @@ class _HomeUserScreenState extends State<HomeUserScreen> {
                     ? NavigationDrawerWidget()
                     : null,
                 appBar: AppBar(
+                  centerTitle: true,
                   actions: [
                     if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN')
                       Padding(

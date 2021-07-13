@@ -951,10 +951,11 @@ class HomeCubit extends Cubit<HomeStates> {
     required categories,
     required storeId,
   }) {
+    // print(government);
+    // print(categories);
+    // print(storeId);
     storeNotification = [];
     storeNotificationState = [];
-
-    print('ASAS');
 
     emit(StoreNotificationLoading());
     // FirebaseFirestore.instance

@@ -99,7 +99,7 @@ class SeachDetails extends StatelessWidget {
                             fontFamily: SharedHelper.getCacheData(
                                         key: LANGUAGES) ==
                                     'AR'
-                                ? 'Cairo'
+                                ? 'Almarai'
                                 : SharedHelper.getCacheData(key: LANGUAGES) ==
                                         'EN'
                                     ? 'Poppins'

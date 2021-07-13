@@ -36,6 +36,7 @@ class SearchHistory extends StatelessWidget {
                 ? NavigationDrawerWidget()
                 : null,
             appBar: AppBar(
+              centerTitle: true,
               backgroundColor: Colors.white,
               title: Text(
                 '${LanguagesCubit.get(context).yourSearchProccess()}',
@@ -115,7 +116,7 @@ class SearchHistory extends StatelessWidget {
                     Expanded(
                       child: SingleChildScrollView(
                         child: Padding(
-                          padding: const EdgeInsets.all(25.0),
+                          padding: const EdgeInsets.all(15.0),
                           child: Center(
                             child: AutoSizeText(
                               '${LanguagesCubit.get(context).onlyFiveSearch()}',
@@ -132,7 +133,7 @@ class SearchHistory extends StatelessWidget {
                                                 'EN'
                                             ? 'Poppins'
                                             : 'AlKshrl',
-                                fontSize: 20,
+                                fontSize: 14,
                               ),
                             ),
                           ),

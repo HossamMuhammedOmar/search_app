@@ -18,6 +18,7 @@ class ResultScreen extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
+            centerTitle: true,
             backgroundColor: Colors.white,
             title: TextButton(
               onPressed: () {
@@ -72,8 +73,8 @@ class ResultScreen extends StatelessWidget {
                   // color: mPrimaryLightBlue,
                   child: SingleChildScrollView(
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 10),
+                      padding: const EdgeInsets.only(
+                          right: 10, left: 10, bottom: 10, top: 20),
                       child: Center(
                         child: AutoSizeText(
                           '${LanguagesCubit.get(context).theseStoresThat()}',
@@ -84,12 +85,12 @@ class ResultScreen extends StatelessWidget {
                             fontFamily: SharedHelper.getCacheData(
                                         key: LANGUAGES) ==
                                     'AR'
-                                ? 'Cairo'
+                                ? 'Poppins'
                                 : SharedHelper.getCacheData(key: LANGUAGES) ==
                                         'EN'
                                     ? 'Poppins'
                                     : 'AlKshrl',
-                            fontSize: 16,
+                            fontSize: 14,
                           ),
                         ),
                       ),
