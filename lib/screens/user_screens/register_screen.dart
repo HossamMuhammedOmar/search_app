@@ -28,6 +28,14 @@ class RegisterUserScreen extends StatelessWidget {
     return BlocConsumer<RegisterCubit, RegisterStates>(
       listener: (context, state) {
         if (state is RegisterStoreSucessState) {
+          Transitioner(
+            context: context,
+            child: HomeUserScreen(),
+            animation: AnimationType.fadeIn, // Optional value
+            duration: Duration(milliseconds: 1000), // Optional value
+            replacement: true, // Optional value
+            curveType: CurveType.decelerate, // Optional value
+          );
           Fluttertoast.showToast(
             msg: "Register Succecfully",
             toastLength: Toast.LENGTH_LONG,
@@ -275,16 +283,6 @@ class RegisterUserScreen extends StatelessWidget {
                       password: _passwordController.text,
                       name: _nameEmailController.text,
                     );
-                    if (state is RegisterStoreSucessState)
-                      Transitioner(
-                        context: context,
-                        child: HomeUserScreen(),
-                        animation: AnimationType.fadeIn, // Optional value
-                        duration:
-                            Duration(milliseconds: 1000), // Optional value
-                        replacement: true, // Optional value
-                        curveType: CurveType.decelerate, // Optional value
-                      );
                   }
                 },
                 minWidth: double.infinity,

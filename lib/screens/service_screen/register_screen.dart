@@ -38,7 +38,7 @@ class RegisterScreen extends StatelessWidget {
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-              builder: (context) => HomeStoreScreen(),
+              builder: (context) => LoginScreen(),
             ),
             (route) => false,
           );

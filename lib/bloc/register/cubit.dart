@@ -87,6 +87,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
           governorate: governorate,
           street: street,
           name: name,
+          // date: DateTime.now(),
         );
       },
     ).catchError(

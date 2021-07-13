@@ -13,7 +13,9 @@ class NotificationStoreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeStates>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        print(state);
+      },
       builder: (context, state) {
         HomeCubit _cubit = HomeCubit.get(context);
 
@@ -33,7 +35,7 @@ class NotificationStoreScreen extends StatelessWidget {
             backgroundColor: Colors.white,
           ),
           body: state is! StoreNotificationLoading
-              ? _cubit.storeNotification.isNotEmpty
+              ? _cubit.storeNotification.length != 0
                   ? ListView.separated(
                       itemBuilder: (context, index) => _buildItem(
                         _cubit.storeNotification[index],

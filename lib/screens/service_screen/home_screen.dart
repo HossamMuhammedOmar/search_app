@@ -37,11 +37,7 @@ class _HomeStoreScreenState extends State<HomeStoreScreen> {
               HomeCubit.get(context).getAllOrdersWhereGovernAndCategorie(
                   gov: HomeCubit.get(context).userById[0].governorate,
                   cat: HomeCubit.get(context).userById[0].categories);
-              HomeCubit.get(context).getStoreNotification(
-                government: SharedHelper.getCacheData(key: STOREGOVERNMENT),
-                categories: SharedHelper.getCacheData(key: STORECATEGORIES),
-                storeId: SharedHelper.getCacheData(key: TOKEN),
-              );
+              HomeCubit.get(context).getStoreNotification();
             }
           },
           builder: (context, state) {
@@ -80,14 +76,7 @@ class _HomeStoreScreenState extends State<HomeStoreScreen> {
                                   replacement: false,
                                   curveType: CurveType.linear,
                                 );
-                                HomeCubit.get(context).getStoreNotification(
-                                  government: SharedHelper.getCacheData(
-                                      key: STOREGOVERNMENT),
-                                  categories: SharedHelper.getCacheData(
-                                      key: STORECATEGORIES),
-                                  storeId:
-                                      SharedHelper.getCacheData(key: TOKEN),
-                                );
+                                HomeCubit.get(context).getStoreNotification();
                               },
                               icon: Icon(
                                 Icons.notifications_none,
@@ -127,6 +116,7 @@ class _HomeStoreScreenState extends State<HomeStoreScreen> {
                           children: [
                             IconButton(
                               onPressed: () {
+                                _cubit.getStoreNotification();
                                 Transitioner(
                                   context: context,
                                   child: NotificationStoreScreen(),
@@ -134,14 +124,6 @@ class _HomeStoreScreenState extends State<HomeStoreScreen> {
                                   duration: Duration(milliseconds: 300),
                                   replacement: false,
                                   curveType: CurveType.linear,
-                                );
-                                HomeCubit.get(context).getStoreNotification(
-                                  government: SharedHelper.getCacheData(
-                                      key: STOREGOVERNMENT),
-                                  categories: SharedHelper.getCacheData(
-                                      key: STORECATEGORIES),
-                                  storeId:
-                                      SharedHelper.getCacheData(key: TOKEN),
                                 );
                               },
                               icon: Icon(
@@ -180,14 +162,8 @@ class _HomeStoreScreenState extends State<HomeStoreScreen> {
                               children: [
                                 IconButton(
                                   onPressed: () {
-                                    HomeCubit.get(context).getStoreNotification(
-                                      government: SharedHelper.getCacheData(
-                                          key: STOREGOVERNMENT),
-                                      categories: SharedHelper.getCacheData(
-                                          key: STORECATEGORIES),
-                                      storeId:
-                                          SharedHelper.getCacheData(key: TOKEN),
-                                    );
+                                    HomeCubit.get(context)
+                                        .getStoreNotification();
                                     Transitioner(
                                       context: context,
                                       child: NotificationStoreScreen(),

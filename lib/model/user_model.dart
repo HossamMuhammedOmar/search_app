@@ -51,6 +51,7 @@ class UserModel {
       'phone': phone,
       'type': type,
       'uId': uId,
+      'date': DateTime.now(),
       if (type == 'store') 'block': false,
       if (type == 'user') 'block': false,
       if (type == 'store')
