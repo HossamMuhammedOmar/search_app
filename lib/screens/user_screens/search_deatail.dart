@@ -193,8 +193,23 @@ class SeachDetails extends StatelessWidget {
                       child: Center(
                         child: AutoSizeText(
                           '${LanguagesCubit.get(context).contactNow()}',
+                          textDirection:
+                              SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
+                                  ? TextDirection.rtl
+                                  : SharedHelper.getCacheData(key: LANGUAGES) ==
+                                          'KR'
+                                      ? TextDirection.rtl
+                                      : TextDirection.ltr,
                           style: TextStyle(
                             fontSize: 12,
+                            fontFamily: SharedHelper.getCacheData(
+                                        key: LANGUAGES) ==
+                                    'AR'
+                                ? 'Cairo'
+                                : SharedHelper.getCacheData(key: LANGUAGES) ==
+                                        'EN'
+                                    ? 'Poppins'
+                                    : 'AlKshrl',
                             color: Colors.white,
                             fontWeight: FontWeight.w400,
                           ),
@@ -218,8 +233,22 @@ class SeachDetails extends StatelessWidget {
                             : item['state'] == 'غير متوفر'
                                 ? '${LanguagesCubit.get(context).notAvailable()}'
                                 : '${LanguagesCubit.get(context).searching()}',
+                        textDirection:
+                            SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
+                                ? TextDirection.rtl
+                                : SharedHelper.getCacheData(key: LANGUAGES) ==
+                                        'KR'
+                                    ? TextDirection.rtl
+                                    : TextDirection.ltr,
                         style: TextStyle(
                           color: Colors.white,
+                          fontFamily:
+                              SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
+                                  ? 'Cairo'
+                                  : SharedHelper.getCacheData(key: LANGUAGES) ==
+                                          'EN'
+                                      ? 'Poppins'
+                                      : 'AlKshrl',
                           fontWeight: FontWeight.w400,
                         ),
                         maxLines: 1,
@@ -244,8 +273,20 @@ class SeachDetails extends StatelessWidget {
                         : item['state'] == 'غير متوفر'
                             ? '${LanguagesCubit.get(context).notAvailable()}'
                             : '${LanguagesCubit.get(context).searching()}',
+                    textDirection:
+                        SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
+                            ? TextDirection.rtl
+                            : SharedHelper.getCacheData(key: LANGUAGES) == 'KR'
+                                ? TextDirection.rtl
+                                : TextDirection.ltr,
                     style: TextStyle(
                       color: Colors.white,
+                      fontFamily: SharedHelper.getCacheData(key: LANGUAGES) ==
+                              'AR'
+                          ? 'Cairo'
+                          : SharedHelper.getCacheData(key: LANGUAGES) == 'EN'
+                              ? 'Poppins'
+                              : 'AlKshrl',
                       fontWeight: FontWeight.w400,
                     ),
                     maxLines: 1,

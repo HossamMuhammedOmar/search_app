@@ -2,6 +2,7 @@ import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:flutter/material.dart';
 import 'package:search_app/bloc/languages/cubit.dart';
 import 'package:search_app/constant/constant.dart';
+import 'package:search_app/helpers/shared_helper.dart';
 import 'package:search_app/screens/user_screens/home_screen.dart';
 import 'package:transitioner/transitioner.dart';
 
@@ -31,9 +32,22 @@ class NoResultScreen extends StatelessWidget {
                   children: [
                     AutoSizeText(
                       '${LanguagesCubit.get(context).noStoresInThisGovernorateInThisTime()}',
+                      textDirection:
+                          SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
+                              ? TextDirection.rtl
+                              : SharedHelper.getCacheData(key: LANGUAGES) ==
+                                      'KR'
+                                  ? TextDirection.rtl
+                                  : TextDirection.ltr,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: mPrimaryDarkGrey,
+                        fontFamily: SharedHelper.getCacheData(key: LANGUAGES) ==
+                                'AR'
+                            ? 'Cairo'
+                            : SharedHelper.getCacheData(key: LANGUAGES) == 'EN'
+                                ? 'Poppins'
+                                : 'AlKshrl',
                         fontSize: 16,
                       ),
                       maxLines: 1,
@@ -41,9 +55,22 @@ class NoResultScreen extends StatelessWidget {
                     SizedBox(height: 10),
                     AutoSizeText(
                       '${LanguagesCubit.get(context).pleaseTryAgainLater()}',
+                      textDirection:
+                          SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
+                              ? TextDirection.rtl
+                              : SharedHelper.getCacheData(key: LANGUAGES) ==
+                                      'KR'
+                                  ? TextDirection.rtl
+                                  : TextDirection.ltr,
                       maxLines: 1,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
+                        fontFamily: SharedHelper.getCacheData(key: LANGUAGES) ==
+                                'AR'
+                            ? 'Cairo'
+                            : SharedHelper.getCacheData(key: LANGUAGES) == 'EN'
+                                ? 'Poppins'
+                                : 'AlKshrl',
                         color: mPrimaryGrey,
                         fontSize: 14,
                       ),

@@ -101,7 +101,12 @@ class NotificationUserScreen extends StatelessWidget {
                 Text(
                   '${item.decription}',
                   style: TextStyle(
-                    fontFamily: 'Cairo',
+                    fontFamily:
+                        SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
+                            ? 'Cairo'
+                            : SharedHelper.getCacheData(key: LANGUAGES) == 'EN'
+                                ? 'Poppins'
+                                : 'AlKshrl',
                     color: Color(0xffc0392b),
                     fontSize: 15,
                   ),
@@ -116,7 +121,12 @@ class NotificationUserScreen extends StatelessWidget {
                               ? TextDirection.ltr
                               : TextDirection.rtl,
                   style: TextStyle(
-                    fontFamily: 'Cairo',
+                    fontFamily:
+                        SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
+                            ? 'Cairo'
+                            : SharedHelper.getCacheData(key: LANGUAGES) == 'EN'
+                                ? 'Poppins'
+                                : 'AlKshrl',
                     fontSize: 15,
                   ),
                 ),

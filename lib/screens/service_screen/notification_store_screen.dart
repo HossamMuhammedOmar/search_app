@@ -75,7 +75,11 @@ class NotificationStoreScreen extends StatelessWidget {
               '${LanguagesCubit.get(context).thereIsSomeoneLooking()}',
               maxLines: 1,
               style: TextStyle(
-                fontFamily: 'Cairo',
+                fontFamily: SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
+                    ? 'Cairo'
+                    : SharedHelper.getCacheData(key: LANGUAGES) == 'EN'
+                        ? 'Poppins'
+                        : 'AlKshrl',
                 fontSize: 15,
               ),
             ),

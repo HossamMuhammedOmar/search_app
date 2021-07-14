@@ -523,25 +523,26 @@ class HomeCubit extends Cubit<HomeStates> {
           }).then((value) {
             var cId = '';
             getAllOrdersWhereGovernAndCategorie(cat: cat, gov: gov);
-            FirebaseFirestore.instance
-                .collection('orders')
-                .doc(oId)
-                .get()
-                .then((value) {
-              cId = value.data()!['uId'];
+            if (newS == 'متوفر')
               FirebaseFirestore.instance
-                  .collection('user_notifications')
-                  .doc()
-                  .set({
-                'uId': cId,
-                'date': DateTime.now().toIso8601String(),
-                'state': newS,
-                'decription': decription,
-                'seen': false,
-                'storeName': userById[0].storeName,
-                // 'oId':
-              }).catchError((e) => print(e.toString()));
-            });
+                  .collection('orders')
+                  .doc(oId)
+                  .get()
+                  .then((value) {
+                cId = value.data()!['uId'];
+                FirebaseFirestore.instance
+                    .collection('user_notifications')
+                    .doc()
+                    .set({
+                  'uId': cId,
+                  'date': DateTime.now().toIso8601String(),
+                  'state': newS,
+                  'decription': decription,
+                  'seen': false,
+                  'storeName': userById[0].storeName,
+                  // 'oId':
+                }).catchError((e) => print(e.toString()));
+              });
           }).catchError((e) {
             print(e.toString());
           });
