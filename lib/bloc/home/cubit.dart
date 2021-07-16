@@ -14,7 +14,6 @@ import 'package:search_app/model/store_notification_model.dart';
 import 'package:search_app/model/sugg_model.dart';
 import 'package:search_app/model/user_model.dart';
 import 'package:search_app/model/user_notification_model.dart';
-import 'package:transitioner/transitioner.dart';
 import 'states.dart';
 import '../../model/categories_model.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
