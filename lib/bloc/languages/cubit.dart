@@ -842,7 +842,7 @@ class LanguagesCubit extends Cubit<LanguagesState> {
     if (SharedHelper.getCacheData(key: LANGUAGES) == 'AR') {
       return 'هناك شخص يبحث عن هذا المنتج في محافظتك';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'EN') {
-      return 'There is someone looking for this product in your province';
+      return 'There is someone looking for this product in your government';
     } else if (SharedHelper.getCacheData(key: LANGUAGES) == 'KR') {
       return 'کەسێک بەدوای ئەم کاڵایە دەگەڕێت لە پارێزگاکەت';
     }

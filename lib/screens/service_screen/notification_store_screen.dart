@@ -80,7 +80,7 @@ class NotificationStoreScreen extends StatelessWidget {
                     : SharedHelper.getCacheData(key: LANGUAGES) == 'EN'
                         ? 'Poppins'
                         : 'AlKshrl',
-                fontSize: 15,
+                fontSize: 13,
               ),
             ),
           ),

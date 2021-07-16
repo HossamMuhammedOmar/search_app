@@ -9,7 +9,6 @@ import 'package:search_app/bloc/register/states.dart';
 import 'package:search_app/constant/constant.dart';
 import 'package:search_app/helpers/shared_helper.dart';
 import 'package:search_app/screens/login_screen.dart';
-import 'package:search_app/screens/service_screen/home_screen.dart';
 import 'package:search_app/screens/who_are_screen.dart';
 import 'package:transitioner/transitioner.dart';
 

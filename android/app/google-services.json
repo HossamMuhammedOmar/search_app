@@ -37,6 +37,57 @@
             {
               "client_id": "766152865357-7n1rt8gfp58jf9fagv2ujgd7l4p5icmq.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "766152865357-6oi4np6532gbut976m74h8qgl44kb9fp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.whereitis"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:766152865357:android:d4823f5385185c5c418e04",
+        "android_client_info": {
+          "package_name": "com.flutter.search_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "766152865357-649mb02ftdpe5o2ijfaarr3hui3epgd5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.flutter.search_app",
+            "certificate_hash": "eb634f5cde36553c2c161e3cfd98af461d946f7b"
+          }
+        },
+        {
+          "client_id": "766152865357-7n1rt8gfp58jf9fagv2ujgd7l4p5icmq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0I896ZXFH6LEhJXxAR4kcAd-GL6bG0bQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "766152865357-7n1rt8gfp58jf9fagv2ujgd7l4p5icmq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "766152865357-6oi4np6532gbut976m74h8qgl44kb9fp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.whereitis"
+              }
             }
           ]
         }

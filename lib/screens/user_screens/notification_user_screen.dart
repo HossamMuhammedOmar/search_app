@@ -9,8 +9,6 @@ import 'package:search_app/helpers/shared_helper.dart';
 import 'package:search_app/screens/user_screens/search_history.dart';
 import 'package:transitioner/transitioner.dart';
 
-import 'search_deatail.dart';
-
 class NotificationUserScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

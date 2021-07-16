@@ -2,7 +2,6 @@ import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loading_animations/loading_animations.dart';
 import 'package:search_app/bloc/home/cubit.dart';
 import 'package:search_app/bloc/home/states.dart';
 import 'package:search_app/bloc/languages/cubit.dart';
@@ -228,7 +227,6 @@ class _HomeStoreScreenState extends State<HomeStoreScreen> {
                             ? Expanded(
                                 child: LayoutBuilder(
                                   builder: (context, constraint) {
-                                    var localHeight = constraint.maxHeight;
                                     return Column(
                                       children: [
                                         AutoSizeText(

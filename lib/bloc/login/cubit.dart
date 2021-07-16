@@ -12,6 +12,7 @@ class LoginCubit extends Cubit<LoginStates> {
 
   static LoginCubit get(context) => BlocProvider.of(context);
 
+  // ignore: non_constant_identifier_names
   List<UserModel> USERMODEL = [];
   bool isEmailScreen = true;
   IconData icon = Icons.visibility;
