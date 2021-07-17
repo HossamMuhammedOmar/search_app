@@ -14,32 +14,32 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await SharedHelper.init();
-  SystemChrome.setPreferredOrientations(
-      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   return runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (context) => LanguagesCubit()),
-        BlocProvider(create: (context) => RegisterCubit()..getAllCategories()),
-        BlocProvider(
-          create: (context) => HomeCubit()
-            ..getAllCategories()
-            ..getUserBlock(uId: SharedHelper.getCacheData(key: TOKEN))
-            ..getMyOrder()
-            ..getAllAds(),
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle.dark,
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (context) => LanguagesCubit()),
+          BlocProvider(create: (context) => RegisterCubit()..getAllCategories()),
+          BlocProvider(
+            create: (context) => HomeCubit()
+              ..getAllCategories()
+              ..getUserBlock(uId: SharedHelper.getCacheData(key: TOKEN))
+              ..getMyOrder()
+              ..getAllAds(),
+          ),
+        ],
+        child: MaterialApp(
+          title: 'وين موجود',
+          debugShowCheckedModeBanner: false,
+          home: SharedHelper.getCacheData(key: LANGUAGES) == null ? ChooseLanguageScreen() : LoginScreen(),
         ),
-      ],
-      child: MaterialApp(
-        title: 'Where is it',
-        debugShowCheckedModeBanner: false,
-        home: SharedHelper.getCacheData(key: LANGUAGES) == null
-            ? ChooseLanguageScreen()
-            : LoginScreen(),
       ),
     );
   }
