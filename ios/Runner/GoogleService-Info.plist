@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>766152865357-6oi4np6532gbut976m74h8qgl44kb9fp.apps.googleusercontent.com</string>
+	<string>766152865357-t8upp7p4rheq97joiug1rl3hk4r9d7st.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.766152865357-6oi4np6532gbut976m74h8qgl44kb9fp</string>
+	<string>com.googleusercontent.apps.766152865357-t8upp7p4rheq97joiug1rl3hk4r9d7st</string>
 	<key>ANDROID_CLIENT_ID</key>
-	<string>766152865357-dlkd4oes7iakekv3i7re2tv7pm33g4i9.apps.googleusercontent.com</string>
+	<string>766152865357-649mb02ftdpe5o2ijfaarr3hui3epgd5.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
 	<string>AIzaSyC8akg1UKvpL69LYhzk-yyKUSotDcCUvAY</string>
 	<key>GCM_SENDER_ID</key>
@@ -15,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.whereitis</string>
+	<string>com.whereisit.ios</string>
 	<key>PROJECT_ID</key>
 	<string>search-app-4f00e</string>
 	<key>STORAGE_BUCKET</key>
@@ -31,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:766152865357:ios:7151e247b4a88057418e04</string>
+	<string>1:766152865357:ios:eb6b7a0161523b82418e04</string>
 </dict>
 </plist>

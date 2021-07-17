@@ -68,9 +68,7 @@ class _HomeUserScreenState extends State<HomeUserScreen> {
                     : SharedHelper.getCacheData(key: LANGUAGES) == 'KR'
                         ? NavigationDrawerWidget()
                         : null,
-                drawer: SharedHelper.getCacheData(key: LANGUAGES) == 'EN'
-                    ? NavigationDrawerWidget()
-                    : null,
+                drawer: SharedHelper.getCacheData(key: LANGUAGES) == 'EN' ? NavigationDrawerWidget() : null,
                 appBar: AppBar(
                   centerTitle: true,
                   actions: [
@@ -176,8 +174,7 @@ class _HomeUserScreenState extends State<HomeUserScreen> {
                               children: [
                                 IconButton(
                                   onPressed: () {
-                                    HomeCubit.get(context)
-                                        .getNotificationUser();
+                                    HomeCubit.get(context).getNotificationUser();
                                     Transitioner(
                                       context: context,
                                       child: NotificationUserScreen(),
@@ -222,8 +219,7 @@ class _HomeUserScreenState extends State<HomeUserScreen> {
                     '${LanguagesCubit.get(context).homeScreen()}',
                     style: TextStyle(
                       color: mPrimaryDarkGrey,
-                      fontFamily: SharedHelper.getCacheData(key: LANGUAGES) ==
-                              'AR'
+                      fontFamily: SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
                           ? 'Cairo'
                           : SharedHelper.getCacheData(key: LANGUAGES) == 'EN'
                               ? 'Poppins'
@@ -243,8 +239,7 @@ class _HomeUserScreenState extends State<HomeUserScreen> {
                               builder: (context, constrant) {
                                 return Container(
                                   child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
                                     children: [
                                       AutoSizeText(
                                         '${LanguagesCubit.get(context).searchForSomeThing()}',
@@ -252,13 +247,9 @@ class _HomeUserScreenState extends State<HomeUserScreen> {
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           fontSize: 24,
-                                          fontFamily: SharedHelper.getCacheData(
-                                                      key: LANGUAGES) ==
-                                                  'AR'
+                                          fontFamily: SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
                                               ? 'Cairo'
-                                              : SharedHelper.getCacheData(
-                                                          key: LANGUAGES) ==
-                                                      'EN'
+                                              : SharedHelper.getCacheData(key: LANGUAGES) == 'EN'
                                                   ? 'Poppins'
                                                   : 'AlKshrl',
                                           color: mPrimaryBlue,
@@ -273,13 +264,9 @@ class _HomeUserScreenState extends State<HomeUserScreen> {
                                         maxLines: 1,
                                         style: TextStyle(
                                           fontSize: 15,
-                                          fontFamily: SharedHelper.getCacheData(
-                                                      key: LANGUAGES) ==
-                                                  'AR'
+                                          fontFamily: SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
                                               ? 'Cairo'
-                                              : SharedHelper.getCacheData(
-                                                          key: LANGUAGES) ==
-                                                      'EN'
+                                              : SharedHelper.getCacheData(key: LANGUAGES) == 'EN'
                                                   ? 'Poppins'
                                                   : 'AlKshrl',
                                           color: mPrimaryDarkGrey,
@@ -290,8 +277,7 @@ class _HomeUserScreenState extends State<HomeUserScreen> {
                                         height: 10,
                                       ),
                                       Container(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 50),
+                                        padding: EdgeInsets.symmetric(horizontal: 50),
                                         width: double.infinity,
                                         child: DecoratedBox(
                                           decoration: ShapeDecoration(
@@ -303,8 +289,7 @@ class _HomeUserScreenState extends State<HomeUserScreen> {
                                             ),
                                           ),
                                           child: Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 20),
+                                            padding: const EdgeInsets.symmetric(horizontal: 20),
                                             child: DropdownButtonHideUnderline(
                                               child: DropdownButton(
                                                 items: _cubit.gov.map(
@@ -314,17 +299,14 @@ class _HomeUserScreenState extends State<HomeUserScreen> {
                                                       child: AutoSizeText(
                                                         govern,
                                                         maxLines: 1,
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        textDirection:
-                                                            TextDirection.rtl,
+                                                        textAlign: TextAlign.center,
+                                                        textDirection: TextDirection.rtl,
                                                       ),
                                                     );
                                                   },
                                                 ).toList(),
                                                 onChanged: (value) {
-                                                  _cubit.selecteGovern(
-                                                      value.toString());
+                                                  _cubit.selecteGovern(value.toString());
                                                 },
                                                 value: _cubit.selectedGovern,
                                               ),
@@ -341,14 +323,9 @@ class _HomeUserScreenState extends State<HomeUserScreen> {
                                             '${LanguagesCubit.get(context).chooseTheSpecialtyYouWant()}',
                                             maxLines: 1,
                                             style: TextStyle(
-                                              fontFamily: SharedHelper
-                                                          .getCacheData(
-                                                              key: LANGUAGES) ==
-                                                      'AR'
+                                              fontFamily: SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
                                                   ? 'Cairo'
-                                                  : SharedHelper.getCacheData(
-                                                              key: LANGUAGES) ==
-                                                          'EN'
+                                                  : SharedHelper.getCacheData(key: LANGUAGES) == 'EN'
                                                       ? 'Poppins'
                                                       : 'AlKshrl',
                                               fontSize: 15,
@@ -360,24 +337,18 @@ class _HomeUserScreenState extends State<HomeUserScreen> {
                                             height: 10,
                                           ),
                                           Container(
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: 50),
+                                            padding: EdgeInsets.symmetric(horizontal: 50),
                                             width: double.infinity,
                                             child: DecoratedBox(
                                               decoration: ShapeDecoration(
                                                 color: Color(0xffe2e8ea),
                                                 shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(3.0)),
+                                                  borderRadius: BorderRadius.all(Radius.circular(3.0)),
                                                 ),
                                               ),
                                               child: Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 20),
-                                                child:
-                                                    DropdownButtonHideUnderline(
+                                                padding: const EdgeInsets.symmetric(horizontal: 20),
+                                                child: DropdownButtonHideUnderline(
                                                   child: DropdownButton(
                                                     items: _cubit.cate.map(
                                                       (category) {
@@ -386,21 +357,16 @@ class _HomeUserScreenState extends State<HomeUserScreen> {
                                                           child: AutoSizeText(
                                                             category.name,
                                                             maxLines: 1,
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            textDirection:
-                                                                TextDirection
-                                                                    .rtl,
+                                                            textAlign: TextAlign.center,
+                                                            textDirection: TextDirection.rtl,
                                                           ),
                                                         );
                                                       },
                                                     ).toList(),
                                                     onChanged: (value) {
-                                                      _cubit.selecteCategory(
-                                                          value.toString());
+                                                      _cubit.selecteCategory(value.toString());
                                                     },
-                                                    value: _cubit
-                                                        .selectedCategories,
+                                                    value: _cubit.selectedCategories,
                                                   ),
                                                 ),
                                               ),
@@ -412,56 +378,40 @@ class _HomeUserScreenState extends State<HomeUserScreen> {
                                         height: 30,
                                       ),
                                       Container(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 50),
+                                        padding: EdgeInsets.symmetric(horizontal: 50),
                                         width: double.infinity,
                                         child: MaterialButton(
                                           onPressed: () {
-                                            if (_cubit
-                                                .userBlock.first['block']) {
+                                            if (_cubit.userBlock.first['block']) {
                                               Transitioner(
                                                 context: context,
                                                 child: BlockScreen(),
-                                                animation: AnimationType
-                                                    .scale, // Optional value
-                                                duration: Duration(
-                                                    milliseconds:
-                                                        300), // Optional value
-                                                replacement:
-                                                    false, // Optional value
-                                                curveType: CurveType
-                                                    .decelerate, // Optional value
+                                                animation: AnimationType.scale, // Optional value
+                                                duration: Duration(milliseconds: 300), // Optional value
+                                                replacement: false, // Optional value
+                                                curveType: CurveType.decelerate, // Optional value
                                               );
                                             } else {
-                                              if (_cubit.orderModel.length >=
-                                                  10) {
+                                              if (_cubit.orderModel.length >= 10) {
                                                 AwesomeDialog(
                                                   context: context,
                                                   animType: AnimType.SCALE,
                                                   headerAnimationLoop: false,
-                                                  dialogType:
-                                                      DialogType.NO_HEADER,
+                                                  dialogType: DialogType.NO_HEADER,
                                                   body: Center(
                                                     child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              15.0),
+                                                      padding: const EdgeInsets.all(15.0),
                                                       child: Column(
                                                         children: [
                                                           AutoSizeText(
                                                             '${LanguagesCubit.get(context).reachedTheMaximumSearchNumber()}',
-                                                            textAlign: TextAlign
-                                                                .center,
+                                                            textAlign: TextAlign.center,
                                                             style: TextStyle(
                                                               fontSize: 14,
-                                                              fontFamily: SharedHelper.getCacheData(
-                                                                          key:
-                                                                              LANGUAGES) ==
+                                                              fontFamily: SharedHelper.getCacheData(key: LANGUAGES) ==
                                                                       'AR'
                                                                   ? 'Cairo'
-                                                                  : SharedHelper.getCacheData(
-                                                                              key: LANGUAGES) ==
-                                                                          'EN'
+                                                                  : SharedHelper.getCacheData(key: LANGUAGES) == 'EN'
                                                                       ? 'Poppins'
                                                                       : 'AlKshrl',
                                                             ),
@@ -475,47 +425,32 @@ class _HomeUserScreenState extends State<HomeUserScreen> {
                                                 )..show();
                                               } else {
                                                 _cubit.getStoresWhereGovernment(
-                                                  governName:
-                                                      _cubit.selectedGovern,
-                                                  category:
-                                                      _cubit.selectedCategories,
+                                                  governName: _cubit.selectedGovern,
+                                                  category: _cubit.selectedCategories,
                                                 );
                                               }
                                             }
                                           },
-                                          child: state
-                                                  is! HomeGetStoresLoadingWhereGoverState
+                                          child: state is! HomeGetStoresLoadingWhereGoverState
                                               ? Text(
                                                   '${LanguagesCubit.get(context).continueT()}',
                                                   style: TextStyle(
                                                     fontSize: 16,
-                                                    fontFamily: SharedHelper
-                                                                .getCacheData(
-                                                                    key:
-                                                                        LANGUAGES) ==
-                                                            'AR'
+                                                    fontFamily: SharedHelper.getCacheData(key: LANGUAGES) == 'AR'
                                                         ? 'Cairo'
-                                                        : SharedHelper.getCacheData(
-                                                                    key:
-                                                                        LANGUAGES) ==
-                                                                'EN'
+                                                        : SharedHelper.getCacheData(key: LANGUAGES) == 'EN'
                                                             ? 'Poppins'
                                                             : 'AlKshrl',
                                                   ),
                                                 )
                                               : Padding(
-                                                  padding: const EdgeInsets.all(
-                                                      10.0),
-                                                  child:
-                                                      CircularProgressIndicator(
+                                                  padding: const EdgeInsets.all(10.0),
+                                                  child: CircularProgressIndicator(
                                                     color: Colors.white,
                                                   ),
                                                 ),
                                           color: mPrimaryGreen,
-                                          minWidth: MediaQuery.of(context)
-                                                  .size
-                                                  .width /
-                                              1.9,
+                                          minWidth: MediaQuery.of(context).size.width / 1.9,
                                           height: 50,
                                           textColor: Colors.white,
                                         ),
@@ -545,8 +480,7 @@ class _HomeUserScreenState extends State<HomeUserScreen> {
                                 reverse: false,
                                 autoPlay: true,
                                 autoPlayInterval: Duration(seconds: 5),
-                                autoPlayAnimationDuration:
-                                    Duration(milliseconds: 500),
+                                autoPlayAnimationDuration: Duration(milliseconds: 500),
                                 autoPlayCurve: Curves.easeIn,
                                 scrollDirection: Axis.horizontal,
                                 viewportFraction: 1,
