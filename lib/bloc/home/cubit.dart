@@ -167,7 +167,6 @@ class HomeCubit extends Cubit<HomeStates> {
   /// ***********************************
   /// STORE ACCOUNTS FOR TEST :
   /// email: provider2@gmail.com / password : 123456
-  /// email: provider1@gmail.com / password : 123456
 
   // CREATE NEW ORDER
   void createNewOrder({
@@ -504,7 +503,6 @@ class HomeCubit extends Cubit<HomeStates> {
   /// **********************************
   /// ***********************************
   /// USER ACCOUNT TEST :
-  /// email : test@gmail.com / password 123456
   /// email : test2@gmail.com / password 123456
 
   // CHANGE STORE STATE AND SEND USER NOTIFICATION IF ONLY THE PRODUCT WAS FOUND
