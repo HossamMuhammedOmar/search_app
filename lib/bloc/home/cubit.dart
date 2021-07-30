@@ -158,6 +158,17 @@ class HomeCubit extends Cubit<HomeStates> {
     );
   }
 
+  /// ***********************************
+  /// **********************************
+  /// *********************************
+  /// WORK HERE FOR STORE NOTIFICATIONS
+  /// *********************************
+  /// **********************************
+  /// ***********************************
+  /// STORE ACCOUNTS FOR TEST :
+  /// email: provider2@gmail.com / password : 123456
+  /// email: provider1@gmail.com / password : 123456
+
   // CREATE NEW ORDER
   void createNewOrder({
     required String categories,
@@ -485,10 +496,18 @@ class HomeCubit extends Cubit<HomeStates> {
     );
   }
 
-  // GET ALL STATES WITH ORDER ID
-  void getAllStateWihtOrderId({required oId}) {}
+  /// ***********************************
+  /// **********************************
+  /// *********************************
+  /// WORK HERE FOR USER NOTIFICATIONS
+  /// *********************************
+  /// **********************************
+  /// ***********************************
+  /// USER ACCOUNT TEST :
+  /// email : test@gmail.com / password 123456
+  /// email : test2@gmail.com / password 123456
 
-  // EDITE STATE
+  // CHANGE STORE STATE AND SEND USER NOTIFICATION IF ONLY THE PRODUCT WAS FOUND
   void editOrderState({
     required oId,
     required newS,
